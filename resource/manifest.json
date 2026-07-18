@@ -1,0 +1,40 @@
+{
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "e209f56d-7cd0-4f3a-aa45-d48907e64a7a",
+      "version": [
+        0,
+        1,
+        22
+      ],
+      "description": "dragon_pt_2"
+    }
+  ],
+  "header": {
+    "uuid": "edfd2b10-3c45-4dc2-bcba-7a784583d2c4",
+    "version": [
+      0,
+      1,
+      23
+    ],
+    "description": "§6§l斗龙战士§r§e第二部分(v0.1.22)，§b斗龙手环的测试包",
+    "name": "§6§l斗龙手环§r v0.1.22",
+    "min_engine_version": [
+      1,
+      19,
+      50
+    ]
+  },
+  "format_version": 2,
+  "metadata": {
+    "authors": [
+      "jincarrot"
+    ],
+    "generated_with": {
+      "blockbench_entity_wizard": [
+        "1.0.6"
+      ]
+    }
+  }
+}

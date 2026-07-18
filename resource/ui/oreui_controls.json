@@ -1,0 +1,5263 @@
+{
+    "background": {
+        "type": "image",
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "layer": 0,
+        "alpha": 1.0,
+        "fill": true,
+        "rotate_pivot": [
+            0.5,
+            0.5
+        ],
+        "texture": "textures/ui/white_bg"
+    },
+    "body@common.scrolling_panel": {
+        "$scroll_background_image_control": "oreui_controls.body_background_dark",
+        "$scroll_bar_and_track_size": [
+            "100%c",
+            "100%-20px"
+        ],
+        "$scroll_box_mouse_image_control": "oreui_controls.scroll_box",
+        "$scroll_box_size": [
+            "100%-2px",
+            "100%-10px"
+        ],
+        "$scroll_box_touch_image_control": "oreui_controls.scroll_box",
+        "$scroll_size": [
+            6,
+            "100%"
+        ],
+        "$scroll_size_touch": [
+            6,
+            "100%"
+        ],
+        "$scroll_track_image_control": "oreui_controls.scroll_track",
+        "$scroll_view_port_offset": [
+            10,
+            20
+        ],
+        "$scroll_view_port_offset_touch": [
+            10,
+            20
+        ],
+        "$scroll_view_port_size": [
+            "100%-20px",
+            "100%-34px"
+        ],
+        "$scroll_view_port_size_touch": [
+            "100%-20px",
+            "100%-34px"
+        ],
+        "$scrolling_content": "oreui_controls.scrolling_content",
+        "$show_background": true
+    },
+    "body_background_dark": {
+        "type": "panel",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.282,
+                        0.286,
+                        0.29
+                    ],
+                    "size": [
+                        "100%-2px",
+                        "100%-2px"
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        "0%+0px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-8px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        "0%+0px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-8px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "offset": [
+                        0,
+                        "0%+0px"
+                    ],
+                    "size": [
+                        "100%-4px",
+                        "3px"
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "offset": [
+                        0,
+                        "50%-5.5px"
+                    ],
+                    "size": [
+                        "100%-4px",
+                        "3px"
+                    ]
+                }
+            },
+            {
+                "bottom@oreui_controls.background": {
+                    "color": [
+                        0.145,
+                        0.145,
+                        0.152
+                    ],
+                    "offset": [
+                        0,
+                        "50%-2px"
+                    ],
+                    "size": [
+                        "100%+0px",
+                        "4px"
+                    ]
+                }
+            },
+            {
+                "close@oreui_controls.light_close_btn": {}
+            },
+            {
+                "title": {
+                    "type": "label",
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        10.0,
+                        6.0
+                    ],
+                    "size": [
+                        "90%+0px",
+                        20.0
+                    ],
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "font_scale_factor": 1.3,
+                    "font_type": "smooth",
+                    "text": "Title"
+                }
+            }
+        ]
+    },
+    "body_background_light": {
+        "type": "panel",
+        "size": [
+            "100%+-2px",
+            "100%+-2px"
+        ],
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.282,
+                        0.286,
+                        0.29
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        "0%+0px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-8px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        "0%+0px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-8px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "offset": [
+                        0,
+                        "-50%+3.5px"
+                    ],
+                    "size": [
+                        "100%-4px",
+                        "3px"
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "offset": [
+                        0,
+                        "0%+-3.5px"
+                    ],
+                    "size": [
+                        "100%-4px",
+                        "3px"
+                    ]
+                }
+            },
+            {
+                "header@oreui_controls.header": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "size": [
+                        "100%+0px",
+                        30
+                    ]
+                }
+            },
+            {
+                "bottom@oreui_controls.background": {
+                    "color": [
+                        0.345,
+                        0.345,
+                        0.352
+                    ],
+                    "offset": [
+                        0,
+                        "50%-2px"
+                    ],
+                    "size": [
+                        "100%",
+                        "4px"
+                    ]
+                }
+            },
+            {
+                "close@oreui_controls.close_btn": {}
+            }
+        ]
+    },
+    "dark_close_btn@common.close_button": {
+        "button_mappings": []
+    },
+    "divider": {
+        "type": "panel",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%+0px",
+            "4px"
+        ],
+        "controls": [
+            {
+                "bg2@oreui_controls.background": {
+                    "color": [
+                        0.2,
+                        0.2,
+                        0.203
+                    ],
+                    "offset": [
+                        0,
+                        "-1px"
+                    ],
+                    "size": [
+                        "100%",
+                        "2px"
+                    ]
+                }
+            },
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.345,
+                        0.345,
+                        0.352
+                    ],
+                    "offset": [
+                        0,
+                        "1px"
+                    ],
+                    "size": [
+                        "100%",
+                        "2px"
+                    ]
+                }
+            }
+        ]
+    },
+    "dropdown": {
+        "type": "panel",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%",
+            "50px"
+        ],
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        4.0,
+                        4.0
+                    ],
+                    "font_type": "smooth",
+                    "text": "Label"
+                }
+            },
+            {
+                "dropdown_box": {
+                    "type": "button",
+                    "$control_alpha": 1.0,
+                    "$is_new_nine_slice": false,
+                    "$label_color": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "$label_font_scale_factor": 0.5,
+                    "$label_font_size": "large",
+                    "$label_layer": 2,
+                    "$label_offset": [
+                        8,
+                        -2
+                    ],
+                    "$label_text": "Button",
+                    "$nine_slice_buttom": 0,
+                    "$nine_slice_left": 0,
+                    "$nine_slice_right": 0,
+                    "$nine_slice_top": 0,
+                    "$nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "$pressed_button_name": "%netease_editor_template_namespace.click",
+                    "$pressed_texture": "textures/netease/common/button/pressed",
+                    "$texture_layer": 2,
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "size": [
+                        "100%-4px",
+                        "30px"
+                    ],
+                    "button_mappings": [],
+                    "default_control": "default",
+                    "hover_control": "hover",
+                    "is_handle_button_move_event": true,
+                    "pressed_control": "pressed",
+                    "bindings": [
+                        {
+                            "binding_type": "collection_details",
+                            "binding_collection_name": "",
+                            "binding_condition": "always_when_visible"
+                        }
+                    ],
+                    "controls": [
+                        {
+                            "default": {
+                                "type": "panel",
+                                "layer": 0,
+                                "controls": [
+                                    {
+                                        "border_linear@oreui_controls.background": {
+                                            "color": [
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "size": [
+                                                "100%+2px",
+                                                "100%+2px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "main@oreui_controls.background": {
+                                            "color": [
+                                                0.815,
+                                                0.819,
+                                                0.831
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "100%"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_left@oreui_controls.background": {
+                                            "alpha": 0.6,
+                                            "offset": [
+                                                "-50%+1.5px",
+                                                "-2px"
+                                            ],
+                                            "size": [
+                                                "3px",
+                                                "100%-4px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_right@oreui_controls.background": {
+                                            "alpha": 0.4,
+                                            "offset": [
+                                                "50%+-1.5px",
+                                                "-2px"
+                                            ],
+                                            "size": [
+                                                "3px",
+                                                "100%-4px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_top@oreui_controls.background": {
+                                            "alpha": 0.6,
+                                            "offset": [
+                                                0,
+                                                "-50%+1.5px"
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "3px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_bottom@oreui_controls.background": {
+                                            "alpha": 0.4,
+                                            "layer": 1,
+                                            "offset": [
+                                                0,
+                                                "50%+-5.5px"
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "3px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "bottom@oreui_controls.background": {
+                                            "color": [
+                                                0.345,
+                                                0.345,
+                                                0.352
+                                            ],
+                                            "layer": 1,
+                                            "offset": [
+                                                0,
+                                                "50%-2px"
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "4px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "font_scale_factor": 0.5,
+                                            "font_type": "smooth",
+                                            "layer": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "pressed": {
+                                "type": "panel",
+                                "layer": 0,
+                                "visible": false,
+                                "controls": [
+                                    {
+                                        "border_linear@oreui_controls.background": {
+                                            "color": [
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "size": [
+                                                "100%+2px",
+                                                "100%+2px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "main@oreui_controls.background": {
+                                            "color": [
+                                                0.694,
+                                                0.698,
+                                                0.709
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "100%"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_left@oreui_controls.background": {
+                                            "alpha": 0.4,
+                                            "offset": [
+                                                "-50%+1.5px",
+                                                "-2px"
+                                            ],
+                                            "size": [
+                                                "3px",
+                                                "100%-4px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_right@oreui_controls.background": {
+                                            "alpha": 0.3,
+                                            "offset": [
+                                                "50%+-1.5px",
+                                                "-2px"
+                                            ],
+                                            "size": [
+                                                "3px",
+                                                "100%-4px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_top@oreui_controls.background": {
+                                            "alpha": 0.4,
+                                            "offset": [
+                                                0,
+                                                "-50%+1.5px"
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "3px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_bottom@oreui_controls.background": {
+                                            "alpha": 0.3,
+                                            "layer": 1,
+                                            "offset": [
+                                                0,
+                                                "50%+-5.5px"
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "3px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "bottom@oreui_controls.background": {
+                                            "color": [
+                                                0.345,
+                                                0.345,
+                                                0.352
+                                            ],
+                                            "layer": 1,
+                                            "offset": [
+                                                0,
+                                                "50%-2px"
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "4px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "font_scale_factor": 0.5,
+                                            "font_type": "smooth",
+                                            "layer": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "hover": {
+                                "type": "panel",
+                                "layer": 0,
+                                "visible": false,
+                                "controls": [
+                                    {
+                                        "border_linear@oreui_controls.background": {
+                                            "color": [
+                                                0,
+                                                0,
+                                                0
+                                            ],
+                                            "size": [
+                                                "100%+2px",
+                                                "100%+2px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "main@oreui_controls.background": {
+                                            "color": [
+                                                0.694,
+                                                0.698,
+                                                0.709
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "100%"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_left@oreui_controls.background": {
+                                            "alpha": 0.4,
+                                            "offset": [
+                                                "-50%+1.5px",
+                                                "-2px"
+                                            ],
+                                            "size": [
+                                                "3px",
+                                                "100%-4px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_right@oreui_controls.background": {
+                                            "alpha": 0.3,
+                                            "offset": [
+                                                "50%+-1.5px",
+                                                "-2px"
+                                            ],
+                                            "size": [
+                                                "3px",
+                                                "100%-4px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_top@oreui_controls.background": {
+                                            "alpha": 0.4,
+                                            "offset": [
+                                                0,
+                                                "-50%+1.5px"
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "3px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "border_bottom@oreui_controls.background": {
+                                            "alpha": 0.3,
+                                            "layer": 1,
+                                            "offset": [
+                                                0,
+                                                "50%+-5.5px"
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "3px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "bottom@oreui_controls.background": {
+                                            "color": [
+                                                0.345,
+                                                0.345,
+                                                0.352
+                                            ],
+                                            "layer": 1,
+                                            "offset": [
+                                                0,
+                                                "50%-2px"
+                                            ],
+                                            "size": [
+                                                "100%",
+                                                "4px"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "button_label@netease_editor_template_namespace.button_label": {
+                                            "anchor_from": "left_middle",
+                                            "anchor_to": "left_middle",
+                                            "font_scale_factor": 0.5,
+                                            "font_type": "smooth",
+                                            "layer": 1
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "arrow": {
+                                "type": "image",
+                                "anchor_from": "right_middle",
+                                "anchor_to": "bottom_right",
+                                "offset": [
+                                    -8,
+                                    2
+                                ],
+                                "size": [
+                                    8,
+                                    8
+                                ],
+                                "rotate_angle": -90,
+                                "texture": "textures/ui/arrow_r_default"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "content_panel": {
+                    "type": "panel",
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "size": [
+                        "100%",
+                        "32px"
+                    ],
+                    "layer": 10,
+                    "controls": [
+                        {
+                            "border@oreui_controls.background": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "bg@oreui_controls.background": {
+                                "color": [
+                                    0.549,
+                                    0.5529,
+                                    0.5647
+                                ],
+                                "size": [
+                                    "100%-2px",
+                                    "100%-2px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "dropdown_items": {
+        "type": "button",
+        "$control_alpha": 1.0,
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 0.5,
+        "$label_font_size": "large",
+        "$label_layer": 2,
+        "$label_offset": [
+            8,
+            0
+        ],
+        "$label_text": "Button",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "$pressed_texture": "textures/netease/common/button/pressed",
+        "$texture_layer": 2,
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "offset": [
+            0,
+            2
+        ],
+        "size": [
+            "100%-4px",
+            "24px"
+        ],
+        "layer": 11,
+        "button_mappings": [],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "pressed_control": "pressed",
+        "bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible"
+            }
+        ],
+        "controls": [
+            {
+                "value": {
+                    "type": "label",
+                    "visible": false,
+                    "text": "0"
+                }
+            },
+            {
+                "default": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.39,
+                                    0.39,
+                                    0.39
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.282,
+                                    0.286,
+                                    0.29
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.282,
+                                    0.286,
+                                    0.29
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "button_label@netease_editor_template_namespace.button_label": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "font_scale_factor": 0.5,
+                    "font_type": "smooth"
+                }
+            }
+        ]
+    },
+    "green_btn@common.button": {
+        "type": "button",
+        "$control_alpha": 1.0,
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "Button",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "$pressed_texture": "textures/netease/common/button/pressed",
+        "$texture_layer": 2,
+        "size": [
+            "90%",
+            "30px"
+        ],
+        "layer": 2,
+        "button_mappings": [],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "pressed_control": "pressed",
+        "bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible"
+            }
+        ],
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "border_linear@oreui_controls.background": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "size": [
+                                    "100%+2px",
+                                    "100%+2px"
+                                ]
+                            }
+                        },
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.235,
+                                    0.521,
+                                    0.152
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ]
+                            }
+                        },
+                        {
+                            "border_left@oreui_controls.background": {
+                                "alpha": 0.2,
+                                "offset": [
+                                    "-50%+1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_right@oreui_controls.background": {
+                                "alpha": 0.1,
+                                "offset": [
+                                    "50%+-1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_top@oreui_controls.background": {
+                                "alpha": 0.2,
+                                "offset": [
+                                    0,
+                                    "-50%+1.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_bottom@oreui_controls.background": {
+                                "alpha": 0.1,
+                                "offset": [
+                                    0,
+                                    "50%+-5.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "bottom@oreui_controls.background": {
+                                "color": [
+                                    0.113,
+                                    0.301,
+                                    0.074
+                                ],
+                                "offset": [
+                                    0,
+                                    "50%-2px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "font_type": "smooth",
+                                "offset": [
+                                    0,
+                                    "-2px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "border_linear@oreui_controls.background": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    0,
+                                    "2px"
+                                ],
+                                "size": [
+                                    "100%+2px",
+                                    "100%-2px"
+                                ]
+                            }
+                        },
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.164,
+                                    0.392,
+                                    0.109
+                                ],
+                                "offset": [
+                                    0,
+                                    "2px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_left@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    "-50%+1.5px",
+                                    "2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_right@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "offset": [
+                                    "50%+-1.5px",
+                                    "2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_top@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    0,
+                                    "-50%+5.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_bottom@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "offset": [
+                                    0,
+                                    "50%+-1.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "font_type": "smooth"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "border_linear@oreui_controls.background": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "size": [
+                                    "100%+2px",
+                                    "100%+2px"
+                                ]
+                            }
+                        },
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.164,
+                                    0.392,
+                                    0.109
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ]
+                            }
+                        },
+                        {
+                            "border_left@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    "-50%+1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_right@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "offset": [
+                                    "50%+-1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_top@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    0,
+                                    "-50%+1.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_bottom@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "offset": [
+                                    0,
+                                    "50%+-5.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "bottom@oreui_controls.background": {
+                                "color": [
+                                    0.113,
+                                    0.301,
+                                    0.074
+                                ],
+                                "offset": [
+                                    0,
+                                    "50%-2px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "font_type": "smooth",
+                                "offset": [
+                                    0,
+                                    "-2px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "header": {
+        "type": "panel",
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.901,
+                        0.909,
+                        0.921
+                    ],
+                    "size": [
+                        "100%",
+                        "30px"
+                    ]
+                }
+            },
+            {
+                "bottom@oreui_controls.background": {
+                    "color": [
+                        0.694,
+                        0.698,
+                        0.709
+                    ],
+                    "offset": [
+                        0,
+                        "15px"
+                    ],
+                    "size": [
+                        "100%",
+                        "4px"
+                    ]
+                }
+            }
+        ]
+    },
+    "label": {
+        "type": "label",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "offset": [
+            4,
+            0
+        ],
+        "max_size": [
+            "100%+0px",
+            "default"
+        ],
+        "font_type": "smooth",
+        "text": "Label"
+    },
+    "light_close_btn@common.light_close_button": {
+        "button_mappings": []
+    },
+    "move_btn@common.button": {
+        "type": "button",
+        "$control_alpha": 1.0,
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "$pressed_texture": "textures/netease/common/button/pressed",
+        "$texture_layer": 2,
+        "size": [
+            "10px",
+            "10px"
+        ],
+        "draggable": "both",
+        "layer": 2,
+        "button_mappings": [],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "pressed_control": "pressed",
+        "bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible"
+            }
+        ],
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "line1@oreui_controls.background": {
+                                "color": [
+                                    0.1,
+                                    0.1,
+                                    0.1
+                                ],
+                                "offset": [
+                                    0,
+                                    -1
+                                ],
+                                "size": [
+                                    "10px",
+                                    1
+                                ]
+                            }
+                        },
+                        {
+                            "line2@oreui_controls.background": {
+                                "color": [
+                                    0.1,
+                                    0.1,
+                                    0.1
+                                ],
+                                "offset": [
+                                    0,
+                                    1
+                                ],
+                                "size": [
+                                    "10px",
+                                    1
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "line1@oreui_controls.background": {
+                                "color": [
+                                    0.2,
+                                    0.2,
+                                    0.2
+                                ],
+                                "offset": [
+                                    0,
+                                    -1
+                                ],
+                                "size": [
+                                    "10px",
+                                    1
+                                ]
+                            }
+                        },
+                        {
+                            "line2@oreui_controls.background": {
+                                "color": [
+                                    0.2,
+                                    0.2,
+                                    0.2
+                                ],
+                                "offset": [
+                                    0,
+                                    1
+                                ],
+                                "size": [
+                                    "10px",
+                                    1
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "line1@oreui_controls.background": {
+                                "color": [
+                                    0.2,
+                                    0.2,
+                                    0.2
+                                ],
+                                "offset": [
+                                    0,
+                                    -1
+                                ],
+                                "size": [
+                                    "10px",
+                                    1
+                                ]
+                            }
+                        },
+                        {
+                            "line2@oreui_controls.background": {
+                                "color": [
+                                    0.2,
+                                    0.2,
+                                    0.2
+                                ],
+                                "offset": [
+                                    0,
+                                    1
+                                ],
+                                "size": [
+                                    "10px",
+                                    1
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "namespace": "oreui_controls",
+    "no_scroll_body@body_background_dark": {},
+    "normal_btn@common.button": {
+        "type": "button",
+        "$control_alpha": 1.0,
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            0,
+            0,
+            0
+        ],
+        "$label_font_scale_factor": 0.5,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "Button",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "$pressed_texture": "textures/netease/common/button/pressed",
+        "$texture_layer": 2,
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%-4px",
+            "30px"
+        ],
+        "layer": 2,
+        "button_mappings": [],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "pressed_control": "pressed",
+        "bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible"
+            }
+        ],
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "layer": 0,
+                    "controls": [
+                        {
+                            "border_linear@oreui_controls.background": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "size": [
+                                    "100%+2px",
+                                    "100%+2px"
+                                ]
+                            }
+                        },
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.815,
+                                    0.819,
+                                    0.831
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ]
+                            }
+                        },
+                        {
+                            "border_left@oreui_controls.background": {
+                                "alpha": 0.6,
+                                "offset": [
+                                    "-50%+1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_right@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    "50%+-1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_top@oreui_controls.background": {
+                                "alpha": 0.6,
+                                "offset": [
+                                    0,
+                                    "-50%+1.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_bottom@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    "50%+-5.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "bottom@oreui_controls.background": {
+                                "color": [
+                                    0.345,
+                                    0.345,
+                                    0.352
+                                ],
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    "50%-2px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "font_scale_factor": 0.5,
+                                "font_type": "smooth",
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    "-2px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "layer": 0,
+                    "visible": false,
+                    "controls": [
+                        {
+                            "border_linear@oreui_controls.background": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    0,
+                                    "2px"
+                                ],
+                                "size": [
+                                    "100%+2px",
+                                    "100%-2px"
+                                ]
+                            }
+                        },
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.694,
+                                    0.698,
+                                    0.709
+                                ],
+                                "offset": [
+                                    0,
+                                    "2px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_left@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    "-50%+1.5px",
+                                    "2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_right@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "offset": [
+                                    "50%+-1.5px",
+                                    "2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_top@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    0,
+                                    "-50%+5.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_bottom@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    "50%+-1.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "font_scale_factor": 0.5,
+                                "font_type": "smooth",
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    2
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "layer": 0,
+                    "visible": false,
+                    "controls": [
+                        {
+                            "border_linear@oreui_controls.background": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "size": [
+                                    "100%+2px",
+                                    "100%+2px"
+                                ]
+                            }
+                        },
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.694,
+                                    0.698,
+                                    0.709
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ]
+                            }
+                        },
+                        {
+                            "border_left@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    "-50%+1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_right@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "offset": [
+                                    "50%+-1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_top@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    0,
+                                    "-50%+1.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_bottom@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    "50%+-5.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "bottom@oreui_controls.background": {
+                                "color": [
+                                    0.345,
+                                    0.345,
+                                    0.352
+                                ],
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    "50%-2px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "font_scale_factor": 0.5,
+                                "font_type": "smooth",
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    "-2px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "raw_label": {
+        "type": "label",
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
+        "font_type": "smooth",
+        "text": "Label",
+        "controls": [
+            {
+                "image": {
+                    "type": "image",
+                    "anchor_from": "right_middle",
+                    "anchor_to": "left_middle",
+                    "size": [
+                        "100%y+0px",
+                        "100%+0px"
+                    ],
+                    "texture": "textures/ui/achievements"
+                }
+            }
+        ]
+    },
+    "red_btn@common.button": {
+        "type": "button",
+        "$control_alpha": 1.0,
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 1.0,
+        "$label_font_size": "large",
+        "$label_layer": 3,
+        "$label_offset": [
+            0,
+            0
+        ],
+        "$label_text": "Button",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "$pressed_texture": "textures/netease/common/button/pressed",
+        "$texture_layer": 2,
+        "size": [
+            "90%",
+            "30px"
+        ],
+        "layer": 2,
+        "button_mappings": [],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "pressed_control": "pressed",
+        "bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible"
+            }
+        ],
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "border_linear@oreui_controls.background": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "size": [
+                                    "100%+2px",
+                                    "100%+2px"
+                                ]
+                            }
+                        },
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.764,
+                                    0.211,
+                                    0.211
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ]
+                            }
+                        },
+                        {
+                            "border_left@oreui_controls.background": {
+                                "alpha": 0.6,
+                                "offset": [
+                                    "-50%+1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_right@oreui_controls.background": {
+                                "alpha": 0.2,
+                                "offset": [
+                                    "50%+-1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_top@oreui_controls.background": {
+                                "alpha": 0.6,
+                                "offset": [
+                                    0,
+                                    "-50%+1.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_bottom@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    0,
+                                    "50%+-5.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "bottom@oreui_controls.background": {
+                                "color": [
+                                    0.678,
+                                    0.113,
+                                    0.113
+                                ],
+                                "offset": [
+                                    0,
+                                    "50%-2px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "font_type": "smooth",
+                                "offset": [
+                                    0,
+                                    "-2px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "border_linear@oreui_controls.background": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "offset": [
+                                    0,
+                                    "2px"
+                                ],
+                                "size": [
+                                    "100%+2px",
+                                    "100%-2px"
+                                ]
+                            }
+                        },
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.752,
+                                    0.176,
+                                    0.176
+                                ],
+                                "offset": [
+                                    0,
+                                    "2px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_left@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    "-50%+1.5px",
+                                    "2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_right@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "offset": [
+                                    "50%+-1.5px",
+                                    "2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_top@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    0,
+                                    "-50%+5.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_bottom@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "offset": [
+                                    0,
+                                    "50%+-1.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "font_type": "smooth"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "border_linear@oreui_controls.background": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "size": [
+                                    "100%+2px",
+                                    "100%+2px"
+                                ]
+                            }
+                        },
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.752,
+                                    0.176,
+                                    0.176
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ]
+                            }
+                        },
+                        {
+                            "border_left@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    "-50%+1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_right@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "offset": [
+                                    "50%+-1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_top@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    0,
+                                    "-50%+1.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_bottom@oreui_controls.background": {
+                                "alpha": 0.3,
+                                "offset": [
+                                    0,
+                                    "50%+-5.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "bottom@oreui_controls.background": {
+                                "color": [
+                                    0.678,
+                                    0.113,
+                                    0.113
+                                ],
+                                "offset": [
+                                    0,
+                                    "50%-2px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "button_label@netease_editor_template_namespace.button_label": {
+                                "font_type": "smooth",
+                                "offset": [
+                                    0,
+                                    "-2px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "resize_btn@oreui_controls.move_btn": {
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "line1@oreui_controls.background": {
+                                "color": [
+                                    0.1,
+                                    0.1,
+                                    0.1
+                                ],
+                                "rotate_angle": 45,
+                                "size": [
+                                    "8px",
+                                    1
+                                ]
+                            }
+                        },
+                        {
+                            "line2@oreui_controls.background": {
+                                "color": [
+                                    0.1,
+                                    0.1,
+                                    0.1
+                                ],
+                                "offset": [
+                                    1.5,
+                                    1.5
+                                ],
+                                "rotate_angle": 45,
+                                "size": [
+                                    "6px",
+                                    1
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "line1@oreui_controls.background": {
+                                "color": [
+                                    0.1,
+                                    0.1,
+                                    0.1
+                                ],
+                                "rotate_angle": 45,
+                                "size": [
+                                    10,
+                                    1
+                                ]
+                            }
+                        },
+                        {
+                            "line2@oreui_controls.background": {
+                                "color": [
+                                    0.1,
+                                    0.1,
+                                    0.1
+                                ],
+                                "offset": [
+                                    1.5,
+                                    1.5
+                                ],
+                                "rotate_angle": 45,
+                                "size": [
+                                    "6px",
+                                    1
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "line1@oreui_controls.background": {
+                                "color": [
+                                    0.1,
+                                    0.1,
+                                    0.1
+                                ],
+                                "rotate_angle": 45,
+                                "size": [
+                                    10,
+                                    1
+                                ]
+                            }
+                        },
+                        {
+                            "line2@oreui_controls.background": {
+                                "color": [
+                                    0.1,
+                                    0.1,
+                                    0.1
+                                ],
+                                "offset": [
+                                    1.5,
+                                    1.5
+                                ],
+                                "rotate_angle": 45,
+                                "size": [
+                                    "6px",
+                                    1
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "size": [
+            "4px",
+            "4px"
+        ]
+    },
+    "scroll_box": {
+        "type": "image",
+        "controls": [
+            {
+                "main@oreui_controls.background": {
+                    "type": "image",
+                    "controls": [
+                        {
+                            "border_linear@oreui_controls.background": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "size": [
+                                    "100%+2px",
+                                    "100%+2px"
+                                ]
+                            }
+                        },
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.815,
+                                    0.819,
+                                    0.831
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ]
+                            }
+                        },
+                        {
+                            "border_left@oreui_controls.background": {
+                                "alpha": 0.6,
+                                "offset": [
+                                    "-50%+1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_right@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    "50%+-1.5px",
+                                    "-2px"
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-4px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_top@oreui_controls.background": {
+                                "alpha": 0.6,
+                                "offset": [
+                                    0,
+                                    "-50%+1.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "border_bottom@oreui_controls.background": {
+                                "alpha": 0.4,
+                                "offset": [
+                                    0,
+                                    "50%+-5.5px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "3px"
+                                ]
+                            }
+                        },
+                        {
+                            "bottom@oreui_controls.background": {
+                                "color": [
+                                    0.345,
+                                    0.345,
+                                    0.352
+                                ],
+                                "offset": [
+                                    0,
+                                    "50%-2px"
+                                ],
+                                "size": [
+                                    "100%",
+                                    "4px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "scroll_track": {
+        "type": "panel",
+        "controls": [
+            {
+                "main@oreui_controls.background": {
+                    "alpha": 0.4,
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            }
+        ]
+    },
+    "scrolling_content": {
+        "type": "panel",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%",
+            "120%"
+        ]
+    },
+    "slider": {
+        "type": "panel",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%",
+            "40px"
+        ],
+        "controls": [
+            {
+                "slider@oreui_controls.slider_common": {
+                    "$progress_default_clip_direction": "left",
+                    "$progress_hover_clip_direction": "left",
+                    "$slider_box_hover_layout": "oreui_controls.slider_button_layout",
+                    "$slider_box_indent_layout": "oreui_controls.slider_button_layout",
+                    "$slider_box_layout": "oreui_controls.slider_button_layout",
+                    "$slider_box_locked_layout": "oreui_controls.slider_button_layout",
+                    "$slider_box_size": [
+                        16,
+                        16
+                    ],
+                    "$slider_direction": "horizontal",
+                    "$slider_name|default": "netease_slider_name",
+                    "$slider_step_factory_control_ids": {
+                        "slider_step": "@common.slider_step",
+                        "slider_step_hover": "@common.slider_step_hover",
+                        "slider_step_progress": "@common.slider_step_progress",
+                        "slider_step_progress_hover": "@common.slider_step_progress_hover"
+                    },
+                    "$slider_tts_text_value": "#netease_tts_text_value",
+                    "offset": [
+                        0,
+                        "8px"
+                    ],
+                    "size": [
+                        "100%-18px",
+                        "10px"
+                    ]
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        4.0,
+                        8.0
+                    ],
+                    "font_type": "smooth",
+                    "text": "Label"
+                }
+            },
+            {
+                "value": {
+                    "type": "label",
+                    "anchor_from": "top_right",
+                    "anchor_to": "top_right",
+                    "offset": [
+                        -8.0,
+                        8.0
+                    ],
+                    "font_type": "smooth",
+                    "text": "0",
+                    "text_alignment": "center"
+                }
+            }
+        ]
+    },
+    "slider_background": {
+        "type": "image",
+        "texture": "textures/ui/slider_background"
+    },
+    "slider_background_hover": {
+        "type": "image",
+        "texture": "textures/ui/slider_background_hover"
+    },
+    "slider_bar_default": {
+        "type": "panel",
+        "offset": [
+            0,
+            "-2px"
+        ],
+        "size": [
+            "100%",
+            "10px"
+        ],
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        0,
+                        "2px"
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%-2px"
+                    ]
+                }
+            },
+            {
+                "main@oreui_controls.background": {
+                    "color": [
+                        0.549,
+                        0.553,
+                        0.565
+                    ],
+                    "offset": [
+                        0,
+                        "2px"
+                    ],
+                    "size": [
+                        "100%",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.4,
+                    "offset": [
+                        "-50%+0.5px",
+                        "2px"
+                    ],
+                    "size": [
+                        "1px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.3,
+                    "offset": [
+                        "50%-0.5px",
+                        "2px"
+                    ],
+                    "size": [
+                        "1px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.4,
+                    "offset": [
+                        0,
+                        "-50%+4.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "1px"
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.3,
+                    "offset": [
+                        0,
+                        "50%-0.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "1px"
+                    ]
+                }
+            }
+        ]
+    },
+    "slider_bar_hover@oreui_controls.slider_bar_default": {},
+    "slider_border": {
+        "type": "image",
+        "texture": "textures/ui/slider_border"
+    },
+    "slider_box": {
+        "type": "slider_box",
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "size": "$slider_box_size",
+        "layer": 4,
+        "default_control": "default",
+        "hover_control": "hover",
+        "indent_control": "indent",
+        "locked_control": "locked",
+        "controls": [
+            {
+                "default@$slider_box_layout": {
+                    "layer": 2
+                }
+            },
+            {
+                "hover@$slider_box_hover_layout": {
+                    "layer": 3
+                }
+            },
+            {
+                "indent@$slider_box_indent_layout": {
+                    "layer": 4
+                }
+            },
+            {
+                "locked@$slider_box_locked_layout": {
+                    "controls": [
+                        {
+                            "transparent_grey": {
+                                "type": "image",
+                                "layer": 5,
+                                "alpha": 0.5,
+                                "texture": "textures/ui/slider_locked_transparent_fade",
+                                "bindings": [
+                                    {
+                                        "binding_name_override": "#visible",
+                                        "binding_collection_name": "$slider_collection_name",
+                                        "binding_condition": "$slider_enabled_binding_condition",
+                                        "binding_type": "$slider_enabled_binding_type",
+                                        "binding_name": "(not $slider_enabled_binding_name)"
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 1
+                }
+            }
+        ]
+    },
+    "slider_button_hover_layout@oreui_controls.slider_button_layout": {
+        "texture": "textures/ui/slider_button_hover"
+    },
+    "slider_button_indent_layout@oreui_controls.slider_button_layout": {},
+    "slider_button_layout": {
+        "type": "panel",
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "main@oreui_controls.background": {
+                    "color": [
+                        0.815,
+                        0.819,
+                        0.831
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.6,
+                    "offset": [
+                        "-50%+0.5px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "1px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.4,
+                    "offset": [
+                        "50%-0.5px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "1px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.6,
+                    "offset": [
+                        0,
+                        "-50%+0.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "1px"
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.4,
+                    "offset": [
+                        0,
+                        "50%-3.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "1px"
+                    ]
+                }
+            },
+            {
+                "bottom@oreui_controls.background": {
+                    "color": [
+                        0.345,
+                        0.345,
+                        0.352
+                    ],
+                    "offset": [
+                        0,
+                        "50%-1.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "3px"
+                    ]
+                }
+            }
+        ]
+    },
+    "slider_button_locked_layout@oreui_controls.slider_button_layout": {},
+    "slider_button_state": {
+        "type": "image",
+        "layer": 2,
+        "texture": "textures/ui/slider_button_default"
+    },
+    "slider_common": {
+        "type": "slider",
+        "$default_focus_precedence|default": 0,
+        "$focus_id|default": "",
+        "$focus_override_down|default": "",
+        "$focus_override_left|default": "",
+        "$focus_override_right|default": "",
+        "$focus_override_up|default": "",
+        "$slider_binding_condition|default": "visible",
+        "$slider_binding_type|default": "global",
+        "$slider_box_hover_layout|default": "oreui_controls.slider_button_hover_layout",
+        "$slider_box_indent_layout|default": "oreui_controls.slider_button_indent_layout",
+        "$slider_box_layout|default": "oreui_controls.slider_button_layout",
+        "$slider_box_locked_layout|default": "oreui_controls.slider_button_locked_layout",
+        "$slider_box_size|default": [
+            16,
+            16
+        ],
+        "$slider_collection_name|default": "slider_steps_collection",
+        "$slider_deselected_button|default": "slider.deselected",
+        "$slider_direction|default": "horizontal",
+        "$slider_enabled_binding_condition|default": "visible",
+        "$slider_enabled_binding_name|default": "#slider_enabled",
+        "$slider_enabled_binding_type|default": "none",
+        "$slider_header_collection_name": "",
+        "$slider_select_on_hover|default": false,
+        "$slider_selected_button|default": "slider.selected",
+        "$slider_small_decrease_button|default": "slider.small_decrease",
+        "$slider_small_increase_button|default": "slider.small_increase",
+        "$slider_step_factory_control_ids": {
+            "slider_step_hover": "@common.slider_step_hover",
+            "slider_step_progress_hover": "@common.slider_step_progress_hover",
+            "slider_step_progress": "@common.slider_step_progress",
+            "slider_step": "@common.slider_step"
+        },
+        "$slider_steps_binding_condition|default": "visible",
+        "$slider_steps_binding_name|default": "#slider_steps",
+        "$slider_steps_binding_type|default": "global",
+        "$slider_steps|default": 1,
+        "$slider_timeout_binding_condition|default": "once",
+        "$slider_timeout_binding_name|default": "#slider_timeout",
+        "$slider_timeout_binding_type|default": "none",
+        "$slider_track_button|default": "button.slider_skip_track",
+        "$slider_tts_binding_condition|default": "visible",
+        "$slider_tts_binding_type|default": "global",
+        "$slider_tts_header_binding_condition|default": "visible",
+        "$slider_tts_header_binding_type|default": "none",
+        "$slider_tts_header|default": "",
+        "$slider_tts_name|default": "accessibility.slider.tts.title",
+        "$slider_tts_override_value|default": " ",
+        "$slider_tts_text_value|default": "",
+        "$slider_value_binding_name|default": "#slider_value",
+        "$tts_section_header|default": "",
+        "layer": 1,
+        "always_handle_pointer": true,
+        "always_listen_to_input": false,
+        "background_control": "",
+        "background_hover_control": "",
+        "button_mappings": [
+            {
+                "to_button_id": "$slider_name",
+                "button_up_right_of_first_refusal": true,
+                "mapping_type": "pressed",
+                "from_button_id": "button.menu_select"
+            },
+            {
+                "to_button_id": "$slider_selected_button",
+                "from_button_id": "button.menu_ok",
+                "mapping_type": "focused"
+            },
+            {
+                "to_button_id": "$slider_deselected_button",
+                "from_button_id": "button.menu_cancel",
+                "mapping_type": "focused"
+            },
+            {
+                "ignored": "($slider_direction = 'vertical')",
+                "mapping_type": "pressed",
+                "to_button_id": "$slider_small_decrease_button",
+                "input_mode_condition": "not_gaze",
+                "from_button_id": "button.menu_left",
+                "ignore_input_scope": true
+            },
+            {
+                "ignored": "($slider_direction = 'horizontal')",
+                "mapping_type": "pressed",
+                "to_button_id": "$slider_small_decrease_button",
+                "input_mode_condition": "not_gaze",
+                "from_button_id": "button.menu_up",
+                "ignore_input_scope": true
+            },
+            {
+                "ignored": "($slider_direction = 'vertical')",
+                "mapping_type": "pressed",
+                "to_button_id": "$slider_small_increase_button",
+                "input_mode_condition": "not_gaze",
+                "from_button_id": "button.menu_right",
+                "ignore_input_scope": true
+            },
+            {
+                "ignored": "($slider_direction = 'horizontal')",
+                "mapping_type": "pressed",
+                "to_button_id": "$slider_small_increase_button",
+                "input_mode_condition": "not_gaze",
+                "from_button_id": "button.menu_down",
+                "ignore_input_scope": true
+            }
+        ],
+        "default_control": "slider_bar_default",
+        "default_focus_precedence": "$default_focus_precedence",
+        "factory": {
+            "control_ids": "$slider_step_factory_control_ids",
+            "name": "slider_step_factory"
+        },
+        "focus_change_down": "$focus_override_down",
+        "focus_change_left": "$focus_override_left",
+        "focus_change_right": "$focus_override_right",
+        "focus_change_up": "$focus_override_up",
+        "focus_enabled": true,
+        "focus_identifier": "$focus_id",
+        "hover_control": "slider_bar_hover",
+        "progress_control": "",
+        "progress_hover_control": "",
+        "slider_box_control": "slider_box",
+        "slider_collection_name": "$slider_collection_name",
+        "slider_deselected_button": "$slider_deselected_button",
+        "slider_direction": "$slider_direction",
+        "slider_name": "$slider_name",
+        "slider_select_on_hover": "$slider_select_on_hover",
+        "slider_selected_button": "$slider_selected_button",
+        "slider_small_decrease_button": "$slider_small_decrease_button",
+        "slider_small_increase_button": "$slider_small_increase_button",
+        "slider_steps": "$slider_steps",
+        "slider_track_button": "$slider_name",
+        "tts_control_header": "$slider_tts_header",
+        "tts_name": "$slider_tts_name",
+        "tts_override_control_value": "$slider_tts_override_value",
+        "tts_section_header": "$tts_section_header",
+        "tts_value_changed": "$slider_tts_text_value",
+        "property_bag": {
+            "#slider_steps": 1,
+            "#slider_value": 0,
+            "#slider_timeout": 0.25
+        },
+        "bindings": [
+            {
+                "binding_name_override": "#slider_steps",
+                "binding_collection_name": "$slider_collection_name",
+                "binding_condition": "$slider_steps_binding_condition",
+                "binding_type": "$slider_steps_binding_type",
+                "binding_name": "$slider_steps_binding_name"
+            },
+            {
+                "binding_name_override": "#slider_value",
+                "binding_collection_name": "$slider_collection_name",
+                "binding_condition": "$slider_binding_condition",
+                "binding_type": "$slider_binding_type",
+                "binding_name": "$slider_value_binding_name"
+            },
+            {
+                "binding_name_override": "#enabled",
+                "binding_collection_name": "$slider_collection_name",
+                "binding_condition": "$slider_enabled_binding_condition",
+                "binding_type": "$slider_enabled_binding_type",
+                "binding_name": "$slider_enabled_binding_name"
+            },
+            {
+                "binding_type": "$slider_tts_binding_type",
+                "binding_collection_name": "$slider_collection_name",
+                "binding_condition": "$slider_tts_binding_condition",
+                "binding_name": "$slider_tts_text_value"
+            },
+            {
+                "binding_type": "$slider_tts_header_binding_type",
+                "binding_collection_name": "$slider_header_collection_name",
+                "binding_condition": "$slider_tts_header_binding_condition",
+                "binding_name": "$slider_tts_header"
+            },
+            {
+                "binding_name_override": "#slider_timeout",
+                "binding_collection_name": "$slider_collection_name",
+                "binding_condition": "$slider_timeout_binding_condition",
+                "binding_type": "$slider_timeout_binding_type",
+                "binding_name": "$slider_timeout_binding_name"
+            }
+        ],
+        "controls": [
+            {
+                "slider_box@common.slider_box": {
+                    "$slider_box_layout": "$slider_box_layout",
+                    "$slider_box_size": "$slider_box_size",
+                    "$slider_track_button": "$slider_name"
+                }
+            },
+            {
+                "slider_bar_default@oreui_controls.slider_bar_default": {}
+            },
+            {
+                "slider_bar_hover@oreui_controls.slider_bar_default": {
+                    "visible": false
+                }
+            }
+        ]
+    },
+    "slider_progress": {
+        "type": "image",
+        "texture": "textures/ui/slider_progress"
+    },
+    "slider_progress_hover": {
+        "type": "image",
+        "texture": "textures/ui/slider_progress_hover"
+    },
+    "slider_step": {
+        "type": "image",
+        "offset": "$step_offset",
+        "size": [
+            2,
+            6
+        ],
+        "layer": 4,
+        "texture": "textures/ui/slider_step_background"
+    },
+    "slider_step_hover@common.slider_step": {
+        "texture": "textures/ui/slider_step_background_hover"
+    },
+    "slider_step_progress@common.slider_step": {
+        "texture": "textures/ui/slider_step_progress"
+    },
+    "slider_step_progress_hover@common.slider_step": {
+        "texture": "textures/ui/slider_step_progress_hover"
+    },
+    "switch_toggle@common_toggles.switch_toggle": {
+        "$checked_control": "oreui_controls.toggle_checked",
+        "$checked_hover_control": "oreui_controls.toggle_checked",
+        "$checked_locked_control": "oreui_controls.toggle_checked",
+        "$checked_locked_hover_control": "oreui_controls.toggle_checked",
+        "$unchecked_control": "oreui_controls.toggle_unchecked",
+        "$unchecked_hover_control": "oreui_controls.toggle_unchecked",
+        "$unchecked_locked_control": "oreui_controls.toggle_unchecked",
+        "$unchecked_locked_hover_control": "oreui_controls.toggle_unchecked",
+        "size": [
+            "48px",
+            "24px"
+        ]
+    },
+    "tab_btn": {
+        "type": "panel",
+        "$toggle_name": "",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "90%",
+            "28px"
+        ],
+        "controls": [
+            {
+                "toggle@oreui_controls.switch_toggle": {
+                    "$checked_control": "oreui_controls.tab_btn_checked",
+                    "$checked_hover_control": "oreui_controls.tab_btn_checked",
+                    "$checked_locked_control": "oreui_controls.tab_btn_checked",
+                    "$checked_locked_hover_control": "oreui_controls.tab_btn_checked",
+                    "$unchecked_control": "oreui_controls.tab_btn_unchecked",
+                    "$unchecked_hover_control": "oreui_controls.tab_btn_unchecked",
+                    "$unchecked_locked_control": "oreui_controls.tab_btn_unchecked",
+                    "$unchecked_locked_hover_control": "oreui_controls.tab_btn_unchecked",
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "offset": [
+                        0,
+                        1
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ]
+                }
+            }
+        ]
+    },
+    "tab_btn_checked": {
+        "type": "panel",
+        "layer": 0,
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "offset": [
+                        0,
+                        "2px"
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%-2px"
+                    ]
+                }
+            },
+            {
+                "main@oreui_controls.background": {
+                    "color": [
+                        0.164,
+                        0.392,
+                        0.109
+                    ],
+                    "offset": [
+                        0,
+                        "2px"
+                    ],
+                    "size": [
+                        "100%+0px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.3,
+                    "offset": [
+                        "-50%+1px",
+                        "2px"
+                    ],
+                    "size": [
+                        2,
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "offset": [
+                        "50%-1px",
+                        "2px"
+                    ],
+                    "size": [
+                        2,
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.3,
+                    "offset": [
+                        0,
+                        "-50%+5px"
+                    ],
+                    "size": [
+                        "100%",
+                        2
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "offset": [
+                        0,
+                        "50%+-1.5px"
+                    ],
+                    "size": [
+                        "100%+-2px",
+                        2
+                    ]
+                }
+            },
+            {
+                "border_bottom2@oreui_controls.background": {
+                    "alpha": 1,
+                    "layer": 1,
+                    "offset": [
+                        0,
+                        "50%+-1px"
+                    ],
+                    "size": [
+                        "40%",
+                        "2px"
+                    ]
+                }
+            },
+            {
+                "button_label": {
+                    "type": "label",
+                    "layer": 1,
+                    "font_type": "smooth",
+                    "text": "Tab",
+                    "offset": [
+                        0,
+                        "2px"
+                    ]
+                }
+            }
+        ]
+    },
+    "tab_btn_unchecked": {
+        "type": "panel",
+        "layer": 0,
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "main@oreui_controls.background": {
+                    "color": [
+                        0.235,
+                        0.521,
+                        0.152
+                    ],
+                    "size": [
+                        "100%+0px",
+                        "100%+0px"
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "offset": [
+                        "-50%+1px",
+                        "-2px"
+                    ],
+                    "size": [
+                        2,
+                        "100%+-8px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "layer": 1,
+                    "offset": [
+                        "50%-1px",
+                        "-2px"
+                    ],
+                    "size": [
+                        2,
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "offset": [
+                        0,
+                        "-50%+1px"
+                    ],
+                    "size": [
+                        "100%+-1px",
+                        2
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "layer": 1,
+                    "offset": [
+                        0,
+                        "50%+-5.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        2
+                    ]
+                }
+            },
+            {
+                "bottom@oreui_controls.background": {
+                    "color": [
+                        0.113,
+                        0.301,
+                        0.074
+                    ],
+                    "offset": [
+                        0,
+                        "50%-2px"
+                    ],
+                    "size": [
+                        "100%",
+                        "4px"
+                    ]
+                }
+            },
+            {
+                "button_label": {
+                    "type": "label",
+                    "offset": [
+                        0,
+                        "-2px"
+                    ],
+                    "layer": 1,
+                    "font_type": "smooth",
+                    "text": "Tab"
+                }
+            }
+        ]
+    },
+    "textfield@common.text_edit_box": {
+        "type": "edit_box",
+        "$edit_box_default_texture": "textures/ui/edit_box_indent",
+        "$edit_box_hover_texture": "textures/ui/edit_box_indent_hover",
+        "$font_scale_factor": 1.0,
+        "$font_size": "normal",
+        "$is_new_nine_slice": false,
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$place_holder_text": "Text",
+        "$place_holder_text_color": [
+            0.5,
+            0.5,
+            0.5
+        ],
+        "$text_background_default": "oreui_controls.textfield_bg",
+        "$text_background_hover": "oreui_controls.textfield_bg",
+        "$text_box_name": "%netease_editor_template_namespace.message",
+        "$text_box_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$text_edit_box_content_binding_name": "#netease_editor_template_namespace.message_content",
+        "$text_edit_box_label_anchor_point": "right_middle",
+        "$text_edit_box_label_min_size": [
+            "100%",
+            0
+        ],
+        "$text_edit_box_label_size": [
+            "default",
+            "default"
+        ],
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%",
+            "30px"
+        ],
+        "max_length": 512
+    },
+    "textfield_bg": {
+        "type": "panel",
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "main@oreui_controls.background": {
+                    "color": [
+                        0.196,
+                        0.196,
+                        0.196
+                    ],
+                    "size": [
+                        "100%-2px",
+                        "100%-2px"
+                    ]
+                }
+            },
+            {
+                "top@oreui_controls.background": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "color": [
+                        0.1176,
+                        0.1216,
+                        0.1255
+                    ],
+                    "size": [
+                        "100%-2px",
+                        "4px"
+                    ]
+                }
+            },
+            {
+                "title": {
+                    "type": "label",
+                    "anchor_from": "top_left",
+                    "anchor_to": "bottom_left",
+                    "offset": [
+                        0,
+                        "-5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "10px"
+                    ],
+                    "font_type": "smooth",
+                    "text": "Title"
+                }
+            }
+        ]
+    },
+    "toggle": {
+        "type": "panel",
+        "$toggle_name": "",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%",
+            "28px"
+        ],
+        "controls": [
+            {
+                "title": {
+                    "type": "label",
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        4,
+                        0
+                    ],
+                    "size": [
+                        "100%+-50px",
+                        "default"
+                    ],
+                    "font_scale_factor": 1,
+                    "font_type": "smooth",
+                    "text": "Label"
+                }
+            },
+            {
+                "toggle@oreui_controls.switch_toggle": {
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        0,
+                        1
+                    ]
+                }
+            }
+        ]
+    },
+    "toggle_checked": {
+        "type": "panel",
+        "size": [
+            32.0,
+            14.0
+        ],
+        "controls": [
+            {
+                "border@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "offset": [
+                        -1.5,
+                        0
+                    ],
+                    "size": [
+                        "100%+-1px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.2353,
+                        0.5216,
+                        0.1529
+                    ],
+                    "offset": [
+                        -1,
+                        0
+                    ],
+                    "size": [
+                        "100%+-2px",
+                        "100%+0px"
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        0,
+                        0
+                    ],
+                    "size": [
+                        1,
+                        "100%+-2px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        "0%+-3px",
+                        0
+                    ],
+                    "size": [
+                        2,
+                        "100%+-2px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "offset": [
+                        -2,
+                        "0%+0px"
+                    ],
+                    "size": [
+                        "100%+-4px",
+                        1
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "offset": [
+                        -2,
+                        "0%+0px"
+                    ],
+                    "size": [
+                        "100%+-4px",
+                        1
+                    ]
+                }
+            },
+            {
+                "line_right@oreui_controls.background": {
+                    "anchor_from": "right_middle",
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        -2,
+                        -2
+                    ],
+                    "size": [
+                        1,
+                        "100%+5px"
+                    ]
+                }
+            },
+            {
+                "line_middle@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        -2,
+                        -2
+                    ],
+                    "size": [
+                        1,
+                        "100%+5px"
+                    ]
+                }
+            },
+            {
+                "line_top@oreui_controls.background": {
+                    "anchor_from": "top_right",
+                    "anchor_to": "right_middle",
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        -2,
+                        -4
+                    ],
+                    "size": [
+                        "50%+0px",
+                        1
+                    ]
+                }
+            },
+            {
+                "bg_border@oreui_controls.background": {
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "color": [
+                        0.8118,
+                        0.8196,
+                        0.8353
+                    ],
+                    "offset": [
+                        -2,
+                        -2
+                    ],
+                    "size": [
+                        "50%+0px",
+                        "100%+4px"
+                    ]
+                }
+            },
+            {
+                "bg_button@oreui_controls.background": {
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "color": [
+                        0.7373,
+                        0.7412,
+                        0.7569
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        -4,
+                        -3
+                    ],
+                    "size": [
+                        "50%+-3.5px",
+                        "100%+-2px"
+                    ]
+                }
+            },
+            {
+                "bg_button_bottom@oreui_controls.background": {
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "right_middle",
+                    "color": [
+                        0.2824,
+                        0.2824,
+                        0.2902
+                    ],
+                    "layer": 2,
+                    "offset": [
+                        -2.5,
+                        -1.5
+                    ],
+                    "size": [
+                        "50%+-1px",
+                        3
+                    ]
+                }
+            },
+            {
+                "i@oreui_controls.background": {
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        -9,
+                        0.5
+                    ],
+                    "size": [
+                        "2px",
+                        "0%+7px"
+                    ]
+                }
+            }
+        ]
+    },
+    "toggle_unchecked": {
+        "type": "panel",
+        "size": [
+            32.0,
+            14.0
+        ],
+        "controls": [
+            {
+                "border@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "offset": [
+                        -0.5,
+                        0
+                    ],
+                    "size": [
+                        "100%+-1px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.549,
+                        0.5529,
+                        0.5647
+                    ],
+                    "offset": [
+                        -1,
+                        0
+                    ],
+                    "size": [
+                        "100%+-2px",
+                        "100%+0px"
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.6,
+                    "offset": [
+                        "-50%+1.5px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        "0%+-2px",
+                        0
+                    ],
+                    "size": [
+                        1,
+                        "100%+0px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "offset": [
+                        0,
+                        "0%+0px"
+                    ],
+                    "size": [
+                        "100%+-6px",
+                        1
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "offset": [
+                        0,
+                        "0%+0px"
+                    ],
+                    "size": [
+                        "100%+-6px",
+                        1
+                    ]
+                }
+            },
+            {
+                "line_left@oreui_controls.background": {
+                    "anchor_from": "left_middle",
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        0,
+                        -1.5
+                    ],
+                    "size": [
+                        1,
+                        "100%+4.5px"
+                    ]
+                }
+            },
+            {
+                "line_middle@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        0,
+                        -2
+                    ],
+                    "size": [
+                        1,
+                        "100%+4px"
+                    ]
+                }
+            },
+            {
+                "line_top@oreui_controls.background": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "left_middle",
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        0,
+                        -3.5
+                    ],
+                    "size": [
+                        "50%+0px",
+                        1
+                    ]
+                }
+            },
+            {
+                "bg_border@oreui_controls.background": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "color": [
+                        0.8118,
+                        0.8196,
+                        0.8353
+                    ],
+                    "offset": [
+                        0,
+                        -2
+                    ],
+                    "size": [
+                        "50%+0px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "bg_button@oreui_controls.background": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "color": [
+                        0.7373,
+                        0.7412,
+                        0.7569
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        1.5,
+                        -3
+                    ],
+                    "size": [
+                        "50%+-3px",
+                        "100%+-2px"
+                    ]
+                }
+            },
+            {
+                "bg_button_bottom@oreui_controls.background": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "left_middle",
+                    "color": [
+                        0.2824,
+                        0.2824,
+                        0.2902
+                    ],
+                    "layer": 2,
+                    "offset": [
+                        0.5,
+                        -1.5
+                    ],
+                    "size": [
+                        "50%+-1px",
+                        3
+                    ]
+                }
+            },
+            {
+                "o_left@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        4,
+                        0
+                    ],
+                    "size": [
+                        1.5,
+                        "0%+4px"
+                    ]
+                }
+            },
+            {
+                "o_right@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        9.5,
+                        0
+                    ],
+                    "size": [
+                        2,
+                        "0%+4px"
+                    ]
+                }
+            },
+            {
+                "o_top@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        6.75,
+                        -3
+                    ],
+                    "size": [
+                        4,
+                        1.5
+                    ]
+                }
+            },
+            {
+                "o_bottom@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        6.75,
+                        2.75
+                    ],
+                    "size": [
+                        4,
+                        1.5
+                    ]
+                }
+            }
+        ]
+    },
+    "disabled_btn": {
+        "type": "panel",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%-4px",
+            "30px"
+        ],
+        "layer": 2,
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0.549,
+                        0.553,
+                        0.565
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "main@oreui_controls.background": {
+                    "color": [
+                        0.816,
+                        0.820,
+                        0.831
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "bottom@oreui_controls.background": {
+                    "color": [
+                        0.694,
+                        0.698,
+                        0.710
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        0,
+                        "50%-2px"
+                    ],
+                    "size": [
+                        "100%",
+                        "4px"
+                    ]
+                }
+            },
+            {
+                "button_label@netease_editor_template_namespace.button_label": {
+                    "color": [
+                        0.282,
+                        0.286,
+                        0.290
+                    ],
+                    "font_scale_factor": 0.5,
+                    "font_type": "smooth",
+                    "layer": 1,
+                    "offset": [
+                        0,
+                        "-2px"
+                    ]
+                }
+            }
+        ]
+    },
+    "checkbox_unchecked": {
+        "type": "panel",
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0.118,
+                        0.118,
+                        0.122
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "main@oreui_controls.background": {
+                    "color": [
+                        0.549,
+                        0.553,
+                        0.565
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "offset": [
+                        "-50%+1.5px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "offset": [
+                        "50%+-1.5px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "offset": [
+                        0,
+                        "-50%+1.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "3px"
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "offset": [
+                        0,
+                        "50%+-1.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "3px"
+                    ]
+                }
+            }
+        ]
+    },
+    "checkbox_unchecked_hover": {
+        "type": "panel",
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0.118,
+                        0.118,
+                        0.122
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "main@oreui_controls.background": {
+                    "color": [
+                        0.694,
+                        0.698,
+                        0.710
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "offset": [
+                        "-50%+1.5px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "offset": [
+                        "50%+-1.5px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "offset": [
+                        0,
+                        "-50%+1.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "3px"
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "offset": [
+                        0,
+                        "50%+-1.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "3px"
+                    ]
+                }
+            }
+        ]
+    },
+    "checkbox_checked": {
+        "type": "panel",
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0.118,
+                        0.118,
+                        0.122
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "main@oreui_controls.background": {
+                    "color": [
+                        0.235,
+                        0.521,
+                        0.153
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "offset": [
+                        "-50%+1.5px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "offset": [
+                        "50%+-1.5px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "offset": [
+                        0,
+                        "-50%+1.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "3px"
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "offset": [
+                        0,
+                        "50%+-1.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "3px"
+                    ]
+                }
+            },
+            {
+                "check_short@oreui_controls.background": {
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        -4,
+                        2
+                    ],
+                    "rotate_angle": 45,
+                    "size": [
+                        "7px",
+                        "2px"
+                    ]
+                }
+            },
+            {
+                "check_long@oreui_controls.background": {
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        3,
+                        -1
+                    ],
+                    "rotate_angle": -45,
+                    "size": [
+                        "12px",
+                        "2px"
+                    ]
+                }
+            }
+        ]
+    },
+    "checkbox_checked_hover": {
+        "type": "panel",
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0.118,
+                        0.118,
+                        0.122
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "main@oreui_controls.background": {
+                    "color": [
+                        0.165,
+                        0.392,
+                        0.110
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "offset": [
+                        "-50%+1.5px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "offset": [
+                        "50%+-1.5px",
+                        "-2px"
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-4px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "offset": [
+                        0,
+                        "-50%+1.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "3px"
+                    ]
+                }
+            },
+            {
+                "border_bottom@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "offset": [
+                        0,
+                        "50%+-1.5px"
+                    ],
+                    "size": [
+                        "100%",
+                        "3px"
+                    ]
+                }
+            },
+            {
+                "check_short@oreui_controls.background": {
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        -4,
+                        2
+                    ],
+                    "rotate_angle": 45,
+                    "size": [
+                        "7px",
+                        "2px"
+                    ]
+                }
+            },
+            {
+                "check_long@oreui_controls.background": {
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "layer": 1,
+                    "offset": [
+                        3,
+                        -1
+                    ],
+                    "rotate_angle": -45,
+                    "size": [
+                        "12px",
+                        "2px"
+                    ]
+                }
+            }
+        ]
+    },
+    "checkbox_disabled": {
+        "type": "panel",
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0.549,
+                        0.553,
+                        0.565
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "main@oreui_controls.background": {
+                    "color": [
+                        0.816,
+                        0.820,
+                        0.831
+                    ]
+                }
+            }
+        ]
+    },
+    "checkbox_toggle@oreui_controls.switch_toggle": {
+        "$checked_control": "oreui_controls.checkbox_checked",
+        "$checked_hover_control": "oreui_controls.checkbox_checked_hover",
+        "$checked_locked_control": "oreui_controls.checkbox_disabled",
+        "$checked_locked_hover_control": "oreui_controls.checkbox_disabled",
+        "$unchecked_control": "oreui_controls.checkbox_unchecked",
+        "$unchecked_hover_control": "oreui_controls.checkbox_unchecked_hover",
+        "$unchecked_locked_control": "oreui_controls.checkbox_disabled",
+        "$unchecked_locked_hover_control": "oreui_controls.checkbox_disabled",
+        "size": [
+            "24px",
+            "24px"
+        ]
+    },
+    "checkbox": {
+        "type": "panel",
+        "$toggle_name": "",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%",
+            "28px"
+        ],
+        "controls": [
+            {
+                "title": {
+                    "type": "label",
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        4,
+                        0
+                    ],
+                    "size": [
+                        "100%+-32px",
+                        "default"
+                    ],
+                    "font_scale_factor": 1,
+                    "font_type": "smooth",
+                    "text": "Label"
+                }
+            },
+            {
+                "toggle@oreui_controls.checkbox_toggle": {
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        -4,
+                        0
+                    ]
+                }
+            }
+        ]
+    },
+    "neutral_banner": {
+        "type": "panel",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%-40px",
+            "50px"
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.118,
+                        0.118,
+                        0.122
+                    ]
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "font_type": "smooth",
+                    "text": "Banner",
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            }
+        ]
+    },
+    "information_banner": {
+        "type": "panel",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%-40px",
+            "50px"
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.180,
+                        0.420,
+                        0.898
+                    ]
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "font_type": "smooth",
+                    "text": "Banner",
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            }
+        ]
+    },
+    "important_banner": {
+        "type": "panel",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%-40px",
+            "50px"
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        1.0,
+                        0.910,
+                        0.400
+                    ]
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "font_type": "smooth",
+                    "text": "Banner",
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        ]
+    },
+    "badge_green": {
+        "type": "panel",
+        "size": [
+            6,
+            6
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.424,
+                        0.765,
+                        0.286
+                    ]
+                }
+            }
+        ]
+    },
+    "badge_blue": {
+        "type": "panel",
+        "size": [
+            6,
+            6
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.549,
+                        0.702,
+                        1.0
+                    ]
+                }
+            }
+        ]
+    },
+    "badge_yellow": {
+        "type": "panel",
+        "size": [
+            6,
+            6
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        1.0,
+                        0.910,
+                        0.400
+                    ]
+                }
+            }
+        ]
+    },
+    "badge_red": {
+        "type": "panel",
+        "size": [
+            6,
+            6
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.957,
+                        0.427,
+                        0.427
+                    ]
+                }
+            }
+        ]
+    },
+    "tag_black": {
+        "type": "panel",
+        "size": [
+            "default",
+            "14px"
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.118,
+                        0.118,
+                        0.122
+                    ]
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "font_scale_factor": 0.75,
+                    "font_type": "smooth",
+                    "text": "Tag",
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            }
+        ]
+    },
+    "tag_green": {
+        "type": "panel",
+        "size": [
+            "default",
+            "14px"
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.424,
+                        0.765,
+                        0.286
+                    ]
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "font_scale_factor": 0.75,
+                    "font_type": "smooth",
+                    "text": "Tag",
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        ]
+    },
+    "tag_blue": {
+        "type": "panel",
+        "size": [
+            "default",
+            "14px"
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.549,
+                        0.702,
+                        1.0
+                    ]
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "font_scale_factor": 0.75,
+                    "font_type": "smooth",
+                    "text": "Tag",
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        ]
+    },
+    "tag_yellow": {
+        "type": "panel",
+        "size": [
+            "default",
+            "14px"
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        1.0,
+                        0.910,
+                        0.400
+                    ]
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "font_scale_factor": 0.75,
+                    "font_type": "smooth",
+                    "text": "Tag",
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        ]
+    },
+    "tag_red": {
+        "type": "panel",
+        "size": [
+            "default",
+            "14px"
+        ],
+        "controls": [
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.957,
+                        0.427,
+                        0.427
+                    ]
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "font_scale_factor": 0.75,
+                    "font_type": "smooth",
+                    "text": "Tag",
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        ]
+    },
+    "sidebar_form_bg": {
+        "type": "panel",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "controls": [
+            {
+                "border_linear@oreui_controls.background": {
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "size": [
+                        "100%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "bg@oreui_controls.background": {
+                    "color": [
+                        0.235,
+                        0.239,
+                        0.243
+                    ]
+                }
+            },
+            {
+                "strip_bg@oreui_controls.background": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "color": [
+                        0.176,
+                        0.18,
+                        0.184
+                    ],
+                    "size": [
+                        "44px",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "strip_divider@oreui_controls.background": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "color": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ],
+                    "offset": [
+                        44,
+                        0
+                    ],
+                    "size": [
+                        "2px",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "border_left@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        0,
+                        -2
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-8px"
+                    ]
+                }
+            },
+            {
+                "border_top@oreui_controls.background": {
+                    "alpha": 0.2,
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "size": [
+                        "100%-4px",
+                        "3px"
+                    ]
+                }
+            },
+            {
+                "border_right@oreui_controls.background": {
+                    "alpha": 0.1,
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        0,
+                        -2
+                    ],
+                    "size": [
+                        "3px",
+                        "100%-8px"
+                    ]
+                }
+            },
+            {
+                "bottom@oreui_controls.background": {
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "color": [
+                        0.145,
+                        0.145,
+                        0.152
+                    ],
+                    "size": [
+                        "100%",
+                        "4px"
+                    ]
+                }
+            }
+        ]
+    },
+    "sidebar_tab_btn": {
+        "type": "button",
+        "$control_alpha": 1.0,
+        "$is_new_nine_slice": false,
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "$pressed_texture": "textures/netease/common/button/pressed",
+        "$texture_layer": 2,
+        "size": [
+            "36px",
+            "36px"
+        ],
+        "button_mappings": [],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "pressed_control": "pressed",
+        "bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible"
+            }
+        ],
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.282,
+                                    0.286,
+                                    0.29
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.39,
+                                    0.39,
+                                    0.39
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "main@oreui_controls.background": {
+                                "color": [
+                                    0.39,
+                                    0.39,
+                                    0.39
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "selected": {
+                    "type": "panel",
+                    "layer": 3,
+                    "visible": false,
+                    "controls": [
+                        {
+                            "bar@oreui_controls.background": {
+                                "anchor_from": "left_middle",
+                                "anchor_to": "left_middle",
+                                "color": [
+                                    0.235,
+                                    0.521,
+                                    0.152
+                                ],
+                                "size": [
+                                    "3px",
+                                    "100%-8px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "icon": {
+                    "type": "image",
+                    "layer": 2,
+                    "anchor_from": "center",
+                    "anchor_to": "center",
+                    "size": [
+                        "24px",
+                        "24px"
+                    ],
+                    "texture": "textures/ui/white_bg"
+                }
+            }
+        ]
+    }
+}
