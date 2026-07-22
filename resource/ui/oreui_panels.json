@@ -1,0 +1,421 @@
+{
+    "dark_panel@panel_base": {
+        "$header_bg_color": [
+            0.28,
+            0.29,
+            0.29
+        ],
+        "$header_border_alpha": 0,
+        "$header_bottom_color": [
+            0.2,
+            0.2,
+            0.2
+        ]
+    },
+    "dark_panel_thin": {
+        "type": "panel",
+        "$header_bg_color": [
+            0.28,
+            0.29,
+            0.29
+        ],
+        "$header_border_alpha": 0.1,
+        "controls": [
+            {
+                "background@fui_ore_base.box_thin": {
+                    "$bg_color": [
+                        0.2,
+                        0.2,
+                        0.2
+                    ],
+                    "$bottom_color": [
+                        0.2,
+                        0.2,
+                        0.2
+                    ],
+                    "$shadow_alpha_b_r": 0,
+                    "$shadow_alpha_t_l": 0,
+                    "layer": 0
+                }
+            },
+            {
+                "content@scroll_panel_thin": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "layer": 2,
+                    "offset": [
+                        2,
+                        30
+                    ],
+                    "size": [
+                        "100%",
+                        "100%+-32px"
+                    ]
+                }
+            },
+            {
+                "header": {
+                    "type": "panel",
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "size": [
+                        "100%",
+                        30
+                    ],
+                    "layer": 8,
+                    "controls": [
+                        {
+                            "background@fui_ore_base.base_thin": {
+                                "$bg_color": "$header_bg_color",
+                                "$bottom_color": "$header_bottom_color",
+                                "$shadow_alpha_b_r": "$header_border_alpha",
+                                "$shadow_alpha_t_l": "$header_border_alpha",
+                                "layer": 0
+                            }
+                        },
+                        {
+                            "title": {
+                                "type": "label",
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "layer": 2,
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "font_scale_factor": 1.5,
+                                "font_type": "smooth",
+                                "text": "Title"
+                            }
+                        },
+                        {
+                            "close@common.light_close_button": {
+                                "offset": [
+                                    0,
+                                    4
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "light_panel@panel_base": {},
+    "light_panel_thin@panel_base_thin": {},
+    "namespace": "fui_ore_panels",
+    "panel_base": {
+        "type": "panel",
+        "$header_bg_color": [
+            0.95,
+            0.95,
+            0.95
+        ],
+        "$header_border_alpha": 0.1,
+        "$header_bottom_color": [
+            0.35,
+            0.35,
+            0.35
+        ],
+        "controls": [
+            {
+                "background@fui_ore_base.box": {
+                    "$bg_color": [
+                        0.28,
+                        0.29,
+                        0.29
+                    ],
+                    "$bottom_color": [
+                        0.28,
+                        0.29,
+                        0.29
+                    ],
+                    "$shadow_alpha_b_r": 0,
+                    "$shadow_alpha_t_l": 0,
+                    "layer": 0
+                }
+            },
+            {
+                "content@scroll_panel": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "layer": 2,
+                    "offset": [
+                        2,
+                        30
+                    ],
+                    "size": [
+                        "100%+-4px",
+                        "100%+-32px"
+                    ]
+                }
+            },
+            {
+                "header": {
+                    "type": "panel",
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "size": [
+                        "100%",
+                        30
+                    ],
+                    "layer": 8,
+                    "controls": [
+                        {
+                            "background@fui_ore_base.box": {
+                                "$bg_color": "$header_bg_color",
+                                "$bottom_color": "$header_bottom_color",
+                                "$shadow_alpha_b_r": "$header_border_alpha",
+                                "$shadow_alpha_t_l": "$header_border_alpha",
+                                "layer": 0
+                            }
+                        },
+                        {
+                            "title": {
+                                "type": "label",
+                                "offset": [
+                                    0,
+                                    -2
+                                ],
+                                "layer": 2,
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "font_scale_factor": 1.5,
+                                "font_type": "smooth",
+                                "text": "Title"
+                            }
+                        },
+                        {
+                            "close@common.close_button": {}
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "panel_base_thin": {
+        "type": "panel",
+        "$header_bg_color": [
+            0.95,
+            0.95,
+            0.95
+        ],
+        "$header_border_alpha": 0.1,
+        "$header_bottom_color": [
+            0.35,
+            0.35,
+            0.35
+        ],
+        "controls": [
+            {
+                "background@fui_ore_base.box_thin": {
+                    "$bg_color": [
+                        0.28,
+                        0.29,
+                        0.29
+                    ],
+                    "$bottom_color": [
+                        0.28,
+                        0.29,
+                        0.29
+                    ],
+                    "$shadow_alpha_b_r": 0,
+                    "$shadow_alpha_t_l": 0,
+                    "layer": 0
+                }
+            },
+            {
+                "content@scroll_panel_thin": {
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "layer": 2,
+                    "offset": [
+                        2,
+                        30
+                    ],
+                    "size": [
+                        "100%-2px",
+                        "100%+-32px"
+                    ]
+                }
+            },
+            {
+                "header": {
+                    "type": "panel",
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "size": [
+                        "100%",
+                        30
+                    ],
+                    "layer": 8,
+                    "controls": [
+                        {
+                            "background@fui_ore_base.box_thin": {
+                                "$bg_color": "$header_bg_color",
+                                "$bottom_color": "$header_bottom_color",
+                                "$shadow_alpha_b_r": "$header_border_alpha",
+                                "$shadow_alpha_t_l": "$header_border_alpha",
+                                "layer": 0
+                            }
+                        },
+                        {
+                            "title": {
+                                "type": "label",
+                                "offset": [
+                                    0,
+                                    -2
+                                ],
+                                "layer": 2,
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "font_scale_factor": 1.5,
+                                "font_type": "smooth",
+                                "text": "Title"
+                            }
+                        },
+                        {
+                            "close@common.close_button": {}
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "scroll_box": {
+        "type": "image",
+        "controls": [
+            {
+                "box@fui_ore_base.box": {}
+            }
+        ]
+    },
+    "scroll_box_thin": {
+        "type": "image",
+        "controls": [
+            {
+                "box@fui_ore_base.box_thin": {}
+            }
+        ]
+    },
+    "scroll_panel@common.scrolling_panel": {
+        "$scroll_background_image_control": "fui.blank",
+        "$scroll_bar_and_track_size": [
+            "100%c",
+            "100%-2px"
+        ],
+        "$scroll_box_mouse_image_control": "fui_ore_panels.scroll_box",
+        "$scroll_box_size": [
+            "100%",
+            "100%"
+        ],
+        "$scroll_box_touch_image_control": "fui_ore_panels.scroll_box",
+        "$scroll_size": [
+            8,
+            "100%"
+        ],
+        "$scroll_size_touch": [
+            8,
+            "100%"
+        ],
+        "$scroll_track_image_control": "fui_ore_panels.scroll_track",
+        "$scroll_view_port_offset": [
+            0,
+            0
+        ],
+        "$scroll_view_port_offset_touch": [
+            0,
+            0
+        ],
+        "$scroll_view_port_size": [
+            "100%",
+            "100%-4px"
+        ],
+        "$scroll_view_port_size_touch": [
+            "100%",
+            "100%-4px"
+        ],
+        "$scrolling_content": "fui_ore_panels.scrolling_content",
+        "$show_background": true
+    },
+    "scroll_panel_thin@common.scrolling_panel": {
+        "$scroll_background_image_control": "fui.blank",
+        "$scroll_bar_and_track_size": [
+            "100%c",
+            "100%-2px"
+        ],
+        "$scroll_bar_contained|default": true,
+        "$scroll_bar_right_padding_size|default": [
+            0,
+            0
+        ],
+        "$scroll_box_mouse_image_control": "fui_ore_panels.scroll_box_thin",
+        "$scroll_box_size": [
+            "100%",
+            "100%"
+        ],
+        "$scroll_box_touch_image_control": "fui_ore_panels.scroll_box_thin",
+        "$scroll_box_visible_touch|default": true,
+        "$scroll_size": [
+            8,
+            "100%"
+        ],
+        "$scroll_size_touch": [
+            8,
+            "100%"
+        ],
+        "$scroll_track_image_control": "fui_ore_panels.scroll_track",
+        "$scroll_view_port_offset": [
+            -8,
+            0
+        ],
+        "$scroll_view_port_offset_touch": [
+            -8,
+            0
+        ],
+        "$scroll_view_port_size": [
+            "100%",
+            "100%-4px"
+        ],
+        "$scroll_view_port_size_touch": [
+            "100%",
+            "100%-4px"
+        ],
+        "$scrolling_content": "fui_ore_panels.scrolling_content",
+        "$show_background": true,
+        "$use_touch_mode|default": true
+    },
+    "scroll_track": {
+        "type": "panel",
+        "controls": [
+            {
+                "main@fui.w": {
+                    "alpha": 0,
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            }
+        ]
+    },
+    "scrolling_content": {
+        "type": "panel",
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "size": [
+            "100%",
+            "120%"
+        ]
+    }
+}

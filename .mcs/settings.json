@@ -1,0 +1,10 @@
+{
+    "Arena.Component.Namespace": "wcsoj",
+    "FirstTabSetting": 0,
+    "ShortItemSettings": [
+        "resource\\ui",
+        "resource\\textures"
+    ],
+    "Uluru.autoLayerDict": {},
+    "Uluru.checkSuspectOldUI": true
+}

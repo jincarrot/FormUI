@@ -1,0 +1,1083 @@
+{
+    "namespace": "fui_ore_chks",
+    "switch_toggle@common_toggles.switch_toggle": {
+        "$checked_control": "fui_ore_chks.switch_toggle_checked_default",
+        "$checked_hover_control": "fui_ore_chks.switch_toggle_checked_hover",
+        "$checked_locked_control": "fui_ore_chks.switch_toggle_checked_default",
+        "$checked_locked_hover_control": "fui_ore_chks.switch_toggle_checked_hover",
+        "$unchecked_control": "fui_ore_chks.switch_toggle_unchecked_default",
+        "$unchecked_hover_control": "fui_ore_chks.switch_toggle_unchecked_hover",
+        "$unchecked_locked_control": "fui_ore_chks.switch_toggle_unchecked_default",
+        "$unchecked_locked_hover_control": "fui_ore_chks.switch_toggle_unchecked_hover",
+        "size": [
+            "40px",
+            "20px"
+        ]
+    },
+    "switch_toggle_checked_default": {
+        "type": "panel",
+        "controls": [
+            {
+                "border@fui_ore_base.border": {
+                    "layer": 0
+                }
+            },
+            {
+                "background@fui_ore_base.base": {
+                    "$bg_color": [
+                        0.24,
+                        0.52,
+                        0.15
+                    ],
+                    "$shadow_alpha_b_r": 0.1,
+                    "$shadow_alpha_t_l": 0.2,
+                    "layer": 1
+                }
+            },
+            {
+                "box_border@fui_ore_base.border": {
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "layer": 4,
+                    "size": [
+                        "50%+2px",
+                        "100%+4px"
+                    ]
+                }
+            },
+            {
+                "box@fui_ore_base.base": {
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "layer": 5,
+                    "offset": [
+                        0,
+                        -4
+                    ],
+                    "size": [
+                        "50%+2px",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "box_shadow@fui.w": {
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "color": [
+                        0.35,
+                        0.35,
+                        0.35
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        -2,
+                        -2
+                    ],
+                    "size": [
+                        "50%-2px",
+                        4
+                    ]
+                }
+            },
+            {
+                "on@fui.w": {
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        "-25%+2px",
+                        0
+                    ],
+                    "size": [
+                        "2px",
+                        "6px"
+                    ]
+                }
+            }
+        ]
+    },
+    "switch_toggle_checked_default_thin": {
+        "type": "panel",
+        "controls": [
+            {
+                "border@fui_ore_base.border": {
+                    "layer": 0
+                }
+            },
+            {
+                "background@fui_ore_base.base_thin": {
+                    "$bg_color": [
+                        0.24,
+                        0.52,
+                        0.15
+                    ],
+                    "$shadow_alpha_b_r": 0.1,
+                    "$shadow_alpha_t_l": 0.2,
+                    "layer": 1
+                }
+            },
+            {
+                "box_border@fui_ore_base.border": {
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "layer": 4,
+                    "size": [
+                        "50%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "box@fui_ore_base.base_thin": {
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "layer": 5,
+                    "offset": [
+                        0,
+                        -2
+                    ],
+                    "size": [
+                        "50%+2px",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "box_shadow@fui.w": {
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "color": [
+                        0.35,
+                        0.35,
+                        0.35
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        -1,
+                        -1
+                    ],
+                    "size": [
+                        "50%",
+                        2
+                    ]
+                }
+            },
+            {
+                "on@fui.w": {
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        "-25%+2px",
+                        0
+                    ],
+                    "size": [
+                        "2px",
+                        "6px"
+                    ]
+                }
+            }
+        ]
+    },
+    "switch_toggle_checked_hover": {
+        "type": "panel",
+        "controls": [
+            {
+                "border@fui_ore_base.border": {
+                    "layer": 0
+                }
+            },
+            {
+                "background@fui_ore_base.base": {
+                    "$bg_color": [
+                        0.24,
+                        0.52,
+                        0.15
+                    ],
+                    "$shadow_alpha_b_r": 0.1,
+                    "$shadow_alpha_t_l": 0.2,
+                    "layer": 1
+                }
+            },
+            {
+                "box_border@fui_ore_base.border": {
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "layer": 4,
+                    "size": [
+                        "50%+2px",
+                        "100%+4px"
+                    ]
+                }
+            },
+            {
+                "box@fui_ore_base.base": {
+                    "$bg_color": [
+                        0.69,
+                        0.7,
+                        0.71
+                    ],
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "layer": 5,
+                    "offset": [
+                        0,
+                        -4
+                    ],
+                    "size": [
+                        "50%+2px",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "box_shadow@fui.w": {
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "color": [
+                        0.35,
+                        0.35,
+                        0.35
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        -2,
+                        -2
+                    ],
+                    "size": [
+                        "50%-2px",
+                        4
+                    ]
+                }
+            },
+            {
+                "on@fui.w": {
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        "-25%+2px",
+                        0
+                    ],
+                    "size": [
+                        "2px",
+                        "6px"
+                    ]
+                }
+            }
+        ]
+    },
+    "switch_toggle_checked_hover_thin": {
+        "type": "panel",
+        "controls": [
+            {
+                "border@fui_ore_base.border": {
+                    "layer": 0
+                }
+            },
+            {
+                "background@fui_ore_base.base_thin": {
+                    "$bg_color": [
+                        0.24,
+                        0.52,
+                        0.15
+                    ],
+                    "$shadow_alpha_b_r": 0.1,
+                    "$shadow_alpha_t_l": 0.2,
+                    "layer": 1
+                }
+            },
+            {
+                "box_border@fui_ore_base.border": {
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "layer": 4,
+                    "size": [
+                        "50%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "box@fui_ore_base.base_thin": {
+                    "$bg_color": [
+                        0.69,
+                        0.7,
+                        0.71
+                    ],
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "layer": 5,
+                    "offset": [
+                        0,
+                        -2
+                    ],
+                    "size": [
+                        "50%+2px",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "box_shadow@fui.w": {
+                    "anchor_from": "bottom_right",
+                    "anchor_to": "bottom_right",
+                    "color": [
+                        0.35,
+                        0.35,
+                        0.35
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        -1,
+                        -1
+                    ],
+                    "size": [
+                        "50%",
+                        2
+                    ]
+                }
+            },
+            {
+                "on@fui.w": {
+                    "color": [
+                        1,
+                        1,
+                        1
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        "-25%+2px",
+                        0
+                    ],
+                    "size": [
+                        "2px",
+                        "6px"
+                    ]
+                }
+            }
+        ]
+    },
+    "switch_toggle_thin@common_toggles.switch_toggle": {
+        "$checked_control": "fui_ore_chks.switch_toggle_checked_default_thin",
+        "$checked_hover_control": "fui_ore_chks.switch_toggle_checked_hover_thin",
+        "$checked_locked_control": "fui_ore_chks.switch_toggle_checked_default_thin",
+        "$checked_locked_hover_control": "fui_ore_chks.switch_toggle_checked_hover_thin",
+        "$unchecked_control": "fui_ore_chks.switch_toggle_unchecked_default_thin",
+        "$unchecked_hover_control": "fui_ore_chks.switch_toggle_unchecked_hover_thin",
+        "$unchecked_locked_control": "fui_ore_chks.switch_toggle_unchecked_default_thin",
+        "$unchecked_locked_hover_control": "fui_ore_chks.switch_toggle_unchecked_hover_thin",
+        "size": [
+            "40px",
+            "20px"
+        ]
+    },
+    "switch_toggle_unchecked_default": {
+        "type": "panel",
+        "controls": [
+            {
+                "border@fui_ore_base.border": {
+                    "layer": 0
+                }
+            },
+            {
+                "background@fui_ore_base.base": {
+                    "$bg_color": [
+                        0.55,
+                        0.55,
+                        0.56
+                    ],
+                    "$shadow_alpha_b_r": 0.5,
+                    "$shadow_alpha_t_l": 0.4,
+                    "layer": 1
+                }
+            },
+            {
+                "box_border@fui_ore_base.border": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "layer": 4,
+                    "size": [
+                        "50%+2px",
+                        "100%+4px"
+                    ]
+                }
+            },
+            {
+                "box@fui_ore_base.base": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "layer": 5,
+                    "offset": [
+                        0,
+                        -4
+                    ],
+                    "size": [
+                        "50%+2px",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "box_shadow@fui.w": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "color": [
+                        0.35,
+                        0.35,
+                        0.35
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        2,
+                        -2
+                    ],
+                    "size": [
+                        "50%-2px",
+                        4
+                    ]
+                }
+            },
+            {
+                "off": {
+                    "type": "panel",
+                    "offset": [
+                        "25%-1px",
+                        0
+                    ],
+                    "size": [
+                        6,
+                        6
+                    ],
+                    "controls": [
+                        {
+                            "l@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    -3,
+                                    0
+                                ],
+                                "size": [
+                                    "2px",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "t@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    0,
+                                    -3
+                                ],
+                                "size": [
+                                    "4px",
+                                    "2px"
+                                ]
+                            }
+                        },
+                        {
+                            "r@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    3,
+                                    0
+                                ],
+                                "size": [
+                                    "2px",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "b@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    0,
+                                    3
+                                ],
+                                "size": [
+                                    "4px",
+                                    "2px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "switch_toggle_unchecked_default_thin": {
+        "type": "panel",
+        "controls": [
+            {
+                "border@fui_ore_base.border": {
+                    "layer": 0
+                }
+            },
+            {
+                "background@fui_ore_base.base_thin": {
+                    "$bg_color": [
+                        0.55,
+                        0.55,
+                        0.56
+                    ],
+                    "$shadow_alpha_b_r": 0.5,
+                    "$shadow_alpha_t_l": 0.4,
+                    "layer": 1
+                }
+            },
+            {
+                "box_border@fui_ore_base.border": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "layer": 4,
+                    "size": [
+                        "50%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "box@fui_ore_base.base_thin": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "layer": 5,
+                    "offset": [
+                        0,
+                        -2
+                    ],
+                    "size": [
+                        "50%+2px",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "box_shadow@fui.w": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "color": [
+                        0.35,
+                        0.35,
+                        0.35
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        1,
+                        -1
+                    ],
+                    "size": [
+                        "50%",
+                        2
+                    ]
+                }
+            },
+            {
+                "off": {
+                    "type": "panel",
+                    "offset": [
+                        "25%-1px",
+                        0
+                    ],
+                    "size": [
+                        5,
+                        5
+                    ],
+                    "controls": [
+                        {
+                            "l@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    -2.5,
+                                    0
+                                ],
+                                "size": [
+                                    "1px",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "t@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    0,
+                                    -2.5
+                                ],
+                                "size": [
+                                    "4px",
+                                    "1px"
+                                ]
+                            }
+                        },
+                        {
+                            "r@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    2.5,
+                                    0
+                                ],
+                                "size": [
+                                    "1px",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "b@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    0,
+                                    2.5
+                                ],
+                                "size": [
+                                    "4px",
+                                    "1px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "switch_toggle_unchecked_hover": {
+        "type": "panel",
+        "controls": [
+            {
+                "border@fui_ore_base.border": {
+                    "layer": 0
+                }
+            },
+            {
+                "background@fui_ore_base.base": {
+                    "$bg_color": [
+                        0.55,
+                        0.55,
+                        0.56
+                    ],
+                    "$shadow_alpha_b_r": 0.5,
+                    "$shadow_alpha_t_l": 0.4,
+                    "layer": 1
+                }
+            },
+            {
+                "box_border@fui_ore_base.border": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "layer": 4,
+                    "size": [
+                        "50%+2px",
+                        "100%+4px"
+                    ]
+                }
+            },
+            {
+                "box@fui_ore_base.base": {
+                    "$bg_color": [
+                        0.69,
+                        0.7,
+                        0.71
+                    ],
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "layer": 5,
+                    "offset": [
+                        0,
+                        -4
+                    ],
+                    "size": [
+                        "50%+2px",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "box_shadow@fui.w": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "color": [
+                        0.35,
+                        0.35,
+                        0.35
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        2,
+                        -2
+                    ],
+                    "size": [
+                        "50%-2px",
+                        4
+                    ]
+                }
+            },
+            {
+                "off": {
+                    "type": "panel",
+                    "offset": [
+                        "25%-1px",
+                        0
+                    ],
+                    "size": [
+                        6,
+                        6
+                    ],
+                    "controls": [
+                        {
+                            "l@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    -3,
+                                    0
+                                ],
+                                "size": [
+                                    "2px",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "t@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    0,
+                                    -3
+                                ],
+                                "size": [
+                                    "4px",
+                                    "2px"
+                                ]
+                            }
+                        },
+                        {
+                            "r@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    3,
+                                    0
+                                ],
+                                "size": [
+                                    "2px",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "b@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    0,
+                                    3
+                                ],
+                                "size": [
+                                    "4px",
+                                    "2px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "switch_toggle_unchecked_hover_thin": {
+        "type": "panel",
+        "controls": [
+            {
+                "border@fui_ore_base.border": {
+                    "layer": 0
+                }
+            },
+            {
+                "background@fui_ore_base.base_thin": {
+                    "$bg_color": [
+                        0.55,
+                        0.55,
+                        0.56
+                    ],
+                    "$shadow_alpha_b_r": 0.5,
+                    "$shadow_alpha_t_l": 0.4,
+                    "layer": 1
+                }
+            },
+            {
+                "box_border@fui_ore_base.border": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "layer": 4,
+                    "size": [
+                        "50%+2px",
+                        "100%+2px"
+                    ]
+                }
+            },
+            {
+                "box@fui_ore_base.base_thin": {
+                    "$bg_color": [
+                        0.69,
+                        0.7,
+                        0.71
+                    ],
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "layer": 5,
+                    "offset": [
+                        0,
+                        -2
+                    ],
+                    "size": [
+                        "50%+2px",
+                        "100%"
+                    ]
+                }
+            },
+            {
+                "box_shadow@fui.w": {
+                    "anchor_from": "bottom_left",
+                    "anchor_to": "bottom_left",
+                    "color": [
+                        0.35,
+                        0.35,
+                        0.35
+                    ],
+                    "layer": 6,
+                    "offset": [
+                        1,
+                        -1
+                    ],
+                    "size": [
+                        "50%",
+                        2
+                    ]
+                }
+            },
+            {
+                "off": {
+                    "type": "panel",
+                    "offset": [
+                        "25%-1px",
+                        0
+                    ],
+                    "size": [
+                        5,
+                        5
+                    ],
+                    "controls": [
+                        {
+                            "l@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    -2.5,
+                                    0
+                                ],
+                                "size": [
+                                    "1px",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "t@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    0,
+                                    -2.5
+                                ],
+                                "size": [
+                                    "4px",
+                                    "1px"
+                                ]
+                            }
+                        },
+                        {
+                            "r@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    2.5,
+                                    0
+                                ],
+                                "size": [
+                                    "1px",
+                                    "4px"
+                                ]
+                            }
+                        },
+                        {
+                            "b@fui.w": {
+                                "color": [
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "layer": 6,
+                                "offset": [
+                                    0,
+                                    2.5
+                                ],
+                                "size": [
+                                    "4px",
+                                    "1px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "toggle": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            100,
+            30
+        ],
+        "controls": [
+            {
+                "toggle@switch_toggle": {
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "layer": 0
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        2,
+                        0
+                    ],
+                    "layer": 1,
+                    "font_scale_factor": 1.25,
+                    "font_size": "normal",
+                    "font_type": "smooth",
+                    "text": "Toggle"
+                }
+            }
+        ]
+    },
+    "toggle_thin": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            100,
+            30
+        ],
+        "controls": [
+            {
+                "toggle@switch_toggle_thin": {
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "layer": 0
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        2,
+                        0
+                    ],
+                    "layer": 1,
+                    "font_scale_factor": 1.25,
+                    "font_size": "normal",
+                    "font_type": "smooth",
+                    "text": "Toggle"
+                }
+            }
+        ]
+    }
+}

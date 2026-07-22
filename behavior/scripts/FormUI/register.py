@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 """
 客户端注册，导入即可。
 """
@@ -10,6 +10,6 @@ class A:
 from core.config import *
 path = A.__module__
 
-client_system_path = path.split("register")[0] + "core.client.MoreUIC.MoreUIClient"
+client_system_path = path.split("register")[0] + "core.client.system.Client"
 
 clientApi.RegisterSystem(Namespace, SystemNameClient, client_system_path)

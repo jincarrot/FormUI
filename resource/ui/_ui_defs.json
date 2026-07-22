@@ -1,7 +1,10 @@
 {
     "ui_defs": [
-        "ui/base_controls.json",
-        "ui/oreui_controls.json",
-        "ui/server_forms.json"
+        "ui/fui.json",
+        "ui/oreui_base.json",
+        "ui/oreui_btns.json",
+        "ui/oreui_chks.json",
+        "ui/oreui_panels.json",
+        "ui/samples.json"
     ]
 }

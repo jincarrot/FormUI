@@ -1,0 +1,84 @@
+{
+    "namespace": "fui_samples",
+    "sample": {
+        "type": "screen",
+        "controls": [
+            {
+                "panel@fui_ore_panels.light_panel": {}
+            },
+            {
+                "btns": {
+                    "type": "panel",
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        5.0,
+                        30.0
+                    ],
+                    "size": [
+                        100,
+                        "100%+0px"
+                    ],
+                    "controls": [
+                        {
+                            "normal_btn(0)@fui_ore_btns.normal_btn": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "layer": 2,
+                                "offset": [
+                                    0,
+                                    34
+                                ],
+                                "size": [
+                                    "0%+100px",
+                                    "0%+30px"
+                                ]
+                            }
+                        },
+                        {
+                            "green_btn(0)@fui_ore_btns.green_btn": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "layer": 2,
+                                "offset": [
+                                    0,
+                                    2
+                                ],
+                                "size": [
+                                    "0%+100px",
+                                    "0%+30px"
+                                ]
+                            }
+                        },
+                        {
+                            "red_btn(0)@fui_ore_btns.red_btn": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "layer": 2,
+                                "offset": [
+                                    0,
+                                    66
+                                ],
+                                "size": [
+                                    "0%+100px",
+                                    "0%+30px"
+                                ]
+                            }
+                        },
+                        {
+                            "toggle(0)@fui_ore_chks.toggle": {
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "layer": 2,
+                                "offset": [
+                                    0,
+                                    98
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

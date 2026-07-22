@@ -1,0 +1,316 @@
+{
+    "base": {
+        "type": "panel",
+        "$bg_color": [
+            0.82,
+            0.82,
+            0.83
+        ],
+        "$shadow_alpha_b_r": 0.9,
+        "$shadow_alpha_t_l": 0.6,
+        "$shadow_color": [
+            1,
+            1,
+            1
+        ],
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "controls": [
+            {
+                "background@fui.w": {
+                    "color": "$bg_color",
+                    "layer": 1,
+                    "size": [
+                        "100% - 4px",
+                        "100% - 4px"
+                    ]
+                }
+            },
+            {
+                "shadow_l@fui.w": {
+                    "alpha": "$shadow_alpha_t_l",
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "color": "$shadow_color",
+                    "layer": 2,
+                    "offset": [
+                        2,
+                        0
+                    ],
+                    "size": [
+                        "3px",
+                        "100% - 4px"
+                    ]
+                }
+            },
+            {
+                "shadow_t@fui.w": {
+                    "alpha": "$shadow_alpha_t_l",
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "color": "$shadow_color",
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        2
+                    ],
+                    "size": [
+                        "100% - 4px",
+                        3
+                    ]
+                }
+            },
+            {
+                "shadow_r@fui.w": {
+                    "alpha": "$shadow_alpha_b_r",
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "color": "$shadow_color",
+                    "layer": 2,
+                    "offset": [
+                        -2,
+                        0
+                    ],
+                    "size": [
+                        "3px",
+                        "100% - 4px"
+                    ]
+                }
+            },
+            {
+                "shadow_b@fui.w": {
+                    "alpha": "$shadow_alpha_b_r",
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "color": "$shadow_color",
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        -2
+                    ],
+                    "size": [
+                        "100% - 4px",
+                        3
+                    ]
+                }
+            }
+        ]
+    },
+    "base_thin": {
+        "type": "panel",
+        "$bg_color": [
+            0.82,
+            0.82,
+            0.83
+        ],
+        "$shadow_alpha_b_r": 0.9,
+        "$shadow_alpha_t_l": 0.6,
+        "$shadow_color": [
+            1,
+            1,
+            1
+        ],
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "controls": [
+            {
+                "background@fui.w": {
+                    "color": "$bg_color",
+                    "layer": 1,
+                    "size": [
+                        "100% - 2px",
+                        "100% - 2px"
+                    ]
+                }
+            },
+            {
+                "shadow_l@fui.w": {
+                    "alpha": "$shadow_alpha_t_l",
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "color": "$shadow_color",
+                    "layer": 2,
+                    "offset": [
+                        1,
+                        0
+                    ],
+                    "size": [
+                        "1px",
+                        "100% - 2px"
+                    ]
+                }
+            },
+            {
+                "shadow_t@fui.w": {
+                    "alpha": "$shadow_alpha_t_l",
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "color": "$shadow_color",
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        1
+                    ],
+                    "size": [
+                        "100% - 2px",
+                        1
+                    ]
+                }
+            },
+            {
+                "shadow_r@fui.w": {
+                    "alpha": "$shadow_alpha_b_r",
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "color": "$shadow_color",
+                    "layer": 2,
+                    "offset": [
+                        -1,
+                        0
+                    ],
+                    "size": [
+                        "1px",
+                        "100% - 2px"
+                    ]
+                }
+            },
+            {
+                "shadow_b@fui.w": {
+                    "alpha": "$shadow_alpha_b_r",
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "color": "$shadow_color",
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        -1
+                    ],
+                    "size": [
+                        "100% - 2px",
+                        1
+                    ]
+                }
+            }
+        ]
+    },
+    "border@fui.w": {
+        "color": [
+            0.12,
+            0.12,
+            0.12
+        ],
+        "size": [
+            "100%",
+            "100%"
+        ]
+    },
+    "box": {
+        "type": "panel",
+        "$bg_color": [
+            0.82,
+            0.82,
+            0.83
+        ],
+        "$bottom_color": [
+            0.35,
+            0.35,
+            0.35
+        ],
+        "$shadow_alpha_b_r": 0.9,
+        "$shadow_alpha_t_l": 0.6,
+        "controls": [
+            {
+                "border@border": {
+                    "layer": 0
+                }
+            },
+            {
+                "base@base": {
+                    "$bg_color": "$bg_color",
+                    "$shadow_alpha_b_r": "$shadow_alpha_b_r",
+                    "$shadow_alpha_t_l": "$shadow_alpha_t_l",
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "layer": 1,
+                    "size": [
+                        "100%",
+                        "100% - 4px"
+                    ]
+                }
+            },
+            {
+                "shadow@fui.w": {
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "color": "$bottom_color",
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        -2
+                    ],
+                    "size": [
+                        "100%-4px",
+                        "4px"
+                    ]
+                }
+            }
+        ]
+    },
+    "box_thin": {
+        "type": "panel",
+        "$bg_color": [
+            0.82,
+            0.82,
+            0.83
+        ],
+        "$bottom_color": [
+            0.35,
+            0.35,
+            0.35
+        ],
+        "$shadow_alpha_b_r": 0.9,
+        "$shadow_alpha_t_l": 0.6,
+        "controls": [
+            {
+                "border@border": {
+                    "layer": 0
+                }
+            },
+            {
+                "base@base_thin": {
+                    "$bg_color": "$bg_color",
+                    "$shadow_alpha_b_r": "$shadow_alpha_b_r",
+                    "$shadow_alpha_t_l": "$shadow_alpha_t_l",
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "layer": 1,
+                    "size": [
+                        "100%",
+                        "100% - 2px"
+                    ]
+                }
+            },
+            {
+                "shadow@fui.w": {
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "color": "$bottom_color",
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        -1
+                    ],
+                    "size": [
+                        "100%-2px",
+                        "2px"
+                    ]
+                }
+            }
+        ]
+    },
+    "namespace": "fui_ore_base"
+}

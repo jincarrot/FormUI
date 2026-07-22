@@ -1,0 +1,148 @@
+{
+    "Addon": {
+        "EnchantSetting": {
+            "amplifier": 1
+        },
+        "PackResourceSortData": {},
+        "PlayerEffectSetting": {
+            "amplifier": 1,
+            "duration": 10
+        },
+        "PresetInstanceTreeData": []
+    },
+    "UI": {
+        "customPrefabGroupExpand": [
+            "fui_ore_chks"
+        ],
+        "expandData": {
+            "prefab": {
+                "fui_ore.base": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore.border": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore.btn_base": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore.green_btn": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/green_btn"
+                ],
+                "fui_ore.normal_btn": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore.red_btn": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_base.base": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_base.base_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_base.box": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_base.box_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_btns.btn_base_thin": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/btn_base_thin"
+                ],
+                "fui_ore_btns.green_btn": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_btns.green_btn_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_btns.normal_btn": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_btns.normal_btn_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_btns.red_btn": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_btns.red_btn_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_chks.switch_toggle": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_chks.switch_toggle_checked_default": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_chks.switch_toggle_checked_default_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_chks.switch_toggle_checked_hover": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_chks.switch_toggle_checked_hover_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_chks.switch_toggle_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_chks.switch_toggle_unchecked_default": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_chks.switch_toggle_unchecked_default_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_chks.switch_toggle_unchecked_hover": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/switch_toggle_unchecked_hover"
+                ],
+                "fui_ore_chks.switch_toggle_unchecked_hover_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_chks.toggle": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_chks.toggle_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_panels.dark_panel": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_panels.dark_panel_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_panels.light_panel": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/light_panel",
+                    "/netease_prefab_screen/light_panel/background",
+                    "/netease_prefab_screen/light_panel/content",
+                    "/netease_prefab_screen/light_panel/content/scroll_mouse",
+                    "/netease_prefab_screen/light_panel/content/scroll_mouse/scroll_view",
+                    "/netease_prefab_screen/light_panel/content/scroll_mouse/scroll_view/stack_panel",
+                    "/netease_prefab_screen/light_panel/content/scroll_mouse/scroll_view/stack_panel/background_and_viewport",
+                    "/netease_prefab_screen/light_panel/content/scroll_mouse/scroll_view/stack_panel/background_and_viewport/scrolling_view_port"
+                ],
+                "fui_ore_panels.light_panel_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_panels.panel_base": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/panel_base"
+                ],
+                "fui_ore_panels.panel_base_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_panels.scroll_panel_thin": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_panels.scrolling_content": [
+                    "/netease_prefab_screen"
+                ]
+            },
+            "screen": {
+                "D:\\MCStudioDownload\\work\\jincarrot@outlook.com\\Cpp\\AddOn\\FormUI\\resource\\ui\\samples.json": []
+            }
+        }
+    }
+}

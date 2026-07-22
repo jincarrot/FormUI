@@ -1,0 +1,43 @@
+{
+    "w": {
+        "type": "image",
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "offset": [
+            0.0,
+            0.0
+        ],
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "layer": 0,
+        "alpha": 1.0,
+        "fill": true,
+        "rotate_pivot": [
+            0.5,
+            0.5
+        ],
+        "texture": "textures/ui/white_bg"
+    },
+    "blank@w": {
+        "alpha": 0.0
+    },
+    "screen": {
+        "type": "screen",
+        "controls": [
+            {
+                "panel": {
+                    "type": "panel",
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "size": [
+                        "100%",
+                        "100%"
+                    ]
+                }
+            }
+        ]
+    },
+    "namespace": "fui"
+}
