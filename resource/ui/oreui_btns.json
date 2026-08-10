@@ -30,8 +30,6 @@
             0.35,
             0.35
         ],
-        "anchor_from": "top_left",
-        "anchor_to": "top_left",
         "size": [
             "100px",
             "30px"
@@ -221,6 +219,67 @@
                                 "text": "$label_text"
                             }
                         }
+                    ]
+                }
+            }
+        ]
+    },
+    "btn_panel": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "button@btn_base": {}
+            }
+        ]
+    },
+    "btn_panel_thin": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            "100%",
+            32
+        ],
+        "$base_color_default": [
+            0.82,
+            0.82,
+            0.83
+        ],
+        "$base_color_hover": [
+            0.69,
+            0.7,
+            0.71
+        ],
+        "$border_alpha_br_default": 0.9,
+        "$border_alpha_br_hover": 0.9,
+        "$border_alpha_tl_default": 0.7,
+        "$border_alpha_tl_hover": 0.7,
+        "$shadow_color": [
+            0.35,
+            0.35,
+            0.35
+        ],
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "controls": [
+            {
+                "button@btn_base_thin": {
+                    "$base_color_default": "$base_color_default",
+                    "$base_color_hover": "$base_color_hover",
+                    "$border_alpha_br_default": "$border_alpha_br_default",
+                    "$border_alpha_br_hover": "$border_alpha_br_hover",
+                    "$border_alpha_tl_default": "$border_alpha_tl_default",
+                    "$border_alpha_tl_hover": "$border_alpha_tl_hover",
+                    "$shadow_color": "$shadow_color",
+                    "$label_color": "$label_color",
+                    "size": [
+                        "100%",
+                        "100% - 2px"
                     ]
                 }
             }
@@ -257,10 +316,11 @@
             0.35,
             0.35
         ],
-        "anchor_from": "top_left",
-        "anchor_to": "top_left",
+        "$label_anchor": "center",
+        "anchor_from": "left_middle",
+        "anchor_to": "left_middle",
         "size": [
-            "100px",
+            "100%",
             "30px"
         ],
         "button_mappings": [],
@@ -326,6 +386,8 @@
                                     "100%",
                                     "100%"
                                 ],
+                                "anchor_from": "$label_anchor",
+                                "anchor_to": "$label_anchor",
                                 "layer": 3,
                                 "color": "$label_color",
                                 "font_scale_factor": "$label_font_scale_factor",
@@ -387,6 +449,8 @@
                                     "100%",
                                     "100%"
                                 ],
+                                "anchor_from": "$label_anchor",
+                                "anchor_to": "$label_anchor",
                                 "layer": 3,
                                 "color": "$label_color",
                                 "font_scale_factor": "$label_font_scale_factor",
@@ -440,6 +504,8 @@
                                     "100%",
                                     "100%"
                                 ],
+                                "anchor_from": "$label_anchor",
+                                "anchor_to": "$label_anchor",
                                 "layer": 3,
                                 "color": "$label_color",
                                 "font_scale_factor": "$label_font_scale_factor",
@@ -453,7 +519,7 @@
             }
         ]
     },
-    "green_btn@btn_base": {
+    "green_btn@btn_panel": {
         "$base_color_default": [
             0.24,
             0.52,
@@ -474,7 +540,7 @@
             0.07
         ]
     },
-    "green_btn_thin@btn_base_thin": {
+    "green_btn_thin@btn_panel_thin": {
         "$base_color_default": [
             0.24,
             0.52,
@@ -496,21 +562,21 @@
         ]
     },
     "namespace": "fui_ore_btns",
-    "normal_btn@btn_base": {
+    "normal_btn@btn_panel": {
         "$label_color": [
             0,
             0,
             0
         ]
     },
-    "normal_btn_thin@btn_base_thin": {
+    "normal_btn_thin@btn_panel_thin": {
         "$label_color": [
             0,
             0,
             0
         ]
     },
-    "red_btn@btn_base": {
+    "red_btn@btn_panel": {
         "$base_color_default": [
             0.76,
             0.21,
@@ -531,7 +597,7 @@
             0.11
         ]
     },
-    "red_btn_thin@btn_base_thin": {
+    "red_btn_thin@btn_panel_thin": {
         "$base_color_default": [
             0.76,
             0.21,

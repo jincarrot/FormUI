@@ -1059,7 +1059,11 @@
                 "toggle@switch_toggle_thin": {
                     "anchor_from": "right_middle",
                     "anchor_to": "right_middle",
-                    "layer": 0
+                    "layer": 0,
+                    "size": [
+                        "180%y+0px",
+                        "100%+-14px"
+                    ]
                 }
             },
             {
@@ -1068,7 +1072,7 @@
                     "anchor_from": "left_middle",
                     "anchor_to": "left_middle",
                     "offset": [
-                        2,
+                        0.0,
                         0
                     ],
                     "layer": 1,

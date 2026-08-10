@@ -1,0 +1,143 @@
+{
+    "namespace": "fui_ore_textfields",
+    "textfield": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            "100%",
+            44
+        ],
+        "controls": [
+            {
+                "textfield@textfield_control": {
+                    "offset": [
+                        0,
+                        -2
+                    ],
+                    "size": [
+                        "100%",
+                        "100%+-15px"
+                    ]
+                }
+            },
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        0,
+                        0.0
+                    ],
+                    "max_size": [
+                        "100%",
+                        "default"
+                    ],
+                    "font_scale_factor": 1.25,
+                    "font_type": "smooth",
+                    "text": "TextField"
+                }
+            }
+        ]
+    },
+    "textfield_bg": {
+        "type": "panel",
+        "layer": -1,
+        "controls": [
+            {
+                "border@fui.w": {
+                    "color": [
+                        0.11,
+                        0.11,
+                        0.12
+                    ],
+                    "layer": 0
+                }
+            },
+            {
+                "bg@fui.w": {
+                    "color": [
+                        0.2,
+                        0.2,
+                        0.2
+                    ],
+                    "layer": 1,
+                    "size": [
+                        "100%-2px",
+                        "100%-2px"
+                    ]
+                }
+            },
+            {
+                "shadow@fui.w": {
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "color": [
+                        0.14,
+                        0.14,
+                        0.14
+                    ],
+                    "layer": 2,
+                    "offset": [
+                        0,
+                        1
+                    ],
+                    "size": [
+                        "100%-2px",
+                        2
+                    ]
+                }
+            }
+        ]
+    },
+    "textfield_control@common.text_edit_box": {
+        "type": "edit_box",
+        "$edit_box_default_texture": "textures/ui/edit_box_indent",
+        "$edit_box_hover_texture": "textures/ui/edit_box_indent_hover",
+        "$font_scale_factor": 1.0,
+        "$font_size": "normal",
+        "$is_new_nine_slice": false,
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$place_holder_text": "Text",
+        "$place_holder_text_color": [
+            0.5,
+            0.5,
+            0.5
+        ],
+        "$text_background_default": "fui_ore_textfields.textfield_bg",
+        "$text_background_hover": "fui_ore_textfields.textfield_bg",
+        "$text_box_name": "%netease_editor_template_namespace.message",
+        "$text_box_text_color": [
+            1,
+            1,
+            1
+        ],
+        "$text_edit_box_content_binding_name": "#netease_editor_template_namespace.message_content",
+        "$text_edit_box_label_anchor_point": "right_middle",
+        "$text_edit_box_label_min_size": [
+            "100%",
+            0
+        ],
+        "$text_edit_box_label_size": [
+            "default",
+            "default"
+        ],
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "size": [
+            "100%",
+            30
+        ],
+        "max_length": 512
+    }
+}

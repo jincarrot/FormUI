@@ -10,3 +10,16 @@ class ControlType:
     """面板控件。"""
 
     ScrollingPanel = "scrolling_panel"
+
+    Toggle = "toggle"
+
+    Label = "label"
+
+    Textfield = "textfield"
+
+    Slider = "slider"
+
+    Dropdown = "dropdown"
+
+    Custom = "custom"
+    

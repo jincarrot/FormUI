@@ -4,6 +4,7 @@
 """
 import mod.client.extraClientApi as clientApi
 
+from core.config import *
 class A:
     pass
 

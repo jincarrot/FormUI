@@ -1,5 +1,19 @@
 # -*- coding: utf-8 -*-
 
+class CreateArguments:
+
+    def __init__(self, screenNode, control):
+        self.__screenNode = screenNode
+        self.__control = control
+
+    @property
+    def screenNode(self):
+        return self.__screenNode
+
+    @property
+    def control(self):
+        return self.__control
+
 def wrapVariable(value, record=[]):
     # type: (any, list) -> dict
     typeId = value.__class__.__name__

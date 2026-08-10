@@ -37,8 +37,6 @@ class Client(ClientSystem):
         if topScreen:
             if isFormScreen(topScreen):
                 topScreen.applyObservableUpdate(id, value)
-        else:
-            raise Exception("获取TopScreen失败。")
         
     def registerControl(self, data):
         self.controlManager.create(data['type'], data['name'], data['path'], data['options'])

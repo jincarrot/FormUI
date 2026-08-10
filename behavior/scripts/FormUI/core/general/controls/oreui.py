@@ -14,7 +14,8 @@ class Control:
 class Button(Control):
     typeId = "button"
     options = {
-        "labelPaths": ("/default/label", "/hover/label", "/pressed/label")
+        "labelPaths": ("/default/label", "/hover/label", "/pressed/label"),
+        "buttonPath": "/button"
     }
 
 class RedBtn(Button):
@@ -48,7 +49,67 @@ class LightPanelThin(LightPanel):
     path = "fui_ore_panels.light_panel_thin"
 
 class DarkPanelThin(LightPanel):
-    path = "dui_ore_panels.dark_panel_thin"
+    path = "fui_ore_panels.dark_panel_thin"
+
+class Toggle(Control):
+    path = "fui_ore_chks.toggle_thin"
+    typeId = "toggle"
+    options = {
+        "togglePath": "/toggle/this_toggle",
+        "labelPaths": ["/label"]
+    }
+
+class Label(Control):
+    path = "fui_ore_base.label"
+    typeId = "label"
+    options = {
+        "labelPaths": ['/label']
+    }
+
+class DividerIn(Control):
+    path = "fui_ore_base.divider_in"
+    typeId = "divider"
+
+class DividerOut(Control):
+    path = "fui_ore_base.divider_out"
+    typeId = "divider"
+
+class DividerDark(Control):
+    path = "fui_ore_base.divider_dark"
+    typeId = "divider"
+
+class DividerLight(Control):
+    path = "fui_ore_base.divider_light"
+    typeId = "divider"
+
+class Slider(Control):
+    path = "fui_ore_sliders.slider"
+    typeId = "slider"
+    options = {
+        "labelPaths": ["/label"],
+        "sliderPath": "/slider",
+        "valuePaths": ["/value"]
+    }
+
+class Textfield(Control):
+    path = "fui_ore_textfields.textfield"
+    typeId = "textfield"
+    options = {
+        "labelPaths": ["/label"],
+        "textfieldPath": "/textfield"
+    }
+
+class Dropdown(Control):
+    path = "fui_ore_dropdowns.dropdown"
+    typeId = "dropdown"
+    options = {
+        "labelPaths": "/label",
+        "dropdownPath": "/dropdown_box",
+        "contentPath": "/content_panel",
+        "boxLabelPaths": ["/default/label", "/hover/label", "/pressed/label"],
+        "itemLabelPaths": ["/button_label"],
+        "itemControl": "fui_ore_dropdowns.dropdown_items"
+    }
 
 class OreUI:
     """OreUI style controls."""
@@ -63,7 +124,16 @@ class OreUI:
             NormalBtnThin,
             LightPanel,
             LightPanelThin,
-            DarkPanelThin
+            DarkPanelThin,
+            Toggle,
+            Label,
+            DividerIn,
+            DividerOut,
+            DividerDark,
+            DividerLight,
+            Slider,
+            Textfield,
+            Dropdown
         ]
         for control in CONTROLS:
             control()

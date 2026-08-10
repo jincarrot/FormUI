@@ -4,7 +4,10 @@
         "ui/oreui_base.json",
         "ui/oreui_btns.json",
         "ui/oreui_chks.json",
+        "ui/oreui_dropdowns.json",
         "ui/oreui_panels.json",
+        "ui/oreui_sliders.json",
+        "ui/oreui_textfields.json",
         "ui/samples.json"
     ]
 }

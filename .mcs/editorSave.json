@@ -12,7 +12,8 @@
     },
     "UI": {
         "customPrefabGroupExpand": [
-            "fui_ore_chks"
+            "fui_ore_sliders",
+            "fui_ore_textfields"
         ],
         "expandData": {
             "prefab": {
@@ -33,40 +34,6 @@
                     "/netease_prefab_screen"
                 ],
                 "fui_ore.red_btn": [
-                    "/netease_prefab_screen"
-                ],
-                "fui_ore_base.base": [
-                    "/netease_prefab_screen"
-                ],
-                "fui_ore_base.base_thin": [
-                    "/netease_prefab_screen"
-                ],
-                "fui_ore_base.box": [
-                    "/netease_prefab_screen"
-                ],
-                "fui_ore_base.box_thin": [
-                    "/netease_prefab_screen"
-                ],
-                "fui_ore_btns.btn_base_thin": [
-                    "/netease_prefab_screen",
-                    "/netease_prefab_screen/btn_base_thin"
-                ],
-                "fui_ore_btns.green_btn": [
-                    "/netease_prefab_screen"
-                ],
-                "fui_ore_btns.green_btn_thin": [
-                    "/netease_prefab_screen"
-                ],
-                "fui_ore_btns.normal_btn": [
-                    "/netease_prefab_screen"
-                ],
-                "fui_ore_btns.normal_btn_thin": [
-                    "/netease_prefab_screen"
-                ],
-                "fui_ore_btns.red_btn": [
-                    "/netease_prefab_screen"
-                ],
-                "fui_ore_btns.red_btn_thin": [
                     "/netease_prefab_screen"
                 ],
                 "fui_ore_chks.switch_toggle": [
@@ -104,6 +71,17 @@
                     "/netease_prefab_screen"
                 ],
                 "fui_ore_chks.toggle_thin": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/toggle_thin"
+                ],
+                "fui_ore_dropdowns.dropdown": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/dropdown"
+                ],
+                "fui_ore_dropdowns.dropdown_box": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_dropdowns.dropdown_items": [
                     "/netease_prefab_screen"
                 ],
                 "fui_ore_panels.dark_panel": [
@@ -138,10 +116,62 @@
                 ],
                 "fui_ore_panels.scrolling_content": [
                     "/netease_prefab_screen"
+                ],
+                "fui_ore_sliders.slider": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/slider"
+                ],
+                "fui_ore_sliders.slider_background": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_sliders.slider_background_hover": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_sliders.slider_bar_default": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/slider_bar_default"
+                ],
+                "fui_ore_sliders.slider_bar_hover": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/slider_bar_hover"
+                ],
+                "fui_ore_sliders.slider_border": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_sliders.slider_box": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_sliders.slider_button_layout": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_sliders.slider_common": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/slider_common"
+                ],
+                "fui_ore_sliders.slider_step": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_sliders.slider_step_progress": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_textfields.textfield": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/textfield"
+                ],
+                "fui_ore_textfields.textfield_bg": [
+                    "/netease_prefab_screen"
+                ],
+                "fui_ore_textfields.textfield_control": [
+                    "/netease_prefab_screen",
+                    "/netease_prefab_screen/textfield_control"
                 ]
             },
             "screen": {
-                "D:\\MCStudioDownload\\work\\jincarrot@outlook.com\\Cpp\\AddOn\\FormUI\\resource\\ui\\samples.json": []
+                "D:\\MCStudioDownload\\work\\jincarrot@outlook.com\\Cpp\\AddOn\\FormUI\\resource\\ui\\samples.json": [
+                    "/sample",
+                    "/sample/btns",
+                    "/sample/controls2"
+                ]
             }
         }
     }

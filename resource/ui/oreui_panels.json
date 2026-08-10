@@ -375,19 +375,19 @@
         ],
         "$scroll_track_image_control": "fui_ore_panels.scroll_track",
         "$scroll_view_port_offset": [
-            -8,
+            0,
             0
         ],
         "$scroll_view_port_offset_touch": [
-            -8,
+            0,
             0
         ],
         "$scroll_view_port_size": [
-            "100%",
+            "100%-8px",
             "100%-4px"
         ],
         "$scroll_view_port_size_touch": [
-            "100%",
+            "100%-8px",
             "100%-4px"
         ],
         "$scrolling_content": "fui_ore_panels.scrolling_content",

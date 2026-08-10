@@ -8,7 +8,11 @@ class Observable:
     
     def __init__(self, value, id):
         def temp(new):
-            self.setValue(new)
+            self.__v1 = new
+            if isServer():
+                getServerSystem().observableManager.update(self._id, new)
+            else:
+                getClientSystem().observableManager.update(self._id, new)
         self.__id = id
         self.__v1 = value
         self._onUpdate = temp
@@ -21,11 +25,13 @@ class Observable:
         return self.__v1
     
     def setValue(self, v):
-        self.__v1 = v
-        if isServer():
-            getServerSystem().observableManager.update(self._id, v)
-        else:
-            getClientSystem().observableManager.update(self._id, v)
+        if self.__v1 != v:
+            self.__v1 = v
+            self._onUpdate(v)
+            if isServer():
+                getServerSystem().observableManager.update(self._id, v)
+            else:
+                getClientSystem().observableManager.update(self._id, v)
 
     def onUpdate(self, callback):
         """
@@ -35,7 +41,11 @@ class Observable:
         """
         def temp(new):
             callback(new)
-            self.setValue(new)
+            self.__v1 = new
+            if isServer():
+                getServerSystem().observableManager.update(self._id, new)
+            else:
+                getClientSystem().observableManager.update(self._id, new)
             
         self._onUpdate = temp
     

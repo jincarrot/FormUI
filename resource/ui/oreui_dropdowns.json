@@ -1,0 +1,485 @@
+{
+    "dropdown": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            "100%",
+            "45px"
+        ],
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        0.0,
+                        2.0
+                    ],
+                    "font_scale_factor": 1.25,
+                    "font_type": "smooth",
+                    "text": "Label"
+                }
+            },
+            {
+                "dropdown_box@dropdown_box": {
+                    "$label_anchor": "left_middle",
+                    "$label_offset_x": 2,
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "layer": 1,
+                    "size": [
+                        "100%",
+                        "100%+-15px"
+                    ]
+                }
+            },
+            {
+                "content_panel": {
+                    "type": "panel",
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "offset": [
+                        0.0,
+                        15.0
+                    ],
+                    "size": [
+                        "100%",
+                        "100%+-15px"
+                    ],
+                    "layer": 6,
+                    "visible": false,
+                    "controls": [
+                        {
+                            "border@fui.w": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "bg@fui.w": {
+                                "color": [
+                                    0.549,
+                                    0.5529,
+                                    0.5647
+                                ],
+                                "size": [
+                                    "100%-2px",
+                                    "100%-2px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "dropdown_box@common.button": {
+        "type": "button",
+        "$base_color_default": [
+            0.82,
+            0.82,
+            0.83
+        ],
+        "$base_color_hover": [
+            0.69,
+            0.7,
+            0.71
+        ],
+        "$border_alpha_br_default": 0.9,
+        "$border_alpha_br_hover": 0.9,
+        "$border_alpha_tl_default": 0.7,
+        "$border_alpha_tl_hover": 0.7,
+        "$control_alpha": 1.0,
+        "$label_anchor": "left_middle",
+        "$label_color": [
+            0,
+            0,
+            0
+        ],
+        "$label_font_scale_factor": 1.25,
+        "$label_font_size": "normal",
+        "$label_text": "Button",
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "$shadow_color": [
+            0.35,
+            0.35,
+            0.35
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            "100%+0px",
+            "30px"
+        ],
+        "button_mappings": [],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "pressed_control": "pressed",
+        "bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible"
+            }
+        ],
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "border@fui_ore_base.border": {
+                                "layer": 0
+                            }
+                        },
+                        {
+                            "background@fui_ore_base.base_thin": {
+                                "$bg_color": "$base_color_default",
+                                "$shadow_alpha_b_r": "$border_alpha_br_default",
+                                "$shadow_alpha_t_l": "$border_alpha_tl_default",
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "layer": 1,
+                                "size": [
+                                    "100%",
+                                    "100% - 2px"
+                                ]
+                            }
+                        },
+                        {
+                            "shadow@fui.w": {
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "color": "$shadow_color",
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    -1
+                                ],
+                                "size": [
+                                    "100% - 2px",
+                                    "2px"
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "anchor_from": "$label_anchor",
+                                "anchor_to": "$label_anchor",
+                                "offset": [
+                                    4,
+                                    -1
+                                ],
+                                "max_size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 3,
+                                "color": "$label_color",
+                                "font_scale_factor": "$label_font_scale_factor",
+                                "font_size": "$label_font_size",
+                                "font_type": "smooth",
+                                "text": "$label_text"
+                            }
+                        },
+                        {
+                            "arrow": {
+                                "type": "image",
+                                "anchor_from": "right_middle",
+                                "anchor_to": "bottom_right",
+                                "offset": [
+                                    -8,
+                                    2
+                                ],
+                                "size": [
+                                    8,
+                                    8
+                                ],
+                                "layer": 4,
+                                "rotate_angle": -90,
+                                "texture": "textures/ui/arrow_r_default"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "border@fui_ore_base.border": {
+                                "layer": 0
+                            }
+                        },
+                        {
+                            "background@fui_ore_base.base_thin": {
+                                "$bg_color": "$base_color_hover",
+                                "$shadow_alpha_b_r": "$border_alpha_br_hover",
+                                "$shadow_alpha_t_l": "$border_alpha_tl_hover",
+                                "anchor_from": "top_middle",
+                                "anchor_to": "top_middle",
+                                "layer": 1,
+                                "size": [
+                                    "100%",
+                                    "100% - 2px"
+                                ]
+                            }
+                        },
+                        {
+                            "shadow@fui.w": {
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "color": "$shadow_color",
+                                "layer": 1,
+                                "offset": [
+                                    0,
+                                    -1
+                                ],
+                                "size": [
+                                    "100% - 2px",
+                                    "2px"
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "anchor_from": "$label_anchor",
+                                "anchor_to": "$label_anchor",
+                                "offset": [
+                                    4,
+                                    -1
+                                ],
+                                "max_size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 3,
+                                "color": "$label_color",
+                                "font_scale_factor": "$label_font_scale_factor",
+                                "font_size": "$label_font_size",
+                                "font_type": "smooth",
+                                "text": "$label_text"
+                            }
+                        },
+                        {
+                            "arrow": {
+                                "type": "image",
+                                "anchor_from": "right_middle",
+                                "anchor_to": "bottom_right",
+                                "offset": [
+                                    -8,
+                                    2
+                                ],
+                                "size": [
+                                    8,
+                                    8
+                                ],
+                                "layer": 4,
+                                "rotate_angle": -90,
+                                "texture": "textures/ui/arrow_r_default"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "border@fui_ore_base.border": {
+                                "layer": 0,
+                                "offset": [
+                                    0,
+                                    1
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100% - 2px"
+                                ]
+                            }
+                        },
+                        {
+                            "background@fui_ore_base.base_thin": {
+                                "$bg_color": "$base_color_hover",
+                                "$shadow_alpha_b_r": "$border_alpha_br_hover",
+                                "$shadow_alpha_t_l": "$border_alpha_tl_hover",
+                                "anchor_from": "bottom_middle",
+                                "anchor_to": "bottom_middle",
+                                "layer": 1,
+                                "size": [
+                                    "100%",
+                                    "100% - 2px"
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "anchor_from": "$label_anchor",
+                                "anchor_to": "$label_anchor",
+                                "offset": [
+                                    4,
+                                    1
+                                ],
+                                "max_size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 3,
+                                "color": "$label_color",
+                                "font_scale_factor": "$label_font_scale_factor",
+                                "font_size": "$label_font_size",
+                                "font_type": "smooth",
+                                "text": "$label_text"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "dropdown_items": {
+        "type": "button",
+        "$control_alpha": 1.0,
+        "$is_new_nine_slice": false,
+        "$label_color": [
+            1,
+            1,
+            1
+        ],
+        "$label_font_scale_factor": 0.5,
+        "$label_font_size": "large",
+        "$label_layer": 2,
+        "$label_offset": [
+            8,
+            0
+        ],
+        "$label_text": "Button",
+        "$nine_slice_buttom": 0,
+        "$nine_slice_left": 0,
+        "$nine_slice_right": 0,
+        "$nine_slice_top": 0,
+        "$nineslice_size": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "$pressed_texture": "textures/netease/common/button/pressed",
+        "$texture_layer": 2,
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "offset": [
+            0,
+            1
+        ],
+        "size": [
+            "100%+0px",
+            "30px"
+        ],
+        "layer": 7,
+        "button_mappings": [],
+        "default_control": "default",
+        "hover_control": "hover",
+        "is_handle_button_move_event": true,
+        "pressed_control": "pressed",
+        "bindings": [
+            {
+                "binding_type": "collection_details",
+                "binding_collection_name": "",
+                "binding_condition": "always_when_visible"
+            }
+        ],
+        "controls": [
+            {
+                "value": {
+                    "type": "label",
+                    "visible": false,
+                    "text": "0"
+                }
+            },
+            {
+                "default": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "main@fui.w": {
+                                "color": [
+                                    0.39,
+                                    0.39,
+                                    0.39
+                                ],
+                                "size": [
+                                    "100% - 2px",
+                                    "100% - 1px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "main@fui.w": {
+                                "color": [
+                                    0.282,
+                                    0.286,
+                                    0.29
+                                ],
+                                "size": [
+                                    "100% - 2px",
+                                    "100% - 1px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "main@fui.w": {
+                                "color": [
+                                    0.282,
+                                    0.286,
+                                    0.29
+                                ],
+                                "size": [
+                                    "100% - 2px",
+                                    "100% - 1px"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "button_label@netease_editor_template_namespace.button_label": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "font_scale_factor": 0.5,
+                    "font_type": "smooth"
+                }
+            }
+        ]
+    },
+    "namespace": "fui_ore_dropdowns"
+}

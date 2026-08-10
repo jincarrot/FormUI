@@ -28,3 +28,6 @@ class ObservableManager:
             client = getClientSystem()
             client.applyObservableUpdate(data)
 
+    def get(self, id):
+        return self.__observables[id] if id in self.__observables else None
+

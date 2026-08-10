@@ -312,5 +312,98 @@
             }
         ]
     },
+    "divider_dark@fui.w": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "color": [
+            0.19,
+            0.2,
+            0.21
+        ],
+        "size": [
+            "100%",
+            1
+        ]
+    },
+    "divider_in": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            "100%",
+            2
+        ],
+        "controls": [
+            {
+                "dark@divider_dark": {}
+            },
+            {
+                "light@divider_light": {
+                    "offset": [
+                        0,
+                        1
+                    ]
+                }
+            }
+        ]
+    },
+    "divider_light@fui.w": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "color": [
+            0.36,
+            0.36,
+            0.37
+        ],
+        "size": [
+            "100%",
+            1
+        ]
+    },
+    "divider_out": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            "100%",
+            2
+        ],
+        "controls": [
+            {
+                "light@divider_light": {}
+            },
+            {
+                "dark@divider_dark": {
+                    "offset": [
+                        0,
+                        1
+                    ]
+                }
+            }
+        ]
+    },
+    "label": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": [
+            "100%",
+            "100%c"
+        ],
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "max_size": [
+                        "100%",
+                        "default"
+                    ],
+                    "font_type": "smooth"
+                }
+            }
+        ]
+    },
     "namespace": "fui_ore_base"
 }

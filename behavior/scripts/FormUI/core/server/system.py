@@ -17,20 +17,15 @@ class Server(ServerSystem):
         self.listenEvents()
 
     def listenEvents(self):
-        self.ListenForEvent(Namespace, SystemNameClient, "registerControl", self, self.registerControl)
         self.ListenForEvent(Namespace, SystemNameClient, "buttonTriggerCallback", self, self.onButtonTrigger)
-        self.ListenForEvent(s.GetEngineNamespace(), s.GetEngineSystemName(), "LoadServerAddonScriptsAfter", self, self.initInnerControls)
-
-    def initInnerControls(self, data):
-        from ..general.controls.oreui import OreUI
-        OreUI()
-
-    def registerControl(self, data):
-        self.controlManager.create(data['type'], data['name'], data['path'], data['options'])
+        self.ListenForEvent(Namespace, SystemNameClient, "applyObservableUpdate", self, self.applyObservableUpdate)
 
     def onButtonTrigger(self, data):
         form = self.formManager.get(data['formId'])
         if form:
             form._btnCallbacks[data['callbackId']]()
+
+    def applyObservableUpdate(self, data):
+        self.observableManager.get(data['obId'])._onUpdate(data['value'])
 
         
