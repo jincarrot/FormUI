@@ -41,6 +41,11 @@ class Client(ClientSystem):
     def registerControl(self, data):
         self.controlManager.create(data['type'], data['name'], data['path'], data['options'])
 
+    def onButtonTrigger(self, data):
+        form = self.formManager.get(data['formId'])
+        if form:
+            form._btnCallbacks[data['callbackId']]()
+
     def showForm(self, data):
         topScreen = c.GetTopScreen()
         if isFormScreen(topScreen):

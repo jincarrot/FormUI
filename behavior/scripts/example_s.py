@@ -12,7 +12,10 @@ class ExampleServer(ServerSystem):
 
     def __init__(self, namespace, systemName):
         ServerSystem.__init__(self, namespace, systemName)
-        self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), "ServerChatEvent", self, self.example)
+        self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), "ServerChatEvent", self, self.example1)
+
+    def example1(self, data):
+        self.BroadcastToAllClient("test", {})
 
     def example(self, data):
         def click():
@@ -32,8 +35,8 @@ class ExampleServer(ServerSystem):
         height = Observable.create(30)
         state.onUpdate(toggle)
         form = Form.create(title, {"columns": [1], "offsetX": height})
-        form.button(label, {"onClick": click}, {"class": "oreui:green_btn_thin"})
-        form.button(label, {"onMoveIn": moveIn, "onMoveOut": moveOut}, {"class": "oreui:red_btn_thin", "height": height})
+        form.button(label, {"onClick": click}, {"class": "oreui:green_btn_thin", "visible": height})
+        form.button(label, {"onMoveIn": moveIn, "onMoveOut": moveOut}, {"class": "oreui:red_btn_thin", "height": height, "visible": height})
         form.toggle(label, state)
         form.slider("test", height, 0, title, 1)
         form.dropdown(label, [

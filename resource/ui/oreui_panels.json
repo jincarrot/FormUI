@@ -284,7 +284,9 @@
                             }
                         },
                         {
-                            "close@common.close_button": {}
+                            "close@common.close_button": {
+                                "$close_button_to_button_id": "button.menu_ok"
+                            }
                         }
                     ]
                 }

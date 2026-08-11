@@ -4,7 +4,7 @@ import mod.server.extraServerApi as serverApi
 import mod.client.extraClientApi as clientApi
 
 @Mod.Binding(name="FormUI", version="0.0.1")
-class MoreUI(object):
+class FormUI(object):
     @Mod.InitServer()
     def MoreUIServerInit(self):
         serverApi.RegisterSystem("FormUIExample", "ExampleServer", "scripts.example_s.ExampleServer")

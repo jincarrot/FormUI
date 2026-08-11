@@ -54,12 +54,21 @@ class Screen(ScreenNode):
                 self.setOffset(formId, -1, "x", getSizeDict(style['offsetX']['value']), baseControl)
                 self.setOffset(formId, -1, "y", getSizeDict(style['offsetY']['value']), baseControl)
                 close = baseControl.GetChildByPath(base.options['closeBtnPath']).asButton()
-                close.AddTouchEventParams()
-                close.SetButtonTouchUpCallback(lambda x: c.PopScreen())
+                close.AddTouchEventParams({"formId": formId})
+                close.SetButtonTouchUpCallback(self.onClose)
                 self.setFormTitle(formId, base.options['titlePath'], title['value'])
                 self.setFormContent(formId, base.options['scrollingPanelPath'])
                 # self.setLayer(formId, -1, formData['options']['layer']['value'], baseControl)
         timerId = c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddRepeatedTimer(0.05, create)
+
+    def onClose(self, data):
+        c.PopScreen()
+        formId = data['AddTouchEventParams']['formId']
+        del self.forms[formId]
+        for data in (self.sliders, self.textfields, self.toggles):
+            for controlData in data:
+                if controlData['formId'] == formId:
+                    del controlData
 
     def setLayer(self, formId, controlIndex, value, c=None):
         if formId not in self.forms:
@@ -158,8 +167,11 @@ class Screen(ScreenNode):
         amount = len(controls)
         panel = self.GetBaseUIControl("/panel/fm%s%s" % (formId, self.forms[formId]['basePath']))
         content = getScrollingContent(panel)
-        current = content.GetChildByPath("/c%s" % index)
-        currentHeight = current.GetPosition()[1] + current.GetSize()[1]
+        if index >= 0:
+            current = content.GetChildByPath("/c%s" % index)
+            currentHeight = current.GetPosition()[1] + current.GetSize()[1]
+        else:
+            currentHeight = 0
         nextIndex = index + 1
         while not controls[nextIndex]['style']['visible']['value']:
             content.GetChildByPath("/c%s" % nextIndex).SetVisible(False)
@@ -217,7 +229,11 @@ class Screen(ScreenNode):
             "absoluteValue": height + offsetY['absoluteValue'],
             "followType": "parent"
         }, control)
-        return control.GetSize()[1]
+        if controlData['style']['visible']['value']:
+            return control.GetSize()[1]
+        else:
+            control.SetVisible(False)
+            return 0
 
     def setButtonProperties(self, formId, index, controlCls, c):
         btn = c.GetChildByPath(controlCls.options['buttonPath'])
@@ -309,9 +325,12 @@ class Screen(ScreenNode):
         pass
 
     def onButtonClick(self, formId, callbackId):
-        if self.forms[formId]['fromServer']:
-            from ...utils.environment import getClientSystem
-            getClientSystem().NotifyToServer("buttonTriggerCallback", {"formId": formId, "callbackId": callbackId})
+        from ...utils.environment import getClientSystem
+        data = {"formId": formId, "callbackId": callbackId}
+        if self.forms[formId]['fromServer']['value']:
+            getClientSystem().NotifyToServer("buttonTriggerCallback", data)
+        else:
+            getClientSystem().onButtonTrigger(data)
 
     def getControl(self, formId, index):
         content = getScrollingContent(self.GetBaseUIControl("/panel/fm%s%s" % (formId, self.forms[formId]['basePath'])))
@@ -439,8 +458,8 @@ class Screen(ScreenNode):
                     self.setOffset(formId, index, "y", getSizeDict(value))
                     style['offsetY']['value'] = value
                 if shouldUpdate(style['visible'], obId):
-                    self.moveNextControls(formId, index)
                     style['visible']['value'] = value
+                    self.moveNextControls(formId, index - 1)
             index += 1
 
     def onToggleUpdate(self, formId, index, value):
@@ -448,7 +467,7 @@ class Screen(ScreenNode):
         if data['state']['obId'] != -1:
             self.forms[formId]['controls'][index]['state']['value'] = value
             from ...utils.environment import getClientSystem, getSystem
-            if self.forms[formId]['fromServer']:
+            if self.forms[formId]['fromServer']['value']:
                 getClientSystem().NotifyToServer("applyObservableUpdate", {"obId": data['state']['obId'], "value": value})
             else:
                 getSystem().observableManager.get(data['state']['obId']).setValue(value)
@@ -458,7 +477,7 @@ class Screen(ScreenNode):
         if data['value']['obId'] != -1:
             self.forms[formId]['controls'][index]['value']['value'] = value
             from ...utils.environment import getClientSystem, getSystem
-            if self.forms[formId]['fromServer']:
+            if self.forms[formId]['fromServer']['value']:
                 getClientSystem().NotifyToServer("applyObservableUpdate", {"obId": data['value']['obId'], "value": value})
             else:
                 getSystem().observableManager.get(data['value']['obId']).setValue(value)
@@ -468,7 +487,7 @@ class Screen(ScreenNode):
         if data['value']['obId'] != -1:
             self.forms[formId]['controls'][index]['value']['value'] = value
             from ...utils.environment import getClientSystem, getSystem
-            if self.forms[formId]['fromServer']:
+            if self.forms[formId]['fromServer']['value']:
                 getClientSystem().NotifyToServer("applyObservableUpdate", {"obId": data['value']['obId'], "value": value})
             else:
                 getSystem().observableManager.get(data['value']['obId']).setValue(value)
@@ -478,7 +497,7 @@ class Screen(ScreenNode):
         if data['value']['obId'] != -1:
             self.forms[formId]['controls'][index]['value']['value'] = value
             from ...utils.environment import getClientSystem, getSystem
-            if self.forms[formId]['fromServer']:
+            if self.forms[formId]['fromServer']['value']:
                 getClientSystem().NotifyToServer("applyObservableUpdate", {"obId": data['value']['obId'], "value": value})
             else:
                 getSystem().observableManager.get(data['value']['obId']).setValue(value)
@@ -523,32 +542,33 @@ class Screen(ScreenNode):
             content.SetFullSize("y", {"absoluteValue": content.GetSize()[1] + heightRemain})
 
     def Update(self):
-        for data in self.toggles:
-            if not data['control']:
-                return
-            value = data['control'].GetToggleState(data['path'])
-            if value != data['value']:
-                self.onToggleUpdate(data['formId'], data['index'], value)
-                self.toggles[self.toggles.index(data)]['value'] = value
-                self.forms[data['formId']]['controls'][data['index']]['state']['value'] = value
-        for data in self.sliders:
-            minV = data['minValue']
-            maxV = data['maxValue']
-            step = data['step']
-            value = getSliderValue(data['control'].GetSliderValue(), minV, maxV, step)
-            path = data['control'].GetPath()# type: str
-            path = path[:path.rfind("/")]
-            for valuePath in data['valuePaths']:
-                self.GetBaseUIControl(path + valuePath).asLabel().SetText(str(value))
-            if value != data['value']:
-                self.onSliderUpdate(data['formId'], data['index'], value)
-                self.sliders[self.sliders.index(data)]['value'] = value
-                self.forms[data['formId']]['controls'][data['index']]['value']['value'] = value
-        for data in self.textfields:
-            value = data['control'].GetEditText()
-            if value != data['value']:
-                self.onTextfieldUpdate(data['formId'], data['index'], value)
-                self.textfields[self.textfields.index(data)]['value'] = value
+        try:
+            for data in self.toggles:
+                value = data['control'].GetToggleState(data['path'])
+                if value != data['value']:
+                    self.onToggleUpdate(data['formId'], data['index'], value)
+                    self.toggles[self.toggles.index(data)]['value'] = value
+                    self.forms[data['formId']]['controls'][data['index']]['state']['value'] = value
+            for data in self.sliders:
+                minV = data['minValue']
+                maxV = data['maxValue']
+                step = data['step']
+                value = getSliderValue(data['control'].GetSliderValue(), minV, maxV, step)
+                path = data['control'].GetPath()# type: str
+                path = path[:path.rfind("/")]
+                for valuePath in data['valuePaths']:
+                    self.GetBaseUIControl(path + valuePath).asLabel().SetText(str(value))
+                if value != data['value']:
+                    self.onSliderUpdate(data['formId'], data['index'], value)
+                    self.sliders[self.sliders.index(data)]['value'] = value
+                    self.forms[data['formId']]['controls'][data['index']]['value']['value'] = value
+            for data in self.textfields:
+                value = data['control'].GetEditText()
+                if value != data['value']:
+                    self.onTextfieldUpdate(data['formId'], data['index'], value)
+                    self.textfields[self.textfields.index(data)]['value'] = value
+        except:
+            pass
             
                 
         

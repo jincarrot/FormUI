@@ -8,6 +8,7 @@ class Observable:
     
     @staticmethod
     def create(value):
+        """创建一个可观测变量。"""
         from ..core.utils.environment import isServer, getServerSystem, getClientSystem
         from ..core.config import Namespace, SystemNameServer, SystemNameClient
         observableManager = None

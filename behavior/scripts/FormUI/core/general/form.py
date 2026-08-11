@@ -174,10 +174,13 @@ class Form:
     def custom(self, params={}, style={}):
         pass
 
-    def show(self, target, options={}):
+    def show(self, target=None, options={}):
         """
         显示表单。
         """
+        if not target and not isServer():
+            import mod.client.extraClientApi as c
+            target = c.GetLocalPlayerId()
         defaultOptions = {
             "hideOtherForms": False,
             "layer": "top",
