@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from typing import TypedDict
+from typing import Callable, TypedDict
 
 from ..observable import Observable
 
@@ -17,3 +17,18 @@ class ControlStyle(TypedDict):
     """表单的高度"""
     visible: bool | Observable
     """可见性"""
+
+class ButtonCallbacks(TypedDict):
+    onClick: Callable[[], None]
+    """按钮按下并抬起时触发"""
+    onMoveIn: Callable[[], None]
+    """手指移动入按钮时触发"""
+    onMoveOut: Callable[[], None]
+    """手指移出按钮时触发"""
+
+class DropdownItem(TypedDict):
+    label: str
+    """下拉框选项标签值"""
+    value: int
+    """选项对应索引值"""
+    

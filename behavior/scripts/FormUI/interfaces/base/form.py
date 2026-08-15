@@ -9,8 +9,8 @@ class Form:
     @staticmethod
     def create(title, style={}):
         """创建一个表单。"""
-        from ..core.utils.environment import isServer, getClientSystem, getServerSystem
-        from ..core.config import Namespace, SystemNameServer, SystemNameClient
+        from ...core.utils.environment import isServer, getClientSystem, getServerSystem
+        from ...core.config import Namespace, SystemNameServer, SystemNameClient
         formManager = None
         if isServer():
             server = getServerSystem()

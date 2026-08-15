@@ -26,3 +26,6 @@ def getSystem():
         return getServerSystem()
     else:
         return getClientSystem()
+
+def requestDataFromOtherSide(dataId):
+    data = yield

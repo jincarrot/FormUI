@@ -39,6 +39,7 @@ class Screen(ScreenNode):
         formId = formData['formId']['value']
         formData['basePath'] = self.controlManager.get(style['class']['value']).options['scrollingPanelPath']
         if formId in self.forms:
+            print("[ERROR] FormUI: Form with id %s already exists." % formId)
             return
 
         self.forms[formId] = formData
@@ -58,17 +59,21 @@ class Screen(ScreenNode):
                 close.SetButtonTouchUpCallback(self.onClose)
                 self.setFormTitle(formId, base.options['titlePath'], title['value'])
                 self.setFormContent(formId, base.options['scrollingPanelPath'])
-                # self.setLayer(formId, -1, formData['options']['layer']['value'], baseControl)
+                self.setLayer(formId, -1, formData['options']['layer']['value'], baseControl)
         timerId = c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddRepeatedTimer(0.05, create)
 
     def onClose(self, data):
-        c.PopScreen()
         formId = data['AddTouchEventParams']['formId']
         del self.forms[formId]
         for data in (self.sliders, self.textfields, self.toggles):
             for controlData in data:
                 if controlData['formId'] == formId:
                     del controlData
+        self.RemoveChildControl("/panel/fm%s" % formId)
+        if not self.forms:
+            c.PopScreen()
+        from ...utils.environment import getSystem
+        getSystem().NotifyToServer("closeForm%s" % formId, {"closeReason": "api" if "closeByInterface" in data else "user"})
 
     def setLayer(self, formId, controlIndex, value, c=None):
         if formId not in self.forms:
@@ -90,6 +95,8 @@ class Screen(ScreenNode):
             control = self.GetBaseUIControl("/panel/fm%s" % formId)
         else:
             control = getScrollingContent(self.GetBaseUIControl("/panel/fm%s%s" % (formId, self.forms[formId]['basePath']))).GetChildByPath("/c%s" % controlIndex)
+            if self.controlManager.get(self.forms[formId]['controls'][controlIndex]['style']['class']['value']).typeId == "label" and not value:
+                return
         if c:
             control = c
         control.SetFullSize(axis, value)
@@ -141,6 +148,9 @@ class Screen(ScreenNode):
             c = self.CreateChildControl(controlCls.path, "c%s" % index, content)
             self.forms[formId]['controls'][index]['defaultSize'] = (c.GetFullSize("x"), c.GetFullSize("y"))
             self.forms[formId]['controls'][index]['defaultOffset'] = (c.GetFullPosition("x"), c.GetFullPosition("y"))
+            # set properties
+            typeId = controlCls.typeId
+            getattr(self, "set" + typeId[0].upper() + typeId[1:] + "Properties")(formId, index, controlCls, c)
             temp.append(self.setControlLayout(formId, control, c, formStyle, index, height))
             # Add height
             if not (float(index + 1) % len(formStyle['columns'])):
@@ -150,9 +160,6 @@ class Screen(ScreenNode):
                 if temp:
                     height += max(temp)
                     temp = []
-            # set properties
-            typeId = controlCls.typeId
-            getattr(self, "set" + typeId[0].upper() + typeId[1:] + "Properties")(formId, index, controlCls, c)
 
             onCreate = controlCls.options.get('onCreate')
             if onCreate:
@@ -319,7 +326,7 @@ class Screen(ScreenNode):
         content.SetFullSize("y", {"absoluteValue": itemIndex * height + 2})
         for labelPath in controlCls.options['boxLabelPaths']:
             dropdown.GetChildByPath(labelPath).asLabel().SetText(str(current))
-        self.setControlLabel(formId, index, controlCls.options['labelPaths'], controlData['label']['value'], dropdown)
+        self.setControlLabel(formId, index, controlCls.options['labelPaths'], controlData['label']['value'], c)
 
     def setCustomProperties(self, formId, index, controlCls, c):
         pass
@@ -512,7 +519,8 @@ class Screen(ScreenNode):
         if controlData['value']['value'] != value:
             self.onDropdownValueUpdate(formId, index, value)
         if "tempHeight" in self.forms[formId]:
-            content.SetFullSize("y", {"absoluteValue": self.forms[formId]['tempHeight']})
+            self.moveNextControls(formId, -1)
+            # content.SetFullSize("y", {"absoluteValue": self.forms[formId]['tempHeight']})
             del self.forms[formId]['dropdown']
         control.GetChildByPath(controlCls.options['contentPath']).SetVisible(False)
 

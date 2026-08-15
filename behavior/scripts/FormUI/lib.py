@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
-import core.init_system
-from .interfaces.control import Control
-from .interfaces.controls import Button, ScrollingPanel, Toggle
-from .interfaces.form import Form
-from .interfaces.observable import Observable
+from .core.utils.environment import isServer as __t
+if __t():
+    import core.init_system
+else:
+    import register
+
+from .interfaces.base.control import Control
+from .interfaces.base.controls import Button, ScrollingPanel, Toggle
+from .interfaces.base.form import Form
+from .interfaces.base.observable import Observable
+from .interfaces.base.screen import Screen
+

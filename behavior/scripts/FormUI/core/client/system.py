@@ -12,9 +12,11 @@ class Client(ClientSystem):
         from ..general.managers.observable import ObservableManager
         from ..general.managers.form import FormManager
         from ..general.managers.control import ControlManager
+        from ..general.screen import Screen
         self.observableManager = ObservableManager()
         self.formManager = FormManager()
         self.controlManager = ControlManager()
+        self.screen = Screen()
         self.listenEvents()
 
     def listenEvents(self):
@@ -22,6 +24,8 @@ class Client(ClientSystem):
         self.ListenForEvent(Namespace, SystemNameServer, "applyObservableUpdate", self, self.applyObservableUpdate)
         self.ListenForEvent(Namespace, SystemNameServer, "registerControl", self, self.registerControl)
         self.ListenForEvent(Namespace, SystemNameServer, "showForm", self, self.showForm)
+        self.ListenForEvent(Namespace, SystemNameServer, "closeForm", self, self.closeForm)
+        self.ListenForEvent(Namespace, SystemNameServer, "setDefaultStyle", self, self.setDefaultStyle)
 
     def UIInit(self, data):
         from ..general.controls.oreui import OreUI
@@ -58,3 +62,16 @@ class Client(ClientSystem):
                     c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(timerId)
                     topScreen.addForm(data)
             timerId = c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddRepeatedTimer(0.05, pushFormScreen)
+
+    def closeForm(self, data):
+        closeAll = data.get("closeAll", False)
+        topScreen = c.GetTopScreen()
+        if isFormScreen(topScreen):
+            if closeAll:
+                for formId in topScreen.forms:
+                    topScreen.onClose({"AddTouchEventParams": {"formId": formId}, "closeByInterface": True})
+            else:
+                topScreen.onClose({"AddTouchEventParams": {"formId": data['formId']}, "closeByInterface": True})
+
+    def setDefaultStyle(self, data):
+        self.screen.setDefaultStyle(data['controlType'], data['style'])

@@ -8,7 +8,7 @@ class Control:
 
     @staticmethod
     def register(identifier, controlPath, control):
-        from ..core.utils.environment import isServer
+        from ...core.utils.environment import isServer
         controlType = control.__class__.__name__
         if hasattr(Control, "register" + controlType):
             options = {}
@@ -33,8 +33,8 @@ class Control:
             "buttonPath": ""
         }
         defaultOptions.update(options)
-        from ..core.utils.environment import getSystem, isServer
-        from ..core.general.enums.controlType import ControlType
+        from ...core.utils.environment import getSystem, isServer
+        from ...core.general.enums.controlType import ControlType
         system = getSystem()
         data = {
             "type": ControlType.Button,
@@ -57,8 +57,8 @@ class Control:
             "closeBtnPath": ""
         }
         defaultOptions.update(options)
-        from ..core.utils.environment import getSystem, isServer
-        from ..core.general.enums.controlType import ControlType
+        from ...core.utils.environment import getSystem, isServer
+        from ...core.general.enums.controlType import ControlType
         system = getSystem()
         data = {
             "type": ControlType.Panel,
@@ -80,8 +80,8 @@ class Control:
             "labelPaths": [""]
         }
         defaultOptions.update(options)
-        from ..core.utils.environment import getSystem, isServer
-        from ..core.general.enums.controlType import ControlType
+        from ...core.utils.environment import getSystem, isServer
+        from ...core.general.enums.controlType import ControlType
         system = getSystem()
         data = {
             "type": ControlType.Toggle,
@@ -102,8 +102,8 @@ class Control:
             "labelPaths": ["/label"]
         }
         defaultOptions.update(options)
-        from ..core.utils.environment import getSystem, isServer
-        from ..core.general.enums.controlType import ControlType
+        from ...core.utils.environment import getSystem, isServer
+        from ...core.general.enums.controlType import ControlType
         system = getSystem()
         data = {
             "type": ControlType.Label,
@@ -123,8 +123,8 @@ class Control:
         defaultOptions = {
         }
         defaultOptions.update(options)
-        from ..core.utils.environment import getSystem, isServer
-        from ..core.general.enums.controlType import ControlType
+        from ...core.utils.environment import getSystem, isServer
+        from ...core.general.enums.controlType import ControlType
         system = getSystem()
         data = {
             "type": ControlType.Divider,
@@ -146,8 +146,8 @@ class Control:
             "textfieldPath": "/textfield"
         }
         defaultOptions.update(options)
-        from ..core.utils.environment import getSystem, isServer
-        from ..core.general.enums.controlType import ControlType
+        from ...core.utils.environment import getSystem, isServer
+        from ...core.general.enums.controlType import ControlType
         system = getSystem()
         data = {
             "type": ControlType.Textfield,
@@ -170,8 +170,8 @@ class Control:
             "valuePaths": ["/value"]
         }
         defaultOptions.update(options)
-        from ..core.utils.environment import getSystem, isServer
-        from ..core.general.enums.controlType import ControlType
+        from ...core.utils.environment import getSystem, isServer
+        from ...core.general.enums.controlType import ControlType
         system = getSystem()
         data = {
             "type": ControlType.Slider,
@@ -197,8 +197,8 @@ class Control:
             "itemControl": ""
         }
         defaultOptions.update(options)
-        from ..core.utils.environment import getSystem, isServer
-        from ..core.general.enums.controlType import ControlType
+        from ...core.utils.environment import getSystem, isServer
+        from ...core.general.enums.controlType import ControlType
         system = getSystem()
         data = {
             "type": ControlType.Dropdown,
@@ -215,8 +215,8 @@ class Control:
         """
         注册一个自定义控件。
         """
-        from ..core.utils.environment import getSystem, isServer
-        from ..core.general.enums.controlType import ControlType
+        from ...core.utils.environment import getSystem, isServer
+        from ...core.general.enums.controlType import ControlType
         system = getSystem()
         data = {
             "type": ControlType.Custom,

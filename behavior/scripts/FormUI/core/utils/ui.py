@@ -19,6 +19,7 @@ def getSizeDict(info):
     elif isinstance(info, str):
         absoluteValue = 0.0
         relativeValue = 0.0
+        followType = "parent"
         if info == "fill":
             relativeValue = 1.0
         elif info == 'default':
@@ -27,6 +28,7 @@ def getSizeDict(info):
             tempNum = ""
             sgn = 1
             info = info.replace(" ", "")
+            index = 0
             for char in info:
                 if char.isdigit():
                     tempNum += char
@@ -42,12 +44,18 @@ def getSizeDict(info):
                     elif char == "-":
                         sgn = -1
                     elif char == "x":
-                        pass
+                        if info[index - 1] == "%":
+                            followType = "x"
+                    elif char == "y":
+                        if info[index - 1] == "%":
+                            followType = "y"
                     else:
                         raise Exception("Invalid value!")
-        return {"absoluteValue": absoluteValue, "relativeValue": relativeValue, "followType": "parent"}
+                index += 1
+        return {"absoluteValue": absoluteValue, "relativeValue": relativeValue, "followType": followType}
     else:
         raise Exception("Invalid value!")
+
 
 def getStepedValue(v, minV, maxV, step):
     maxBorder = math.floor((maxV - minV) / step) * step + minV

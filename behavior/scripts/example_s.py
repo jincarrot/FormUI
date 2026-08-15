@@ -38,7 +38,7 @@ class ExampleServer(ServerSystem):
         form.button(label, {"onClick": click}, {"class": "oreui:green_btn_thin", "visible": height})
         form.button(label, {"onMoveIn": moveIn, "onMoveOut": moveOut}, {"class": "oreui:red_btn_thin", "height": height, "visible": height})
         form.toggle(label, state)
-        form.slider("test", height, 0, title, 1)
+        # form.slider("test", height, 0, title, 1)
         form.dropdown(label, [
             {
                 "label": "test1",
@@ -49,6 +49,6 @@ class ExampleServer(ServerSystem):
                 "value": 2
             }
         ], height)
-        # form.textfield(title, title)
+        form.textfield(title, title)
         form.show(playerId)
         

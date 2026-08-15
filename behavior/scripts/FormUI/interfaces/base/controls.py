@@ -18,7 +18,7 @@ class ScrollingPanel(ControlType):
     """滚动面板注册类"""
 
     def __init__(self, onCreate=None, scrollingPanelPath="", titlePath="", closeBtnPath=""):
-        ScrollingPanel.__init__(self, onCreate)
+        ControlType.__init__(self, onCreate)
         self.scrollingPanelPath = scrollingPanelPath
         self.titlePath = titlePath
         self.closeBtnPath = closeBtnPath

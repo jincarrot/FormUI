@@ -20,3 +20,12 @@ class FormStyle(TypedDict):
     
     如，[1, 2, 1]意为3列，宽度比例为1:2:1
     """
+
+class FormOptions(TypedDict):
+    """表单创建选项"""
+    hideOtherForms: bool
+    """弹出时，隐藏其他表单"""
+    layer: int
+    """表单所处层级"""
+    visible: bool
+    """表单可见性"""

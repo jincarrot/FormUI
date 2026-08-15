@@ -26,12 +26,13 @@ class ExampleClient(ClientSystem):
         label = Observable.create("222")
         state = Observable.create(True)
         height = Observable.create(30)
-        state.onUpdate(toggle)
+        state.subscribe(toggle)
         form = Form.create(title, {"columns": [1], "offsetX": height})
         form.button(label, {"onClick": click}, {"class": "oreui:green_btn_thin", "visible": height})
         form.button(label, {"onMoveIn": moveIn, "onMoveOut": moveOut}, {"class": "oreui:red_btn_thin", "height": height, "visible": height})
         form.toggle(label, state)
-        form.slider("test", height, 0, title, 1)
+        # form.slider("test", height, 0, title, 1)
+        form.label("line1\nline2\nline3")
         form.dropdown(label, [
             {
                 "label": "test1",
@@ -42,5 +43,5 @@ class ExampleClient(ClientSystem):
                 "value": 2
             }
         ], height)
-        # form.textfield(title, title)
+        form.textfield(title, title)
         form.show()

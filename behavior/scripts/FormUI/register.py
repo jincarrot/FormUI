@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-客户端注册，导入即可。
+[已弃用] 客户端注册，导入即可。
 """
 import mod.client.extraClientApi as clientApi
 
