@@ -8,8 +8,14 @@ class FormShowResult:
     """
     def __init__(self, formId):
         self.__formId = formId
-        self._onClose = lambda data: None
+        self.__callback = None
         getSystem().ListenForEvent(Namespace, SystemNameClient, "formClose%s" % formId, self, self._onClose)
+
+    def _onClose(self, data):
+        getSystem().UnListenForEvent(Namespace, SystemNameClient, "formClose%s" % self.__formId, self, self._onClose)
+        getSystem().formManager.get(self.__formId)._isShowing = False
+        if self.__callback:
+            self.__callback(data)
 
     def onClose(self, callback):
         """
@@ -17,8 +23,8 @@ class FormShowResult:
 
         callback: 回调函数，参数为表单对象
         """
-        self._onClose = callback
-        getSystem().UnListenForEvent(Namespace, SystemNameClient, "formClose%s" % self.__formId, self, self._onClose)
+        self.__callback = callback
+        
 
 class Form:
     """
@@ -34,17 +40,23 @@ class Form:
             "class": "oreui:light_panel_thin",
             "offsetX": 0,
             "offsetY": 0,
-            "width": "62%y",
+            "width": "72%y",
             "height": "90%",
             "columns": [1],
             "closeAll": False
         })
         defaultStyle.update(style)
         self.__style = defaultStyle
+        self._isShowing = False
+        self.identifier = ""
         self._btnCallbacks = {
             0: lambda: None
         }
 
+    @property
+    def isShowing(self):
+        return self._isShowing
+    
     def button(self, label, callbacks={}, style={}):
         # type: (str, dict, dict) -> Form
         """
@@ -60,9 +72,9 @@ class Form:
         }
         defaultStyle = getSystem().screen.getDefaultStyle("button", {
             "class": "oreui:normal_btn_thin",
-            "width": "100%-4px",
+            "width": "100%-8px",
             "height": "default",
-            "offsetX": 2,
+            "offsetX": 4,
             "offsetY": 0,
             "visible": True
         })
@@ -81,9 +93,9 @@ class Form:
         """
         defaultStyle = getSystem().screen.getDefaultStyle("toggle", {
             "class": "oreui:toggle_thin",
-            "width": "100%-4px",
+            "width": "100%-8px",
             "height": "default",
-            "offsetX": 2,
+            "offsetX": 4,
             "offsetY": 0,
             "visible": True
         })
@@ -102,9 +114,9 @@ class Form:
         """
         defaultStyle = getSystem().screen.getDefaultStyle("divider", {
             "class": "oreui:divider_in",
-            "width": "100%-4px",
+            "width": "100%-8px",
             "height": 2,
-            "offsetX": 2,
+            "offsetX": 4,
             "offsetY": 0,
             "visible": True
         })
@@ -121,9 +133,9 @@ class Form:
         """
         defaultStyle = getSystem().screen.getDefaultStyle("label", {
             "class": "oreui:label",
-            "width": "100%-4px",
+            "width": "100%-8px",
             "height": "default",
-            "offsetX": 2,
+            "offsetX": 4,
             "offsetY": 0,
             "visible": True,
             "fontSize": "default"
@@ -139,9 +151,9 @@ class Form:
         """添加一个滑动条。"""
         defaultStyle = getSystem().screen.getDefaultStyle("slider", {
             "class": "oreui:slider",
-            "width": "100%-4px",
+            "width": "100%-8px",
             "height": "default",
-            "offsetX": 2,
+            "offsetX": 4,
             "offsetY": 0,
             "visible": True
         })
@@ -159,9 +171,9 @@ class Form:
     def textfield(self, label, value, style={}):
         defaultStyle = getSystem().screen.getDefaultStyle("textfield", {
             "class": "oreui:textfield",
-            "width": "100%-4px",
+            "width": "100%-8px",
             "height": "default",
-            "offsetX": 2,
+            "offsetX": 4,
             "offsetY": 0,
             "visible": True
         })
@@ -176,9 +188,9 @@ class Form:
     def dropdown(self, label, items, value, style={}):
         defaultStyle = getSystem().screen.getDefaultStyle("dropdown", {
             "class": "oreui:dropdown",
-            "width": "100%-4px",
+            "width": "100%-8px",
             "height": "default",
-            "offsetX": 2,
+            "offsetX": 4,
             "offsetY": 0,
             "visible": True
         })
@@ -192,7 +204,20 @@ class Form:
         return self
     
     def custom(self, params={}, style={}):
-        pass
+        defaultStyle = getSystem().screen.getDefaultStyle("custom", {
+            "class": "oreui:divider",
+            "width": "100%-8px",
+            "height": "default",
+            "offsetX": 4,
+            "offsetY": 0,
+            "visible": True
+        })
+        defaultStyle.update(style)
+        self.__controls.append({
+            "params": params,
+            "style": style
+        })
+        return self
 
     def show(self, target=None, options={}):
         """
@@ -228,6 +253,7 @@ class Form:
                 getSystem().NotifyToMultiClients(target, "showForm", data)
         else:
             getSystem().showForm(data)
+        self._isShowing = True
         return FormShowResult(self.__id)
 
     def close(self, target=None):

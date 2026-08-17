@@ -68,8 +68,8 @@ class Client(ClientSystem):
         topScreen = c.GetTopScreen()
         if isFormScreen(topScreen):
             if closeAll:
-                for formId in topScreen.forms:
-                    topScreen.onClose({"AddTouchEventParams": {"formId": formId}, "closeByInterface": True})
+                while topScreen.forms:
+                    topScreen.onClose({"AddTouchEventParams": {"formId": topScreen.forms.keys()[0]}, "closeByInterface": True})
             else:
                 topScreen.onClose({"AddTouchEventParams": {"formId": data['formId']}, "closeByInterface": True})
 

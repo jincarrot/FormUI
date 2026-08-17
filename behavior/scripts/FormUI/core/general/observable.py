@@ -20,6 +20,14 @@ class Observable:
         self.__id = id
         self.__v1 = value
         self._onUpdate = onUpdate
+        self.identifier = ""
+        """变量标识符，可以用于区分变量。"""
+
+    def getData(self):
+        return self.__v1
+
+    def setData(self, v):
+        self.setValue(v)
 
     @property
     def _id(self):

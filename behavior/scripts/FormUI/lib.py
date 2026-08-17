@@ -10,4 +10,4 @@ from .interfaces.base.controls import Button, ScrollingPanel, Toggle
 from .interfaces.base.form import Form
 from .interfaces.base.observable import Observable
 from .interfaces.base.screen import Screen
-
+from .core.general.enums.controlType import ControlType

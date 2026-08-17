@@ -20,6 +20,8 @@ class Screen(ScreenNode):
         self.toggles = []
         self.sliders = []
         self.textfields = []
+        self.__loadingForms = []
+        self.__repeatFuncs = []
 
     def isAllReady(self):
         return self.__allready
@@ -43,9 +45,11 @@ class Screen(ScreenNode):
             return
 
         self.forms[formId] = formData
+        timerId = {"id": 0}
         def create():
             if self.GetBaseUIControl("/panel"):
-                c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(timerId)
+                self.__loadingForms.remove(create)
+                c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(timerId['id'])
                 base = self.controlManager.get(style['class']['value'])
                 baseControl = self.CreateChildControl(base.path, "fm%s" % formId, self.GetBaseUIControl("/panel"))
                 self.forms[formId]['defaultSize'] = (baseControl.GetFullSize("x"), baseControl.GetFullSize("y"))
@@ -60,20 +64,26 @@ class Screen(ScreenNode):
                 self.setFormTitle(formId, base.options['titlePath'], title['value'])
                 self.setFormContent(formId, base.options['scrollingPanelPath'])
                 self.setLayer(formId, -1, formData['options']['layer']['value'], baseControl)
-        timerId = c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddRepeatedTimer(0.05, create)
-
+        self.__loadingForms.append(create)
+        comp = c.GetEngineCompFactory().CreateGame(c.GetLevelId())
+        def after():
+            timerId['id'] = comp.AddRepeatedTimer(0.05, create)
+        comp.AddTimer(0.05 * len(self.__loadingForms), after)
+        
     def onClose(self, data):
         formId = data['AddTouchEventParams']['formId']
-        del self.forms[formId]
-        for data in (self.sliders, self.textfields, self.toggles):
-            for controlData in data:
-                if controlData['formId'] == formId:
-                    del controlData
-        self.RemoveChildControl("/panel/fm%s" % formId)
-        if not self.forms:
-            c.PopScreen()
-        from ...utils.environment import getSystem
-        getSystem().NotifyToServer("closeForm%s" % formId, {"closeReason": "api" if "closeByInterface" in data else "user"})
+        if formId in self.forms:
+            del self.forms[formId]
+            for updatedData in (self.sliders, self.textfields, self.toggles):
+                for controlData in updatedData:
+                    if controlData['formId'] == formId:
+                        del controlData
+            self.RemoveChildControl(self.GetBaseUIControl("/panel/fm%s" % formId))
+            if not self.forms:
+                c.PopScreen()
+            from ...utils.environment import getSystem
+            getSystem().NotifyToServer("formClose%s" % formId, {"closeReason": "api" if "closeByInterface" in data else "user"})
+            getSystem().BroadcastEvent("formClose%s" % formId, {"closeReason": "api" if "closeByInterface" in data else "user"})
 
     def setLayer(self, formId, controlIndex, value, c=None):
         if formId not in self.forms:
@@ -99,7 +109,22 @@ class Screen(ScreenNode):
                 return
         if c:
             control = c
-        control.SetFullSize(axis, value)
+        ori = control.GetFullSize(axis)
+        if controlIndex == -1 and ori.get("followType") == value.get("followType", "parent"):
+            size = {
+                "absoluteValue": ori['absoluteValue'],
+                "relativeValue": ori['relativeValue'],
+                "followType": ori['followType']
+            }
+            apt = float(value['absoluteValue'] - ori['absoluteValue']) / 10.0
+            rpt = float(value['relativeValue'] - ori['relativeValue']) / 10.0
+            def repeat(ori=ori, tar=value):
+                size['absoluteValue'] += apt
+                size['relativeValue'] += rpt
+                control.SetFullSize(axis, size)
+            self.addRepeatFunc(repeat, 10)
+        else:
+            control.SetFullSize(axis, value)
 
     def setOffset(self, formId, controlIndex, axis, value, c=None):
         if formId not in self.forms:
@@ -112,7 +137,28 @@ class Screen(ScreenNode):
             control = getScrollingContent(self.GetBaseUIControl("/panel/fm%s%s" % (formId, self.forms[formId]['basePath']))).GetChildByPath("/c%s" % controlIndex)
         if c:
             control = c
-        control.SetFullPosition(axis, value)
+        ori = control.GetFullPosition(axis)
+        if not ori:
+            ori = {
+                "absoluteValue": 0.0,
+                "relativeValue": 0.0,
+                "followType": "parent"
+            }
+        if controlIndex == -1 and ori.get("followType") == value.get("followType", "parent"):
+            size = {
+                "absoluteValue": ori['absoluteValue'],
+                "relativeValue": ori['relativeValue'],
+                "followType": ori['followType']
+            }
+            apt = float(value['absoluteValue'] - ori['absoluteValue']) / 10.0
+            rpt = float(value['relativeValue'] - ori['relativeValue']) / 10.0
+            def repeat(ori=ori, tar=value):
+                size['absoluteValue'] += apt
+                size['relativeValue'] += rpt
+                control.SetFullPosition(axis, size)
+            self.addRepeatFunc(repeat, 10)
+        else:
+            control.SetFullPosition(axis, value)
 
     def setControlLabel(self, formId, controlIndex, labelPaths, value, c=None):
         if formId not in self.forms:
@@ -297,7 +343,7 @@ class Screen(ScreenNode):
         controlData = self.forms[formId]['controls'][index]
         self.textfields.append({"control": textfield, "formId": formId, "index": index, "value": controlData['value']['value']})
         textfield.SetEditText(str(controlData['value']['value']))
-        self.setControlLabel(formId, index, controlCls.options['labelPaths'], controlData['label']['value'], textfield)
+        self.setControlLabel(formId, index, controlCls.options['labelPaths'], controlData['label']['value'], c)
 
     def setDropdownProperties(self, formId, index, controlCls, c):
         dropdown = c.GetChildByPath(controlCls.options['dropdownPath'])
@@ -329,6 +375,9 @@ class Screen(ScreenNode):
         self.setControlLabel(formId, index, controlCls.options['labelPaths'], controlData['label']['value'], c)
 
     def setCustomProperties(self, formId, index, controlCls, c):
+        pass
+
+    def setDividerProperties(self, formId, index, controlCls, c):
         pass
 
     def onButtonClick(self, formId, callbackId):
@@ -467,6 +516,14 @@ class Screen(ScreenNode):
                 if shouldUpdate(style['visible'], obId):
                     style['visible']['value'] = value
                     self.moveNextControls(formId, index - 1)
+            if controlCls.typeId == "custom":
+                for data in control['params']:
+                    if shouldUpdate(control['params'][data], obId):
+                        onUpdate = controlCls.options['onObservableUpdate']
+                        if onUpdate:
+                            from ...utils.type import ObservableUpdateArguments
+                            from ...utils.environment import getSystem
+                            onUpdate(ObservableUpdateArguments(getSystem().observableManager.get(obId), data))
             index += 1
 
     def onToggleUpdate(self, formId, index, value):
@@ -530,7 +587,8 @@ class Screen(ScreenNode):
         content = getScrollingContent(self.GetBaseUIControl("/panel/fm%s%s" % (formId, self.forms[formId]['basePath'])))
         if self.forms[formId].get("dropdown"):
             self.forms[formId].get("dropdown").SetVisible(False)
-            content.SetFullSize("y", {"absoluteValue": self.forms[formId]['tempHeight']})
+            self.moveNextControls(formId, -1)
+            # content.SetFullSize("y", {"absoluteValue": self.forms[formId]['tempHeight']})
         control = content.GetChildByPath("/c%s" % index)
         items = control.GetChildByPath(controlCls.options['contentPath'])
         items.SetVisible(True)
@@ -550,6 +608,20 @@ class Screen(ScreenNode):
             content.SetFullSize("y", {"absoluteValue": content.GetSize()[1] + heightRemain})
 
     def Update(self):
+        for funcData in self.__repeatFuncs:
+            try:
+                funcData['function']()
+                funcData['current'] += 1
+                if funcData['current'] >= funcData['times']:
+                    self.__repeatFuncs.remove(funcData)
+            except:
+                pass
+        preScreen = self.GetBaseUIControl("/pre_screen")
+        if preScreen:
+            if self.__loadingForms:
+                preScreen.SetVisible(True)
+            else:
+                preScreen.SetVisible(False)
         try:
             for data in self.toggles:
                 value = data['control'].GetToggleState(data['path'])
@@ -577,6 +649,8 @@ class Screen(ScreenNode):
                     self.textfields[self.textfields.index(data)]['value'] = value
         except:
             pass
-            
+
+    def addRepeatFunc(self, function, times):
+        self.__repeatFuncs.append({"function": function, "times": times, "current": 0})
                 
         

@@ -48,5 +48,8 @@ class Textfield(ControlType):
         self.labelPaths = labelPaths
 
 class Custom(ControlType):
-    def __init__(self, onCreate=None):
+    """自定义控件"""
+    
+    def __init__(self, onCreate=None, onObservableUpdate=None):
         ControlType.__init__(self, onCreate)
+        self.onObservableUpdate = onObservableUpdate

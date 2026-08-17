@@ -19,8 +19,8 @@ class Control:
                     options[key] = getattr(control, key)
                 except:
                     pass
-                if key == "onCreate" and getattr(control, key) and isServer():
-                    raise Exception("只有处于客户端环境时可以传入onCreate参数！")
+                if key in ["onCreate", "onObservableUpdate"] and getattr(control, key) and isServer():
+                    raise Exception("只有处于客户端环境时可以传入onCreate和onObservableUpdate参数！")
             getattr(Control, "register" + controlType)(identifier, controlPath, options)
     
     @staticmethod

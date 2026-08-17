@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from behavior.scripts.FormUI.interfaces.base.controls import ControlType
+from ...interfaces.base.controls import ControlType
 
 class Control:
     """自定义控件"""

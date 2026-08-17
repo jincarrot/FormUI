@@ -14,6 +14,20 @@ class CreateArguments:
     def control(self):
         return self.__control
 
+class ObservableUpdateArguments:
+
+    def __init__(self, ob, key):
+        self.__ob = ob
+        self.__key = key
+
+    @property
+    def observable(self):
+        return self.__ob
+
+    @property
+    def key(self):
+        return self.__key
+
 def wrapVariable(value, record=[]):
     # type: (any, list) -> dict
     typeId = value.__class__.__name__

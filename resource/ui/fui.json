@@ -36,6 +36,30 @@
                         "100%"
                     ]
                 }
+            },
+            {
+                "pre_screen": {
+                    "type": "panel",
+                    "controls": [
+                        {
+                            "progress@progress.progress_loading_bars": {
+                                "size": [
+                                    30,
+                                    4
+                                ],
+                                "bindings": [
+                                    {
+                                        "binding_type": "view",
+                                        "source_control_name": "image",
+                                        "resolve_sibling_scope": true,
+                                        "source_property_name": "(#texture = 'loading')",
+                                        "target_property_name": "#visible"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
             }
         ]
     },

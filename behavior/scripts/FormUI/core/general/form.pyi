@@ -22,6 +22,11 @@ class Form:
     """
     自定义表单类（客户端服务端通用）
     """
+    identifier: str
+
+    @property
+    def isShowing(self) -> bool:
+        """表单是否正在显示"""
 
     def button(self, label: str | Observable, callbacks: ButtonCallbacks={}, style: ControlStyle={}) -> Form:
         """
@@ -108,7 +113,7 @@ class Form:
         style: 下拉框样式
         """
     
-    def __custom(self, params={}, style: ControlStyle={}) -> Form: ...
+    def custom(self, params: dict={}, style: ControlStyle={}) -> Form: ...
 
     def show(self, target: list[str] | str, options: FormOptions={}) -> FormShowResult:
         """
