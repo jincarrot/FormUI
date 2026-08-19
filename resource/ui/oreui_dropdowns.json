@@ -17,7 +17,7 @@
                         0.0,
                         2.0
                     ],
-                    "font_scale_factor": 1.25,
+                    "font_scale_factor": 1.1,
                     "font_type": "smooth",
                     "text": "Label"
                 }
@@ -101,7 +101,7 @@
             0,
             0
         ],
-        "$label_font_scale_factor": 1.25,
+        "$label_font_scale_factor": 1.1,
         "$label_font_size": "normal",
         "$label_text": "Button",
         "$pressed_button_name": "%netease_editor_template_namespace.click",

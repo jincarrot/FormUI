@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from ..utils.environment import *
 
+ObId = 0
+
 class Observable:
     """
     可观测变量
     """
     
-    def __init__(self, value, id):
+    def __init__(self, value):
+        global ObId
         def onUpdate(new):
             for callback in self.__callbacks:
                 callback(new)
@@ -17,7 +20,8 @@ class Observable:
             else:
                 getClientSystem().observableManager.update(self._id, new)
         self.__callbacks = [temp]
-        self.__id = id
+        self.__id = ObId
+        ObId += 1
         self.__v1 = value
         self._onUpdate = onUpdate
         self.identifier = ""

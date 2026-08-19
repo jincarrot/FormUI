@@ -36,7 +36,6 @@ class Screen(ScreenNode):
         self.observables += formData['observables']
         self.observables = list(set(self.observables))
 
-        title = formData['title']
         style = formData['style']
         formId = formData['formId']['value']
         formData['basePath'] = self.controlManager.get(style['class']['value']).options['scrollingPanelPath']
@@ -46,34 +45,53 @@ class Screen(ScreenNode):
 
         self.forms[formId] = formData
         timerId = {"id": 0}
-        def create():
+        def create(formData):
             if self.GetBaseUIControl("/panel"):
-                self.__loadingForms.remove(create)
+                title = formData['title']
+                style = formData['style']
+                formId = formData['formId']['value']
                 c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(timerId['id'])
+                self.__loadingForms.remove(formId)
                 base = self.controlManager.get(style['class']['value'])
                 baseControl = self.CreateChildControl(base.path, "fm%s" % formId, self.GetBaseUIControl("/panel"))
+                if formId not in self.forms:
+                    self.forms[formId] = formData
                 self.forms[formId]['defaultSize'] = (baseControl.GetFullSize("x"), baseControl.GetFullSize("y"))
                 self.setSize(formId, -1, "x", getSizeDict(style['width']['value']), baseControl)
                 self.setSize(formId, -1, "y", getSizeDict(style['height']['value']), baseControl)
                 self.forms[formId]['defaultOffset'] = (baseControl.GetFullPosition("x"), baseControl.GetFullPosition("y"))
                 self.setOffset(formId, -1, "x", getSizeDict(style['offsetX']['value']), baseControl)
                 self.setOffset(formId, -1, "y", getSizeDict(style['offsetY']['value']), baseControl)
-                close = baseControl.GetChildByPath(base.options['closeBtnPath']).asButton()
-                close.AddTouchEventParams({"formId": formId})
-                close.SetButtonTouchUpCallback(self.onClose)
+                close = baseControl.GetChildByPath(base.options['closeBtnPath'])
+                if close:
+                    close = close.asButton()
+                    close.AddTouchEventParams({"formId": formId})
+                    close.SetButtonTouchUpCallback(self.onClose)
                 self.setFormTitle(formId, base.options['titlePath'], title['value'])
                 self.setFormContent(formId, base.options['scrollingPanelPath'])
+
                 self.setLayer(formId, -1, formData['options']['layer']['value'], baseControl)
-        self.__loadingForms.append(create)
+                hideOthers = formData['options']['hideOtherForms']['value']
+                if hideOthers:
+                    for fId in self.forms:
+                        if fId != formId:
+                            self.GetBaseUIControl("/panel/fm%s" % fId).SetVisible(False)
+
         comp = c.GetEngineCompFactory().CreateGame(c.GetLevelId())
-        def after():
-            timerId['id'] = comp.AddRepeatedTimer(0.05, create)
-        comp.AddTimer(0.05 * len(self.__loadingForms), after)
+        def after(formData):
+            timerId['id'] = comp.AddRepeatedTimer(0.05, create, formData)
+        comp.AddTimer(0.05 * len(self.__loadingForms), after, formData)
+        self.__loadingForms.append(formId)
         
     def onClose(self, data):
         formId = data['AddTouchEventParams']['formId']
         if formId in self.forms:
+            hideOthers = self.forms[formId]['options']['hideOtherForms']['value']
             del self.forms[formId]
+            if hideOthers:
+                for fId in self.forms:
+                    fData = self.forms[fId]
+                    self.GetBaseUIControl("/panel/fm%s" % fId).SetVisible(fData['options']['visible']['value'])
             for updatedData in (self.sliders, self.textfields, self.toggles):
                 for controlData in updatedData:
                     if controlData['formId'] == formId:
@@ -123,6 +141,7 @@ class Screen(ScreenNode):
                 size['relativeValue'] += rpt
                 control.SetFullSize(axis, size)
             self.addRepeatFunc(repeat, 10)
+            control.SetFullSize(axis, value)
         else:
             control.SetFullSize(axis, value)
 
@@ -580,22 +599,26 @@ class Screen(ScreenNode):
             # content.SetFullSize("y", {"absoluteValue": self.forms[formId]['tempHeight']})
             del self.forms[formId]['dropdown']
         control.GetChildByPath(controlCls.options['contentPath']).SetVisible(False)
+        control.GetChildByPath(controlCls.options['dropdownPath']).SetVisible(True)
 
     def onDropdownBoxClick(self, formId, index):
         controlData = self.forms[formId]['controls'][index]
         controlCls = self.controlManager.get(controlData['style']['class']['value'])
         content = getScrollingContent(self.GetBaseUIControl("/panel/fm%s%s" % (formId, self.forms[formId]['basePath'])))
         if self.forms[formId].get("dropdown"):
-            self.forms[formId].get("dropdown").SetVisible(False)
+            self.forms[formId].get("dropdown")[1].SetVisible(False)
+            self.forms[formId].get("dropdown")[0].SetVisible(True)
             self.moveNextControls(formId, -1)
             # content.SetFullSize("y", {"absoluteValue": self.forms[formId]['tempHeight']})
         control = content.GetChildByPath("/c%s" % index)
         items = control.GetChildByPath(controlCls.options['contentPath'])
         items.SetVisible(True)
+        box = control.GetChildByPath(controlCls.options['dropdownPath'])
+        box.SetVisible(False)
         heightRemain = items.GetSize()[1] - control.GetSize()[1] + 15
         i = index + 1
         maxControls = len(self.forms[formId]['controls'])
-        self.forms[formId]["dropdown"] = items
+        self.forms[formId]["dropdown"] = (box, items)
         while heightRemain > 0:
             if i + 1 >= maxControls:
                 break

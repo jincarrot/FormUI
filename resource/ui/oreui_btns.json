@@ -21,7 +21,7 @@
             1,
             1
         ],
-        "$label_font_scale_factor": 1.5,
+        "$label_font_scale_factor": 1.1,
         "$label_font_size": "normal",
         "$label_text": "Button",
         "$pressed_button_name": "%netease_editor_template_namespace.click",
@@ -307,7 +307,7 @@
             1,
             1
         ],
-        "$label_font_scale_factor": 1.5,
+        "$label_font_scale_factor": 1.1,
         "$label_font_size": "normal",
         "$label_text": "Button",
         "$pressed_button_name": "%netease_editor_template_namespace.click",

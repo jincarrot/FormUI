@@ -22,4 +22,6 @@ class ControlType:
     Dropdown = "dropdown"
 
     Custom = "custom"
+
+    Divider = "divider"
     

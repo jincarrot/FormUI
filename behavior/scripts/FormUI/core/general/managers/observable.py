@@ -9,13 +9,11 @@ class ObservableManager:
 
     def __init__(self):
         self.__observables = {} # type: dict[int, Observable]
-        self.__currentId = 1 if isServer() else -1
     
     def create(self, value):
         """Create an observable."""
-        v = Observable(value, self.__currentId)
-        self.__observables[self.__currentId] = v
-        self.__currentId += 1 if isServer() else -1
+        v = Observable(value)
+        self.__observables[v._id] = v
         return v
 
     def update(self, id, value):

@@ -6,6 +6,12 @@ class ControlType:
     def __init__(self, onCreate=None):
         self.onCreate = onCreate
 
+class Divider(ControlType):
+    """分割线注册类"""
+
+    def __init__(self, onCreate=None):
+        ControlType.__init__(self, onCreate)
+
 class Button(ControlType):
     """按钮注册类"""
 
@@ -34,10 +40,11 @@ class Toggle(ControlType):
 class Slider(ControlType):
     """滑动条注册类"""
 
-    def __init__(self, onCreate=None, sliderPath="", labelPaths=["/label"]):
+    def __init__(self, onCreate=None, sliderPath="", labelPaths=["/label"], valuePaths=['/value']):
         ControlType.__init__(self, onCreate)
         self.sliderPath = sliderPath
         self.labelPaths = labelPaths
+        self.valuePaths = valuePaths
 
 class Textfield(ControlType):
     """文本输入框注册类"""
@@ -46,6 +53,17 @@ class Textfield(ControlType):
         ControlType.__init__(self, onCreate)
         self.textfieldPath = textfieldPath
         self.labelPaths = labelPaths
+
+class Dropdown(ControlType):
+
+    def __init__(self, onCreate=None, dropdownPath="", labelPaths=["/label"], boxLabelPaths=['/button_label'], itemLabelPaths=['/button_label'], contentPath="/content_panel", itemControl=""):
+        ControlType.__init__(self, onCreate)
+        self.labelPaths = labelPaths
+        self.dropdownPath = dropdownPath
+        self.boxLabelPaths = boxLabelPaths
+        self.itemLabelPaths = itemLabelPaths
+        self.contentPath = contentPath
+        self.itemControl = itemControl
 
 class Custom(ControlType):
     """自定义控件"""

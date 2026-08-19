@@ -6,7 +6,7 @@ else:
     import register
 
 from .interfaces.base.control import Control
-from .interfaces.base.controls import Button, ScrollingPanel, Toggle
+from .interfaces.base.controls import *
 from .interfaces.base.form import Form
 from .interfaces.base.observable import Observable
 from .interfaces.base.screen import Screen

@@ -56,12 +56,12 @@ class Client(ClientSystem):
             topScreen.addForm(data)
         else:
             c.PushScreen(Namespace, "screen", {})
-            def pushFormScreen():
+            def pushFormScreen(data):
                 topScreen = c.GetTopScreen()
                 if isFormScreen(topScreen) and topScreen.isAllReady():
                     c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(timerId)
                     topScreen.addForm(data)
-            timerId = c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddRepeatedTimer(0.05, pushFormScreen)
+            timerId = c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddRepeatedTimer(0.05, pushFormScreen, data)
 
     def closeForm(self, data):
         closeAll = data.get("closeAll", False)
