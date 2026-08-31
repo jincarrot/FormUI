@@ -33,8 +33,10 @@ class Screen:
         else:
             getSystem().closeForm({"closeAll": True})
 
-    def setDefaultStyle(self, controlType, style):
+    def setDefaultStyle(self, controlType, style, sync=False):
         self.__defaultStyles[controlType] = style
+        if not sync:
+            return
         if isServer():
             getSystem().BroadcastToAllClient("setDefaultStyle", {"controlType": controlType, "style": style})
         else:

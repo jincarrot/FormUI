@@ -6,7 +6,7 @@ class Screen:
     @staticmethod
     def setDefaultStyle(controlType, style):
         from ...core.utils.environment import getSystem
-        getSystem().screen.setDefaultStyle(controlType, style)
+        getSystem().screen.setDefaultStyle(controlType, style, True)
 
     @staticmethod
     def closeAllForms(target):
