@@ -1,0 +1,4 @@
+interface:
+  display_name: "FormUI 表单开发"
+  short_description: "在网易我的世界中使用 FormUI 制作表单、绑定数据和组合控件"
+  default_prompt: "使用 $netease-formui，按我的需求编写网易我的世界表单，沿用宿主项目的运行端、初始化入口和资源配置。"

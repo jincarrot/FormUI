@@ -9,3 +9,5 @@
 [Group 控件使用说明](docs/group-controls.md)
 
 [布局与参数约定](docs/layout-parameters.md)
+
+[使用 AI Skill 编写 FormUI 表单](docs/skill-usage.md)
