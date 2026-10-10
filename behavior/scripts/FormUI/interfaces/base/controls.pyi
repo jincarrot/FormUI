@@ -1,56 +1,66 @@
 # -*- coding: utf-8 -*-
-
-from typing import Callable
-
+from typing import Callable, TypeAlias
+from ...core.general.interfaces.controls import GroupDefinitions
 from ...core.utils.type import CreateArguments, ObservableUpdateArguments
 
+CreateCallback: TypeAlias = Callable[[CreateArguments], None]
+UpdateCallback: TypeAlias = Callable[[ObservableUpdateArguments], None]
+ControlPaths: TypeAlias = list[str] | tuple[str, ...]
+LabelPaths: TypeAlias = str | ControlPaths
+
 class ControlType:
-    """控件注册类"""
+    """控件注册描述，不是 lib.ControlType 中的控件类型字符串常量。"""
+    onCreate: CreateCallback | None
+    def __init__(self, onCreate: CreateCallback | None = None) -> None: ...
 
 class Divider(ControlType):
-    """分割线注册类"""
+    def __init__(self, onCreate: CreateCallback | None = None) -> None: ...
 
-    def __init__(self, onCreate: Callable[[CreateArguments], None]=None):
-        pass
-    
 class Button(ControlType):
-    """按钮注册类"""
-
-    def __init__(self, onCreate: Callable[[CreateArguments], None]=None, labelPaths: str | list[str]=["/button_label"], buttonPath: str=""):
-        pass
+    labelPaths: LabelPaths
+    buttonPath: str
+    def __init__(self, onCreate: CreateCallback | None = None, labelPaths: LabelPaths = ..., buttonPath: str = "") -> None: ...
 
 class ScrollingPanel(ControlType):
-    """滚动面板注册类"""
-
-    def __init__(self, onCreate: Callable[[CreateArguments], None]=None, scrollingPanelPath: str="", titlePath: str="", closeBtnPath: str=""):
-        pass
+    scrollingPanelPath: str
+    titlePath: str
+    closeBtnPath: str
+    def __init__(self, onCreate: CreateCallback | None = None, scrollingPanelPath: str = "", titlePath: str = "", closeBtnPath: str = "") -> None: ...
 
 class Toggle(ControlType):
-    """开关注册类"""
-
-    def __init__(self, onCreate: Callable[[CreateArguments], None]=None, togglePath: str="/this_toggle", labelPaths: str | list[str]=["/label"]):
-        pass
+    togglePath: str
+    labelPaths: LabelPaths
+    def __init__(self, onCreate: CreateCallback | None = None, togglePath: str = "/this_toggle", labelPaths: LabelPaths = ...) -> None: ...
 
 class Slider(ControlType):
-    """滑动条注册类"""
-
-    def __init__(self, onCreate: Callable[[CreateArguments], None]=None, sliderPath: str="", labelPaths: str | list[str]=["/label"]):
-        pass
+    sliderPath: str
+    labelPaths: LabelPaths
+    valuePaths: ControlPaths
+    def __init__(self, onCreate: CreateCallback | None = None, sliderPath: str = "", labelPaths: LabelPaths = ..., valuePaths: ControlPaths = ...) -> None: ...
 
 class Textfield(ControlType):
-    """文本输入框注册类"""
-    
-    def __init__(self, onCreate: Callable[[CreateArguments], None]=None, textfieldPath: str="", labelPaths: str | list[str]=["/label"]):
-        pass
+    textfieldPath: str
+    labelPaths: LabelPaths
+    def __init__(self, onCreate: CreateCallback | None = None, textfieldPath: str = "", labelPaths: LabelPaths = ...) -> None: ...
 
 class Dropdown(ControlType):
-    """下拉框注册类"""
+    dropdownPath: str
+    labelPaths: LabelPaths
+    boxLabelPaths: ControlPaths
+    itemLabelPaths: ControlPaths
+    contentPath: str
+    itemControl: str
+    def __init__(self, onCreate: CreateCallback | None = None, dropdownPath: str = "", labelPaths: LabelPaths = ..., boxLabelPaths: ControlPaths = ..., itemLabelPaths: ControlPaths = ..., contentPath: str = "/content_panel", itemControl: str = "") -> None: ...
 
-    def __init__(self, onCreate=None, dropdownPath="", labelPaths=["/label"], boxLabelPaths=['/button_label'], itemLabelPaths=['/button_label'], contentPath="/content_panel", itemControl=""):
-        pass
+class Label(ControlType):
+    def __init__(self, onCreate: CreateCallback | None = None) -> None: ...
 
 class Custom(ControlType):
-    """自定义控件"""
-    
-    def __init__(self, onCreate: Callable[[CreateArguments], None]=None, onObservableUpdate: Callable[[ObservableUpdateArguments], None]=None):
-        pass
+    """创建与更新回调均在客户端执行，参数提供原生控件和参数快照。"""
+    onObservableUpdate: UpdateCallback | None
+    def __init__(self, onCreate: CreateCallback | None = None, onObservableUpdate: UpdateCallback | None = None) -> None: ...
+
+class Group(ControlType):
+    """每个命名子控件的 class 必填，独立轴属性覆盖 offset/size。"""
+    controls: GroupDefinitions
+    def __init__(self, controls: GroupDefinitions, onCreate: CreateCallback | None = None) -> None: ...

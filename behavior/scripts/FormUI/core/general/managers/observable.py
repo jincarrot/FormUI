@@ -19,6 +19,10 @@ class ObservableManager:
     def update(self, id, value):
         """Trigger when use Observable.value = x."""
         data = {"id": id, "value": value}
+        system = getServerSystem() if isServer() else getClientSystem()
+        manager = getattr(system, 'controlManager', None)
+        if manager and hasattr(manager, 'applyObservableUpdate'):
+            manager.applyObservableUpdate(id, value)
         if isServer():
             server = getServerSystem()
             server.BroadcastToAllClient("applyObservableUpdate", data)

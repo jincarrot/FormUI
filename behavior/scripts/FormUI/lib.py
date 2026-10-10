@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+FormUI
+"""
+
 from .core.utils.environment import isServer as __t
 if __t():
     import core.init_system

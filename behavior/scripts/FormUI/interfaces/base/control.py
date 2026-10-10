@@ -61,14 +61,14 @@ class Control:
         from ...core.general.enums.controlType import ControlType
         system = getSystem()
         data = {
-            "type": ControlType.Panel,
+            "type": ControlType.ScrollingPanel,
             "name": identifier,
             "path": path,
             "options": defaultOptions
         }
         if isServer():
             system.BroadcastToAllClient("registerControl", data)
-        getSystem().controlManager.create(ControlType.ScrollingPanel, identifier, path, options)
+        getSystem().controlManager.create(ControlType.ScrollingPanel, identifier, path, defaultOptions)
 
     @staticmethod
     def registerToggle(identifier, path, options={}):
@@ -91,7 +91,7 @@ class Control:
         }
         if isServer():
             system.BroadcastToAllClient("registerControl", data)
-        getSystem().controlManager.create(ControlType.Toggle, identifier, path, options)
+        getSystem().controlManager.create(ControlType.Toggle, identifier, path, defaultOptions)
 
     @staticmethod
     def registerLabel(identifier, path, options={}):
@@ -113,7 +113,7 @@ class Control:
         }
         if isServer():
             system.BroadcastToAllClient("registerControl", data)
-        getSystem().controlManager.create(ControlType.Label, identifier, path, options)
+        getSystem().controlManager.create(ControlType.Label, identifier, path, defaultOptions)
 
     @staticmethod
     def registerDivider(identifier, path, options={}):
@@ -134,7 +134,7 @@ class Control:
         }
         if isServer():
             system.BroadcastToAllClient("registerControl", data)
-        getSystem().controlManager.create(ControlType.Divider, identifier, path, options)
+        getSystem().controlManager.create(ControlType.Divider, identifier, path, defaultOptions)
 
     @staticmethod
     def registerTextfield(identifier, path, options={}):
@@ -157,7 +157,7 @@ class Control:
         }
         if isServer():
             system.BroadcastToAllClient("registerControl", data)
-        getSystem().controlManager.create(ControlType.Textfield, identifier, path, options)
+        getSystem().controlManager.create(ControlType.Textfield, identifier, path, defaultOptions)
 
     @staticmethod
     def registerSlider(identifier, path, options={}):
@@ -181,7 +181,7 @@ class Control:
         }
         if isServer():
             system.BroadcastToAllClient("registerControl", data)
-        getSystem().controlManager.create(ControlType.Slider, identifier, path, options)
+        getSystem().controlManager.create(ControlType.Slider, identifier, path, defaultOptions)
 
     @staticmethod
     def registerDropdown(identifier, path, options={}):
@@ -208,7 +208,22 @@ class Control:
         }
         if isServer():
             system.BroadcastToAllClient("registerControl", data)
-        getSystem().controlManager.create(ControlType.Dropdown, identifier, path, options)
+        getSystem().controlManager.create(ControlType.Dropdown, identifier, path, defaultOptions)
+
+    @staticmethod
+    def registerGroup(identifier, path, options={}):
+        from ...core.utils.environment import getSystem, isServer
+        from ...core.general.enums.controlType import ControlType
+        from ...core.utils.group import validateGroupControls
+        from ...core.utils.type import wrapDict
+        options = dict(options)
+        options['controls'] = wrapDict(validateGroupControls(options.get('controls', {})), [])
+        system = getSystem()
+        if isServer():
+            system.BroadcastToAllClient('registerControl', {
+                'type': ControlType.Group, 'name': identifier, 'path': path, 'options': options,
+            })
+        system.controlManager.create(ControlType.Group, identifier, path, options)
 
     @staticmethod
     def registerCustom(identifier, path, options={}):

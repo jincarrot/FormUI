@@ -10,6 +10,7 @@ class ControlType:
     """面板控件。"""
 
     ScrollingPanel = "scrolling_panel"
+    """滚动面板"""
 
     Toggle = "toggle"
 
@@ -23,5 +24,7 @@ class ControlType:
 
     Custom = "custom"
 
+    Group = "group"
+
     Divider = "divider"
-    
+

@@ -65,9 +65,27 @@ class Dropdown(ControlType):
         self.contentPath = contentPath
         self.itemControl = itemControl
 
+class Label(ControlType):
+
+    def __init__(self, onCreate=None):
+        ControlType.__init__(self, onCreate)
+
 class Custom(ControlType):
-    """自定义控件"""
+    """自定义控件。onCreate 在布局后接收 control、screenNode、params。
+
+    onObservableUpdate 接收同一实例的 control、screenNode、params 和 key、oldValue、newValue。
+    params 为当前参数快照；嵌套 Observable 更新按顶层参数名通知，不传 Observable 对象。
+    """
     
     def __init__(self, onCreate=None, onObservableUpdate=None):
         ControlType.__init__(self, onCreate)
         self.onObservableUpdate = onObservableUpdate
+
+
+class Group(ControlType):
+    """A named collection of registered controls, positioned relative to its root."""
+
+    def __init__(self, controls, onCreate=None):
+        from ...core.utils.group import validateGroupControls
+        ControlType.__init__(self, onCreate)
+        self.controls = validateGroupControls(controls)

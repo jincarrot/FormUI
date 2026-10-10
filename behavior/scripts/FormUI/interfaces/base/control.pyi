@@ -1,18 +1,40 @@
 # -*- coding: utf-8 -*-
-from ...interfaces.base.controls import ControlType
+from typing import Any
+from .controls import ControlType
 
 class Control:
-    """自定义控件"""
+    def __init__(self) -> None: ...
+    @staticmethod
+    def register(identifier: str, controlPath: str, control: ControlType) -> None:
+        """使用注册描述类注册模板，支持 Group、Custom 和标准控件。"""
+        ...
 
     @staticmethod
-    def register(identifier: str, controlPath: str, control: ControlType) -> None: 
-        """
-        注册一个自定义控件。
+    def registerButton(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
 
-        identifier: 控件名称，自定义，推荐“命名空间+控件名”，如"oreui:label"
+    @staticmethod
+    def registerScrollingPanel(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
 
-        controlPath: 控件路径，在json文件中的定义，如“fui_ore_base.base_thin”
+    @staticmethod
+    def registerToggle(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
 
-        control: 控件定义类，如Button(labelPaths = ["/button_label"])
-        """
-    
+    @staticmethod
+    def registerLabel(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
+
+    @staticmethod
+    def registerDivider(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
+
+    @staticmethod
+    def registerTextfield(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
+
+    @staticmethod
+    def registerSlider(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
+
+    @staticmethod
+    def registerDropdown(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
+
+    @staticmethod
+    def registerCustom(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
+
+    @staticmethod
+    def registerGroup(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...

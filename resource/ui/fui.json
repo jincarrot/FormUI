@@ -1,4 +1,10 @@
 {
+    "group": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": ["100%", 32]
+    },
     "w": {
         "type": "image",
         "anchor_from": "center",

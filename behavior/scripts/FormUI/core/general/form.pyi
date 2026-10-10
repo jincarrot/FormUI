@@ -1,132 +1,45 @@
 # -*- coding: utf-8 -*-
-from typing import Callable
-
-from ...interfaces.base.observable import Observable
-from interfaces.controls import ControlStyle, ButtonCallbacks, DropdownItem
-from interfaces.form import FormOptions
-
-from ..utils.environment import *
+from typing import Any, Callable, Iterable
+from .interfaces.controls import (
+    BoolValue, ButtonCallbacks, ControlStyle, DropdownItem, GroupChildren,
+    GroupStyle, NumberValue, TextValue,
+)
+from .interfaces.form import FormStyle
+from .observable import Observable
+from ..utils.type import FormShowResultArgs
 
 class FormShowResult:
-    """
-    表单显示结果
-    """
-    def onClose(self, callback: Callable[[dict], None]):
-        """
-        当表单关闭时触发。
-
-        callback: 回调函数，参数为表单对象
-        """
+    def __init__(self, formId: int, targets: Iterable[str]) -> None: ...
+    def onClose(self, callback: Callable[[FormShowResultArgs], None]) -> None:
+        """每个目标玩家关闭时触发一次；返回 None。"""
+        ...
 
 class Form:
-    """
-    自定义表单类（客户端服务端通用）
-    """
     identifier: str
-
-    @property
-    def isShowing(self) -> bool:
-        """表单是否正在显示"""
-
-    def button(self, label: str | Observable, callbacks: ButtonCallbacks={}, style: ControlStyle={}) -> Form:
-        """
-        添加一个按钮。
-
-        label: 按钮标签文本，支持Observable绑定
-
-        callbacks: 按钮回调函数，支持onClick、onMoveIn、onMoveOut
-
-        style: 按钮样式
-        """
-    
-    def toggle(self, label: str | Observable, state: Observable, style: ControlStyle={}) -> Form:
-        """
-        添加一个开关。
-
-        label: 开关标签文本，支持Observable绑定
-
-        state: 开关状态，支持Observable绑定
-
-        style: 开关样式
-        """
-
-    def divider(self, style: ControlStyle={}) -> Form: 
-        """
-        添加一个分割线。
-
-        style: 分割线样式
-        """
-
-    def label(self, text: str | Observable, style: ControlStyle={}) -> Form: 
-        """
-        添加一个文本标签。
-
-        text: 文本内容，支持Observable绑定
-
-        style: 文本标签样式
-        """
-
-    def slider(
-            self, 
-            label: str | Observable, 
-            value: Observable, 
-            minValue: float | Observable=0.0, 
-            maxValue: float | Observable=1.0, 
-            step: float | Observable=1, 
-            style: ControlStyle={}
-        ) -> Form:
-        """
-        添加一个滑动条。
-
-        value: 滑动条当前值，支持Observable绑定
-
-        minValue: 滑动条最小值，支持Observable绑定
-
-        maxValue: 滑动条最大值，支持Observable绑定
-
-        step: 滑动条步长，支持Observable绑定
-
-        style: 滑动条样式
-        """
-
-    def textfield(self, label: str | Observable, value: Observable, style: ControlStyle={}) -> Form: 
-        """
-        添加一个文本输入框。
-
-        label: 输入框标签文本，支持Observable绑定
-
-        value: 输入框当前值，支持Observable绑定
-
-        style: 输入框样式
-        """
-
-    def dropdown(self, label: str | Observable, items: list[DropdownItem], value: Observable, style: ControlStyle={}) -> Form: 
-        """
-        添加一个下拉框。
-
-        label: 下拉框标签文本，支持Observable绑定
-
-        items: 下拉框选项列表
-
-        value: 下拉框当前值，支持Observable绑定
-
-        style: 下拉框样式
-        """
-    
-    def custom(self, params: dict={}, style: ControlStyle={}) -> Form: ...
-
-    def show(self, target: list[str] | str, options: FormOptions={}) -> FormShowResult:
-        """
-        显示表单。
-
-        target: 要显示的表单目标，可填单个玩家id或玩家id列表
-
-        options: 表单显示选项
-        """
-
-    def close(self) -> Form: 
-        """
-        关闭表单。
-        
-        closeAll: 是否关闭所有表单，默认为False
-        """
+    def __init__(self, id: int, title: TextValue = "", style: FormStyle = ...) -> None: ...
+    def isShowing(self, playerId: str | None = None) -> bool:
+        """服务端省略参数时检查历史显示过的全部玩家；客户端默认查询本地玩家。"""
+        ...
+    def button(self, label: TextValue, callbacks: ButtonCallbacks = ..., style: ControlStyle = ...) -> Form: ...
+    def toggle(self, label: TextValue, state: BoolValue, style: ControlStyle = ...) -> Form: ...
+    def divider(self, style: ControlStyle = ...) -> Form: ...
+    def label(self, text: TextValue, style: ControlStyle = ...) -> Form:
+        """fontSize 为字体缩放倍数，可绑定 Observable 或使用 default。"""
+        ...
+    def slider(self, label: TextValue, value: NumberValue, minValue: NumberValue = 0.0, maxValue: NumberValue = 1.0, step: NumberValue = 1, style: ControlStyle = ...) -> Form:
+        """step=0 为连续模式；负步长取绝对值，反向边界自动排序。"""
+        ...
+    def textfield(self, label: TextValue, value: TextValue, style: ControlStyle = ...) -> Form: ...
+    def dropdown(self, label: TextValue, items: list[DropdownItem], value: int | str | Observable[int] | Observable[str], style: ControlStyle = ...) -> Form:
+        """items 为静态选项；菜单标题与选中值可绑定 Observable。"""
+        ...
+    def group(self, children: GroupChildren = ..., style: GroupStyle = ...) -> Form:
+        """添加组实例；子控件数据按名称提供，百分比布局相对父组计算。"""
+        ...
+    def custom(self, params: dict[str, Any] = ..., style: ControlStyle = ...) -> Form: ...
+    def show(self, target: str | list[str] | None = None) -> FormShowResult:
+        """目标玩家正在显示或等待创建此表单时抛出 RuntimeError。"""
+        ...
+    def close(self, target: str | list[str] | None = None) -> None:
+        """关闭目标玩家的表单；返回 None。"""
+        ...

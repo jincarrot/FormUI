@@ -8,7 +8,7 @@ class Form:
     
     @staticmethod
     def create(title, style={}):
-        """创建一个表单。"""
+        """创建表单；style包含布局、层级、可见性和隐藏其他表单等显示配置。"""
         from ...core.utils.environment import isServer, getClientSystem, getServerSystem
         from ...core.config import Namespace, SystemNameServer, SystemNameClient
         formManager = None

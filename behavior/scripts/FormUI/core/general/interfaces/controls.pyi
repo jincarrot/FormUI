@@ -1,34 +1,82 @@
 # -*- coding: utf-8 -*-
-from typing import Callable, TypedDict
-
+from typing import Any, Callable, Literal, TypeAlias, TypedDict
 from ..observable import Observable
 
-class ControlStyle(TypedDict):
-    """控件样式"""
-    Class: str
-    """表单的背景控件名称，必须为ScrollingPanel（应为"class"而非"Class"）"""
-    offsetX: float | str | Observable
-    """表单的X轴方向（横向）位置偏移量"""
-    offsetY: float | str | Observable
-    """表单的Y轴方向（纵向）位置偏移量"""
-    width: float | str | Observable
-    """表单的宽度"""
-    height: float | str | Observable
-    """表单的高度"""
-    visible: bool | Observable
-    """可见性"""
+# 数字为像素值；字符串支持百分比、default 等尺寸表达式。
+Dimension: TypeAlias = int | float | str | Observable[int] | Observable[float] | Observable[str]
+DimensionPair: TypeAlias = list[Dimension] | Observable[list[Any]]
+TextValue: TypeAlias = str | Observable[str]
+NumberValue: TypeAlias = int | float | Observable[int] | Observable[float]
+FontSize: TypeAlias = (
+    NumberValue | Literal['default'] | Observable[str] | Observable[int | float]
+    | Observable[int | str] | Observable[float | str] | Observable[int | float | str]
+)
+BoolValue: TypeAlias = bool | Observable[bool]
+PlayerCallback: TypeAlias = Callable[[str], None]
+ControlKind: TypeAlias = Literal[
+    "button", "panel", "scrolling_panel", "toggle", "label", "textfield",
+    "slider", "dropdown", "custom", "group", "divider",
+]
 
-class ButtonCallbacks(TypedDict):
-    onClick: Callable[[], None]
-    """按钮按下并抬起时触发"""
-    onMoveIn: Callable[[], None]
-    """手指移动入按钮时触发"""
-    onMoveOut: Callable[[], None]
-    """手指移出按钮时触发"""
+ControlStyle = TypedDict("ControlStyle", {
+    "class": str,
+    "offsetX": Dimension,
+    "offsetY": Dimension,
+    "width": Dimension,
+    "height": Dimension,
+    "visible": BoolValue,
+    "fontSize": FontSize,
+}, total=False)
+
+class ButtonCallbacks(TypedDict, total=False):
+    """每个事件均可省略；回调参数为触发事件的 playerId。"""
+    onClick: PlayerCallback
+    onMoveIn: PlayerCallback
+    onMoveOut: PlayerCallback
 
 class DropdownItem(TypedDict):
+    """静态选项；label/value 不支持 Observable。"""
     label: str
-    """下拉框选项标签值"""
-    value: int
-    """选项对应索引值"""
-    
+    value: int | str
+
+class _GroupLayout(TypedDict, total=False):
+    """offset/size 在运行时校验为两元素列表；独立轴属性优先。"""
+    offset: DimensionPair
+    size: DimensionPair
+    offsetX: Dimension
+    offsetY: Dimension
+    width: Dimension
+    height: Dimension
+    visible: BoolValue
+
+_GroupRequired = TypedDict("_GroupRequired", {"class": str | Observable[str]})
+
+class GroupControlStyle(_GroupRequired, _GroupLayout):
+    """Group 注册定义：class 必填，其余字段可省略。"""
+
+GroupStyle = TypedDict("GroupStyle", {
+    "class": str,
+    "offset": DimensionPair,
+    "size": DimensionPair,
+    "offsetX": Dimension,
+    "offsetY": Dimension,
+    "width": Dimension,
+    "height": Dimension,
+    "visible": BoolValue,
+}, total=False)
+
+class GroupChildData(TypedDict, total=False):
+    """按子控件类型选择字段；嵌套组使用 children，custom 使用 params。"""
+    label: TextValue
+    callbacks: ButtonCallbacks
+    state: BoolValue
+    value: Any
+    minValue: NumberValue
+    maxValue: NumberValue
+    step: NumberValue
+    items: list[DropdownItem]
+    params: dict[str, Any]
+    children: dict[str, GroupChildData]
+
+GroupDefinitions: TypeAlias = dict[str, GroupControlStyle]
+GroupChildren: TypeAlias = dict[str, GroupChildData]
