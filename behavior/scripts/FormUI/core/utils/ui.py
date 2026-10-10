@@ -2,7 +2,12 @@
 
 import math
 import re
-from numbers import Real
+
+# 网易运行时使用 Python 2；long 同样是有效整数，无需依赖 numbers。
+try:
+    _NUMBER_TYPES = (int, long, float)
+except NameError:
+    _NUMBER_TYPES = (int, float)
 
 
 def validateGrids(grids):
@@ -11,7 +16,7 @@ def validateGrids(grids):
         raise ValueError("grids must be a non-empty list of positive numbers")
     weights = list(grids)
     for weight in weights:
-        if isinstance(weight, bool) or not isinstance(weight, Real):
+        if isinstance(weight, bool) or not isinstance(weight, _NUMBER_TYPES):
             raise ValueError("grids weights must be finite positive numbers")
         try:
             value = float(weight)
@@ -35,7 +40,7 @@ def getScrollingContent(control):
     return target
 
 def _finiteNumber(value, name):
-    if isinstance(value, bool) or not isinstance(value, Real):
+    if isinstance(value, bool) or not isinstance(value, _NUMBER_TYPES):
         raise ValueError("%s must be a finite number" % name)
     try:
         number = float(value)
@@ -51,7 +56,7 @@ _DIMENSION_TERM = re.compile(r"([+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]
 
 def getSizeDict(info):
     """Parse pixels and percentages, including signed decimal expressions."""
-    if isinstance(info, Real):
+    if isinstance(info, _NUMBER_TYPES):
         _finiteNumber(info, 'dimension')
         return {"absoluteValue": info, "relativeValue": 0.0, "followType": "parent"}
     if not isinstance(info, str):

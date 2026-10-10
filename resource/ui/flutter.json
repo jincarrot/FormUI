@@ -1,0 +1,5095 @@
+{
+    "namespace": "fui_flutter",
+    "filled_button_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.403922,
+                                    0.313725,
+                                    0.643137
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.451608,
+                                    0.368627,
+                                    0.671686
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.499294,
+                                    0.423529,
+                                    0.700235
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "filled_button": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "button@fui_flutter.filled_button_native": {
+                    "size": [
+                        "100%",
+                        30.6
+                    ]
+                }
+            }
+        ]
+    },
+    "tonal_button_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.909804,
+                                    0.870588,
+                                    0.972549
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.113725,
+                                    0.098039,
+                                    0.168627
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.846118,
+                                    0.808784,
+                                    0.908235
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.113725,
+                                    0.098039,
+                                    0.168627
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.782431,
+                                    0.74698,
+                                    0.843921
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.113725,
+                                    0.098039,
+                                    0.168627
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "tonal_button": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "button@fui_flutter.tonal_button_native": {
+                    "size": [
+                        "100%",
+                        30.6
+                    ]
+                }
+            }
+        ]
+    },
+    "outlined_button_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    1.0,
+                                    0.984314,
+                                    0.996078
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "outline": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill_outline",
+                                "color": [
+                                    0.403922,
+                                    0.313725,
+                                    0.643137
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 1,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.403922,
+                                    0.313725,
+                                    0.643137
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.952314,
+                                    0.930667,
+                                    0.967843
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "outline": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill_outline",
+                                "color": [
+                                    0.403922,
+                                    0.313725,
+                                    0.643137
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 1,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.403922,
+                                    0.313725,
+                                    0.643137
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.904628,
+                                    0.87702,
+                                    0.939607
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "outline": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill_outline",
+                                "color": [
+                                    0.403922,
+                                    0.313725,
+                                    0.643137
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 1,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.403922,
+                                    0.313725,
+                                    0.643137
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "outlined_button": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "button@fui_flutter.outlined_button_native": {
+                    "size": [
+                        "100%",
+                        30.6
+                    ]
+                }
+            }
+        ]
+    },
+    "text_button_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.403922,
+                                    0.313725,
+                                    0.643137
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.952314,
+                                    0.930667,
+                                    0.967843
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.403922,
+                                    0.313725,
+                                    0.643137
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.904628,
+                                    0.87702,
+                                    0.939607
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.403922,
+                                    0.313725,
+                                    0.643137
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "text_button": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "button@fui_flutter.text_button_native": {
+                    "size": [
+                        "100%",
+                        30.6
+                    ]
+                }
+            }
+        ]
+    },
+    "danger_button_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.701961,
+                                    0.14902,
+                                    0.117647
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.725804,
+                                    0.217098,
+                                    0.188235
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.749647,
+                                    0.285177,
+                                    0.258823
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "danger_button": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "button@fui_flutter.danger_button_native": {
+                    "size": [
+                        "100%",
+                        30.6
+                    ]
+                }
+            }
+        ]
+    },
+    "label": {
+        "type": "panel",
+        "size": [
+            "100%",
+            "100%c"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "color": [
+                        0.109804,
+                        0.105882,
+                        0.121569
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%",
+                        "default"
+                    ],
+                    "layer": 2,
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left"
+                }
+            }
+        ]
+    },
+    "divider": {
+        "type": "panel",
+        "size": [
+            "100%",
+            13.6
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "line@fui.w": {
+                    "size": [
+                        "100%",
+                        0.85
+                    ],
+                    "color": [
+                        0.789804,
+                        0.772549,
+                        0.795294
+                    ]
+                }
+            }
+        ]
+    },
+    "switch_unchecked": {
+        "type": "panel",
+        "controls": [
+            {
+                "track": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch",
+                    "color": [
+                        0.952941,
+                        0.929412,
+                        0.968627
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "outline": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch_outline",
+                    "color": [
+                        0.47451,
+                        0.454902,
+                        0.494118
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 1,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "thumb": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/circle",
+                    "color": [
+                        0.47451,
+                        0.454902,
+                        0.494118
+                    ],
+                    "size": [
+                        6.8,
+                        6.8
+                    ],
+                    "layer": 2,
+                    "bilinear": true,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        2.125,
+                        0.0
+                    ]
+                }
+            }
+        ]
+    },
+    "switch_unchecked_hover": {
+        "type": "panel",
+        "controls": [
+            {
+                "track": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch",
+                    "color": [
+                        0.88549,
+                        0.86353,
+                        0.900862
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "outline": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch_outline",
+                    "color": [
+                        0.47451,
+                        0.454902,
+                        0.494118
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 1,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "thumb": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/circle",
+                    "color": [
+                        0.47451,
+                        0.454902,
+                        0.494118
+                    ],
+                    "size": [
+                        6.8,
+                        6.8
+                    ],
+                    "layer": 2,
+                    "bilinear": true,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        2.125,
+                        0.0
+                    ]
+                }
+            }
+        ]
+    },
+    "switch_checked": {
+        "type": "panel",
+        "controls": [
+            {
+                "track": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch",
+                    "color": [
+                        0.403922,
+                        0.313725,
+                        0.643137
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "thumb": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/circle",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "size": [
+                        8.5,
+                        8.5
+                    ],
+                    "layer": 2,
+                    "bilinear": true,
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        -1.275,
+                        0.0
+                    ]
+                }
+            }
+        ]
+    },
+    "switch_checked_hover": {
+        "type": "panel",
+        "controls": [
+            {
+                "track": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch",
+                    "color": [
+                        0.380393,
+                        0.297098,
+                        0.601412
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "thumb": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/circle",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "size": [
+                        8.5,
+                        8.5
+                    ],
+                    "layer": 2,
+                    "bilinear": true,
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        -1.275,
+                        0.0
+                    ]
+                }
+            }
+        ]
+    },
+    "switch@common_toggles.switch_toggle": {
+        "size": [
+            19.55,
+            11.05
+        ],
+        "$checked_control": "fui_flutter.switch_checked",
+        "$checked_hover_control": "fui_flutter.switch_checked_hover",
+        "$checked_locked_control": "fui_flutter.switch_checked",
+        "$checked_locked_hover_control": "fui_flutter.switch_checked_hover",
+        "$unchecked_control": "fui_flutter.switch_unchecked",
+        "$unchecked_hover_control": "fui_flutter.switch_unchecked_hover",
+        "$unchecked_locked_control": "fui_flutter.switch_unchecked",
+        "$unchecked_locked_hover_control": "fui_flutter.switch_unchecked_hover"
+    },
+    "toggle": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "color": [
+                        0.109804,
+                        0.105882,
+                        0.121569
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%-51px",
+                        "100%"
+                    ],
+                    "layer": 2,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle"
+                }
+            },
+            {
+                "toggle@fui_flutter.switch": {
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        -3.4,
+                        0.0
+                    ]
+                }
+            }
+        ]
+    },
+    "field_background": {
+        "type": "panel",
+        "layer": -1,
+        "controls": [
+            {
+                "fill": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/field",
+                    "color": [
+                        0.952941,
+                        0.929412,
+                        0.968627
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        7.65,
+                        7.65,
+                        7.65,
+                        7.65
+                    ]
+                }
+            },
+            {
+                "outline": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/field_outline",
+                    "color": [
+                        0.47451,
+                        0.454902,
+                        0.494118
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 1,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        7.65,
+                        7.65,
+                        7.65,
+                        7.65
+                    ]
+                }
+            }
+        ]
+    },
+    "field_background_hover": {
+        "type": "panel",
+        "layer": -1,
+        "controls": [
+            {
+                "fill": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/field",
+                    "color": [
+                        0.952941,
+                        0.929412,
+                        0.968627
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        7.65,
+                        7.65,
+                        7.65,
+                        7.65
+                    ]
+                }
+            },
+            {
+                "outline": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/field_outline",
+                    "color": [
+                        0.403922,
+                        0.313725,
+                        0.643137
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 1,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        7.65,
+                        7.65,
+                        7.65,
+                        7.65
+                    ]
+                }
+            }
+        ]
+    },
+    "textfield_native@common.text_edit_box": {
+        "type": "edit_box",
+        "$text_background_default": "fui_flutter.field_background",
+        "$text_background_hover": "fui_flutter.field_background_hover",
+        "$text_box_text_color": [
+            0.109804,
+            0.105882,
+            0.121569
+        ],
+        "$place_holder_text_color": [
+            0.286275,
+            0.270588,
+            0.309804
+        ],
+        "$place_holder_text": "",
+        "$font_size": "normal",
+        "$font_scale_factor": 0.85,
+        "$text_box_name": "%netease_editor_template_namespace.message",
+        "$text_edit_box_content_binding_name": "#netease_editor_template_namespace.message_content",
+        "$text_edit_box_label_anchor_point": "right_middle",
+        "$text_edit_box_label_min_size": [
+            "100%-20.4px",
+            0.0
+        ],
+        "$text_edit_box_label_size": [
+            "default",
+            "default"
+        ],
+        "max_length": 512,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "size": [
+            "100%",
+            30.6
+        ]
+    },
+    "textfield": {
+        "type": "panel",
+        "size": [
+            "100%",
+            54.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "color": [
+                        0.286275,
+                        0.270588,
+                        0.309804
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%-6.8px",
+                        15.3
+                    ],
+                    "layer": 2,
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        3.4,
+                        1.7
+                    ]
+                }
+            },
+            {
+                "textfield@fui_flutter.textfield_native": {
+                    "offset": [
+                        0.0,
+                        -6.8
+                    ]
+                }
+            }
+        ]
+    },
+    "dropdown_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.952941,
+                                    0.929412,
+                                    0.968627
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.109804,
+                                    0.105882,
+                                    0.121569
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-34px",
+                                    "100%"
+                                ],
+                                "layer": 2,
+                                "anchor_from": "left_middle",
+                                "anchor_to": "left_middle",
+                                "offset": [
+                                    10.2,
+                                    0.0
+                                ]
+                            }
+                        },
+                        {
+                            "arrow": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/arrow",
+                                "color": [
+                                    0.109804,
+                                    0.105882,
+                                    0.121569
+                                ],
+                                "size": [
+                                    10.2,
+                                    10.2
+                                ],
+                                "layer": 2,
+                                "bilinear": true,
+                                "anchor_from": "right_middle",
+                                "anchor_to": "right_middle",
+                                "offset": [
+                                    -10.2,
+                                    0.0
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.88549,
+                                    0.86353,
+                                    0.900862
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.109804,
+                                    0.105882,
+                                    0.121569
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-34px",
+                                    "100%"
+                                ],
+                                "layer": 2,
+                                "anchor_from": "left_middle",
+                                "anchor_to": "left_middle",
+                                "offset": [
+                                    10.2,
+                                    0.0
+                                ]
+                            }
+                        },
+                        {
+                            "arrow": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/arrow",
+                                "color": [
+                                    0.109804,
+                                    0.105882,
+                                    0.121569
+                                ],
+                                "size": [
+                                    10.2,
+                                    10.2
+                                ],
+                                "layer": 2,
+                                "bilinear": true,
+                                "anchor_from": "right_middle",
+                                "anchor_to": "right_middle",
+                                "offset": [
+                                    -10.2,
+                                    0.0
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.818039,
+                                    0.797647,
+                                    0.833098
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.109804,
+                                    0.105882,
+                                    0.121569
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-34px",
+                                    "100%"
+                                ],
+                                "layer": 2,
+                                "anchor_from": "left_middle",
+                                "anchor_to": "left_middle",
+                                "offset": [
+                                    10.2,
+                                    0.0
+                                ]
+                            }
+                        },
+                        {
+                            "arrow": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/arrow",
+                                "color": [
+                                    0.109804,
+                                    0.105882,
+                                    0.121569
+                                ],
+                                "size": [
+                                    10.2,
+                                    10.2
+                                ],
+                                "layer": 2,
+                                "bilinear": true,
+                                "anchor_from": "right_middle",
+                                "anchor_to": "right_middle",
+                                "offset": [
+                                    -10.2,
+                                    0.0
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "dropdown": {
+        "type": "panel",
+        "size": [
+            "100%",
+            54.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "color": [
+                        0.286275,
+                        0.270588,
+                        0.309804
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%-6.8px",
+                        15.3
+                    ],
+                    "layer": 2,
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        3.4,
+                        1.7
+                    ]
+                }
+            },
+            {
+                "dropdown_box@fui_flutter.dropdown_native": {
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "offset": [
+                        0.0,
+                        -6.8
+                    ],
+                    "size": [
+                        "100%",
+                        30.6
+                    ],
+                    "layer": 1
+                }
+            },
+            {
+                "content_panel": {
+                    "type": "panel",
+                    "size": [
+                        "100%",
+                        30.6
+                    ],
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/field",
+                                "color": [
+                                    0.952941,
+                                    0.929412,
+                                    0.968627
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    7.65,
+                                    7.65,
+                                    7.65,
+                                    7.65
+                                ]
+                            }
+                        },
+                        {
+                            "outline": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/field_outline",
+                                "color": [
+                                    0.761569,
+                                    0.739608,
+                                    0.778823
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 1,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    7.65,
+                                    7.65,
+                                    7.65,
+                                    7.65
+                                ]
+                            }
+                        }
+                    ],
+                    "offset": [
+                        0.0,
+                        17.0
+                    ],
+                    "layer": 6,
+                    "visible": false
+                }
+            }
+        ]
+    },
+    "dropdown_item@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            30.6
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.952941,
+                                    0.929412,
+                                    0.968627
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.88549,
+                                    0.86353,
+                                    0.900862
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.818039,
+                                    0.797647,
+                                    0.833098
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "button_label": {
+                    "type": "label",
+                    "color": [
+                        0.109804,
+                        0.105882,
+                        0.121569
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%-20.4px",
+                        "100%"
+                    ],
+                    "layer": 2,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        10.2,
+                        0.0
+                    ]
+                }
+            }
+        ],
+        "layer": 7,
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "offset": [
+            0.0,
+            0.0
+        ]
+    },
+    "slider_native@fui_ore_sliders.slider_common": {
+        "$slider_name": "netease_slider_name",
+        "$slider_direction": "horizontal",
+        "$slider_box_size": [
+            17.0,
+            17.0
+        ],
+        "$slider_box_layout": "fui_flutter.slider_thumb",
+        "$slider_box_hover_layout": "fui_flutter.slider_thumb",
+        "$slider_box_indent_layout": "fui_flutter.slider_thumb",
+        "$slider_box_locked_layout": "fui_flutter.slider_thumb",
+        "default_control": "track",
+        "hover_control": "track_hover",
+        "progress_control": "progress",
+        "progress_hover_control": "progress_hover",
+        "controls": [
+            {
+                "slider_box@common.slider_box": {
+                    "$slider_box_layout": "$slider_box_layout",
+                    "$slider_box_size": "$slider_box_size",
+                    "$slider_track_button": "$slider_name"
+                }
+            },
+            {
+                "track": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/track",
+                    "color": [
+                        0.909804,
+                        0.870588,
+                        0.972549
+                    ],
+                    "size": [
+                        "100%",
+                        5.1
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        2.55,
+                        2.55,
+                        2.55,
+                        2.55
+                    ]
+                }
+            },
+            {
+                "track_hover": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/track",
+                    "color": [
+                        0.909804,
+                        0.870588,
+                        0.972549
+                    ],
+                    "size": [
+                        "100%",
+                        5.1
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        2.55,
+                        2.55,
+                        2.55,
+                        2.55
+                    ],
+                    "visible": false
+                }
+            },
+            {
+                "progress": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/track",
+                    "color": [
+                        0.403922,
+                        0.313725,
+                        0.643137
+                    ],
+                    "size": [
+                        "100%",
+                        5.1
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        2.55,
+                        2.55,
+                        2.55,
+                        2.55
+                    ],
+                    "clip_direction": "left"
+                }
+            },
+            {
+                "progress_hover": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/track",
+                    "color": [
+                        0.403922,
+                        0.313725,
+                        0.643137
+                    ],
+                    "size": [
+                        "100%",
+                        5.1
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        2.55,
+                        2.55,
+                        2.55,
+                        2.55
+                    ],
+                    "clip_direction": "left",
+                    "visible": false
+                }
+            }
+        ]
+    },
+    "slider_thumb": {
+        "type": "image",
+        "texture": "textures/ui/flutter/circle",
+        "color": [
+            0.403922,
+            0.313725,
+            0.643137
+        ],
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "layer": 3,
+        "bilinear": true
+    },
+    "slider": {
+        "type": "panel",
+        "size": [
+            "100%",
+            51.0
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "color": [
+                        0.286275,
+                        0.270588,
+                        0.309804
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%-44.2px",
+                        15.3
+                    ],
+                    "layer": 2,
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        3.4,
+                        1.7
+                    ]
+                }
+            },
+            {
+                "value": {
+                    "type": "label",
+                    "color": [
+                        0.403922,
+                        0.313725,
+                        0.643137
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 2,
+                    "anchor_from": "top_right",
+                    "anchor_to": "top_right",
+                    "offset": [
+                        -3.4,
+                        1.7
+                    ]
+                }
+            },
+            {
+                "slider@fui_flutter.slider_native": {
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "offset": [
+                        0.0,
+                        -13.6
+                    ],
+                    "size": [
+                        "100%-20.4px",
+                        17.0
+                    ]
+                }
+            }
+        ]
+    },
+    "close@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "icon": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/close",
+                                "color": [
+                                    0.286275,
+                                    0.270588,
+                                    0.309804
+                                ],
+                                "size": [
+                                    15.3,
+                                    15.3
+                                ],
+                                "layer": 2,
+                                "bilinear": true
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.942902,
+                                    0.927216,
+                                    0.941176
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "icon": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/close",
+                                "color": [
+                                    0.286275,
+                                    0.270588,
+                                    0.309804
+                                ],
+                                "size": [
+                                    15.3,
+                                    15.3
+                                ],
+                                "layer": 2,
+                                "bilinear": true
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.885804,
+                                    0.870118,
+                                    0.886274
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "icon": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/close",
+                                "color": [
+                                    0.286275,
+                                    0.270588,
+                                    0.309804
+                                ],
+                                "size": [
+                                    15.3,
+                                    15.3
+                                ],
+                                "layer": 2,
+                                "bilinear": true
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "scroll_thumb": {
+        "type": "image",
+        "texture": "textures/ui/flutter/track",
+        "color": [
+            0.658432,
+            0.640196,
+            0.669804
+        ],
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "layer": 0,
+        "bilinear": true,
+        "nineslice_size": [
+            2.55,
+            2.55,
+            2.55,
+            2.55
+        ]
+    },
+    "scroll_track@fui.blank": {},
+    "scroll@common.scrolling_panel": {
+        "$scroll_background_image_control": "fui.blank",
+        "$show_background": false,
+        "$scrolling_content": "fui_ore_panels.scrolling_content",
+        "$scroll_box_mouse_image_control": "fui_flutter.scroll_thumb",
+        "$scroll_box_touch_image_control": "fui_flutter.scroll_thumb",
+        "$scroll_track_image_control": "fui_flutter.scroll_track",
+        "$scroll_size": [
+            5.1,
+            "100%"
+        ],
+        "$scroll_size_touch": [
+            6,
+            "100%"
+        ],
+        "$scroll_bar_contained": true,
+        "$scroll_box_size": [
+            "100%",
+            "100%"
+        ],
+        "$scroll_box_visible_touch": true,
+        "$use_touch_mode": true,
+        "$scroll_bar_and_track_size": [
+            "100%c",
+            "100%-3.4px"
+        ],
+        "$scroll_bar_right_padding_size": [
+            0.0,
+            0.0
+        ],
+        "$scroll_view_port_offset": [
+            0.0,
+            0.0
+        ],
+        "$scroll_view_port_offset_touch": [
+            0,
+            0
+        ],
+        "$scroll_view_port_size": [
+            "100%-8.5px",
+            "100%-3.4px"
+        ],
+        "$scroll_view_port_size_touch": [
+            "100%-10px",
+            "100%-4px"
+        ]
+    },
+    "light_panel": {
+        "type": "panel",
+        "size": [
+            "61.2%y",
+            "76.5%"
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "shadow": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/surface",
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        14.45,
+                        14.45,
+                        14.45,
+                        14.45
+                    ],
+                    "alpha": 0.18,
+                    "offset": [
+                        0.0,
+                        2.55
+                    ]
+                }
+            },
+            {
+                "background": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/surface",
+                    "color": [
+                        1.0,
+                        0.984314,
+                        0.996078
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 1,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        14.45,
+                        14.45,
+                        14.45,
+                        14.45
+                    ]
+                }
+            },
+            {
+                "header": {
+                    "type": "panel",
+                    "size": [
+                        "100%",
+                        44.2
+                    ],
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "controls": [
+                        {
+                            "title": {
+                                "type": "label",
+                                "color": [
+                                    0.109804,
+                                    0.105882,
+                                    0.121569
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 1.275,
+                                "text": "",
+                                "max_size": [
+                                    "100%-68px",
+                                    "100%"
+                                ],
+                                "layer": 2,
+                                "anchor_from": "left_middle",
+                                "anchor_to": "left_middle",
+                                "offset": [
+                                    17.0,
+                                    0.0
+                                ]
+                            }
+                        },
+                        {
+                            "close@fui_flutter.close": {
+                                "size": [
+                                    27.2,
+                                    27.2
+                                ],
+                                "anchor_from": "right_middle",
+                                "anchor_to": "right_middle",
+                                "offset": [
+                                    -10.2,
+                                    0.0
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 8
+                }
+            },
+            {
+                "content@fui_flutter.scroll": {
+                    "size": [
+                        "100%-27.2px",
+                        "100%-57.8px"
+                    ],
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        13.6,
+                        44.2
+                    ],
+                    "layer": 2
+                }
+            }
+        ]
+    },
+    "dark_filled_button_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.815686,
+                                    0.737255,
+                                    1.0
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.219608,
+                                    0.117647,
+                                    0.447059
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.768,
+                                    0.687686,
+                                    0.955765
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.219608,
+                                    0.117647,
+                                    0.447059
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.720314,
+                                    0.638118,
+                                    0.911529
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.219608,
+                                    0.117647,
+                                    0.447059
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_filled_button": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "button@fui_flutter.dark_filled_button_native": {
+                    "size": [
+                        "100%",
+                        30.6
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_tonal_button_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.290196,
+                                    0.266667,
+                                    0.345098
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.909804,
+                                    0.870588,
+                                    0.972549
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.339765,
+                                    0.314981,
+                                    0.395294
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.909804,
+                                    0.870588,
+                                    0.972549
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.389333,
+                                    0.363294,
+                                    0.44549
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.909804,
+                                    0.870588,
+                                    0.972549
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_tonal_button": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "button@fui_flutter.dark_tonal_button_native": {
+                    "size": [
+                        "100%",
+                        30.6
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_outlined_button_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.109804,
+                                    0.105882,
+                                    0.121569
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "outline": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill_outline",
+                                "color": [
+                                    0.815686,
+                                    0.737255,
+                                    1.0
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 1,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.815686,
+                                    0.737255,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.166275,
+                                    0.156392,
+                                    0.191843
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "outline": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill_outline",
+                                "color": [
+                                    0.815686,
+                                    0.737255,
+                                    1.0
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 1,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.815686,
+                                    0.737255,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.222745,
+                                    0.206902,
+                                    0.262118
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "outline": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill_outline",
+                                "color": [
+                                    0.815686,
+                                    0.737255,
+                                    1.0
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 1,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.815686,
+                                    0.737255,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_outlined_button": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "button@fui_flutter.dark_outlined_button_native": {
+                    "size": [
+                        "100%",
+                        30.6
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_text_button_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.815686,
+                                    0.737255,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.166275,
+                                    0.156392,
+                                    0.191843
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.815686,
+                                    0.737255,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.222745,
+                                    0.206902,
+                                    0.262118
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.815686,
+                                    0.737255,
+                                    1.0
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_text_button": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "button@fui_flutter.dark_text_button_native": {
+                    "size": [
+                        "100%",
+                        30.6
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_danger_button_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.94902,
+                                    0.721569,
+                                    0.709804
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.376471,
+                                    0.078431,
+                                    0.062745
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.903216,
+                                    0.670118,
+                                    0.658039
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.376471,
+                                    0.078431,
+                                    0.062745
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.857412,
+                                    0.618667,
+                                    0.606275
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.376471,
+                                    0.078431,
+                                    0.062745
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-27.2px",
+                                    "100%"
+                                ],
+                                "layer": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_danger_button": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "button@fui_flutter.dark_danger_button_native": {
+                    "size": [
+                        "100%",
+                        30.6
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_label": {
+        "type": "panel",
+        "size": [
+            "100%",
+            "100%c"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "color": [
+                        0.901961,
+                        0.882353,
+                        0.898039
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%",
+                        "default"
+                    ],
+                    "layer": 2,
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left"
+                }
+            }
+        ]
+    },
+    "dark_divider": {
+        "type": "panel",
+        "size": [
+            "100%",
+            13.6
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "line@fui.w": {
+                    "size": [
+                        "100%",
+                        0.85
+                    ],
+                    "color": [
+                        0.296471,
+                        0.287843,
+                        0.312941
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_switch_unchecked": {
+        "type": "panel",
+        "controls": [
+            {
+                "track": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch",
+                    "color": [
+                        0.168627,
+                        0.160784,
+                        0.188235
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "outline": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch_outline",
+                    "color": [
+                        0.576471,
+                        0.560784,
+                        0.6
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 1,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "thumb": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/circle",
+                    "color": [
+                        0.576471,
+                        0.560784,
+                        0.6
+                    ],
+                    "size": [
+                        6.8,
+                        6.8
+                    ],
+                    "layer": 2,
+                    "bilinear": true,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        2.125,
+                        0.0
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_switch_unchecked_hover": {
+        "type": "panel",
+        "controls": [
+            {
+                "track": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch",
+                    "color": [
+                        0.227294,
+                        0.21851,
+                        0.245019
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "outline": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch_outline",
+                    "color": [
+                        0.576471,
+                        0.560784,
+                        0.6
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 1,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "thumb": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/circle",
+                    "color": [
+                        0.576471,
+                        0.560784,
+                        0.6
+                    ],
+                    "size": [
+                        6.8,
+                        6.8
+                    ],
+                    "layer": 2,
+                    "bilinear": true,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        2.125,
+                        0.0
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_switch_checked": {
+        "type": "panel",
+        "controls": [
+            {
+                "track": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch",
+                    "color": [
+                        0.815686,
+                        0.737255,
+                        1.0
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "thumb": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/circle",
+                    "color": [
+                        0.219608,
+                        0.117647,
+                        0.447059
+                    ],
+                    "size": [
+                        8.5,
+                        8.5
+                    ],
+                    "layer": 2,
+                    "bilinear": true,
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        -1.275,
+                        0.0
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_switch_checked_hover": {
+        "type": "panel",
+        "controls": [
+            {
+                "track": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/switch",
+                    "color": [
+                        0.822588,
+                        0.748863,
+                        0.991843
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "keep_ratio": false
+                }
+            },
+            {
+                "thumb": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/circle",
+                    "color": [
+                        0.219608,
+                        0.117647,
+                        0.447059
+                    ],
+                    "size": [
+                        8.5,
+                        8.5
+                    ],
+                    "layer": 2,
+                    "bilinear": true,
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        -1.275,
+                        0.0
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_switch@common_toggles.switch_toggle": {
+        "size": [
+            19.55,
+            11.05
+        ],
+        "$checked_control": "fui_flutter.dark_switch_checked",
+        "$checked_hover_control": "fui_flutter.dark_switch_checked_hover",
+        "$checked_locked_control": "fui_flutter.dark_switch_checked",
+        "$checked_locked_hover_control": "fui_flutter.dark_switch_checked_hover",
+        "$unchecked_control": "fui_flutter.dark_switch_unchecked",
+        "$unchecked_hover_control": "fui_flutter.dark_switch_unchecked_hover",
+        "$unchecked_locked_control": "fui_flutter.dark_switch_unchecked",
+        "$unchecked_locked_hover_control": "fui_flutter.dark_switch_unchecked_hover"
+    },
+    "dark_toggle": {
+        "type": "panel",
+        "size": [
+            "100%",
+            37.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "color": [
+                        0.901961,
+                        0.882353,
+                        0.898039
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%-51px",
+                        "100%"
+                    ],
+                    "layer": 2,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle"
+                }
+            },
+            {
+                "toggle@fui_flutter.dark_switch": {
+                    "anchor_from": "right_middle",
+                    "anchor_to": "right_middle",
+                    "offset": [
+                        -3.4,
+                        0.0
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_field_background": {
+        "type": "panel",
+        "layer": -1,
+        "controls": [
+            {
+                "fill": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/field",
+                    "color": [
+                        0.168627,
+                        0.160784,
+                        0.188235
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        7.65,
+                        7.65,
+                        7.65,
+                        7.65
+                    ]
+                }
+            },
+            {
+                "outline": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/field_outline",
+                    "color": [
+                        0.576471,
+                        0.560784,
+                        0.6
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 1,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        7.65,
+                        7.65,
+                        7.65,
+                        7.65
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_field_background_hover": {
+        "type": "panel",
+        "layer": -1,
+        "controls": [
+            {
+                "fill": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/field",
+                    "color": [
+                        0.168627,
+                        0.160784,
+                        0.188235
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        7.65,
+                        7.65,
+                        7.65,
+                        7.65
+                    ]
+                }
+            },
+            {
+                "outline": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/field_outline",
+                    "color": [
+                        0.815686,
+                        0.737255,
+                        1.0
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 1,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        7.65,
+                        7.65,
+                        7.65,
+                        7.65
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_textfield_native@common.text_edit_box": {
+        "type": "edit_box",
+        "$text_background_default": "fui_flutter.dark_field_background",
+        "$text_background_hover": "fui_flutter.dark_field_background_hover",
+        "$text_box_text_color": [
+            0.901961,
+            0.882353,
+            0.898039
+        ],
+        "$place_holder_text_color": [
+            0.792157,
+            0.768627,
+            0.815686
+        ],
+        "$place_holder_text": "",
+        "$font_size": "normal",
+        "$font_scale_factor": 0.85,
+        "$text_box_name": "%netease_editor_template_namespace.message",
+        "$text_edit_box_content_binding_name": "#netease_editor_template_namespace.message_content",
+        "$text_edit_box_label_anchor_point": "right_middle",
+        "$text_edit_box_label_min_size": [
+            "100%-20.4px",
+            0.0
+        ],
+        "$text_edit_box_label_size": [
+            "default",
+            "default"
+        ],
+        "max_length": 512,
+        "anchor_from": "bottom_middle",
+        "anchor_to": "bottom_middle",
+        "size": [
+            "100%",
+            30.6
+        ]
+    },
+    "dark_textfield": {
+        "type": "panel",
+        "size": [
+            "100%",
+            54.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "color": [
+                        0.792157,
+                        0.768627,
+                        0.815686
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%-6.8px",
+                        15.3
+                    ],
+                    "layer": 2,
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        3.4,
+                        1.7
+                    ]
+                }
+            },
+            {
+                "textfield@fui_flutter.dark_textfield_native": {
+                    "offset": [
+                        0.0,
+                        -6.8
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_dropdown_native@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.168627,
+                                    0.160784,
+                                    0.188235
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.901961,
+                                    0.882353,
+                                    0.898039
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-34px",
+                                    "100%"
+                                ],
+                                "layer": 2,
+                                "anchor_from": "left_middle",
+                                "anchor_to": "left_middle",
+                                "offset": [
+                                    10.2,
+                                    0.0
+                                ]
+                            }
+                        },
+                        {
+                            "arrow": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/arrow",
+                                "color": [
+                                    0.901961,
+                                    0.882353,
+                                    0.898039
+                                ],
+                                "size": [
+                                    10.2,
+                                    10.2
+                                ],
+                                "layer": 2,
+                                "bilinear": true,
+                                "anchor_from": "right_middle",
+                                "anchor_to": "right_middle",
+                                "offset": [
+                                    -10.2,
+                                    0.0
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.227294,
+                                    0.21851,
+                                    0.245019
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.901961,
+                                    0.882353,
+                                    0.898039
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-34px",
+                                    "100%"
+                                ],
+                                "layer": 2,
+                                "anchor_from": "left_middle",
+                                "anchor_to": "left_middle",
+                                "offset": [
+                                    10.2,
+                                    0.0
+                                ]
+                            }
+                        },
+                        {
+                            "arrow": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/arrow",
+                                "color": [
+                                    0.901961,
+                                    0.882353,
+                                    0.898039
+                                ],
+                                "size": [
+                                    10.2,
+                                    10.2
+                                ],
+                                "layer": 2,
+                                "bilinear": true,
+                                "anchor_from": "right_middle",
+                                "anchor_to": "right_middle",
+                                "offset": [
+                                    -10.2,
+                                    0.0
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.28596,
+                                    0.276235,
+                                    0.301804
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "label": {
+                                "type": "label",
+                                "color": [
+                                    0.901961,
+                                    0.882353,
+                                    0.898039
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 0.85,
+                                "text": "",
+                                "max_size": [
+                                    "100%-34px",
+                                    "100%"
+                                ],
+                                "layer": 2,
+                                "anchor_from": "left_middle",
+                                "anchor_to": "left_middle",
+                                "offset": [
+                                    10.2,
+                                    0.0
+                                ]
+                            }
+                        },
+                        {
+                            "arrow": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/arrow",
+                                "color": [
+                                    0.901961,
+                                    0.882353,
+                                    0.898039
+                                ],
+                                "size": [
+                                    10.2,
+                                    10.2
+                                ],
+                                "layer": 2,
+                                "bilinear": true,
+                                "anchor_from": "right_middle",
+                                "anchor_to": "right_middle",
+                                "offset": [
+                                    -10.2,
+                                    0.0
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_dropdown": {
+        "type": "panel",
+        "size": [
+            "100%",
+            54.4
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "color": [
+                        0.792157,
+                        0.768627,
+                        0.815686
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%-6.8px",
+                        15.3
+                    ],
+                    "layer": 2,
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        3.4,
+                        1.7
+                    ]
+                }
+            },
+            {
+                "dropdown_box@fui_flutter.dark_dropdown_native": {
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "offset": [
+                        0.0,
+                        -6.8
+                    ],
+                    "size": [
+                        "100%",
+                        30.6
+                    ],
+                    "layer": 1
+                }
+            },
+            {
+                "content_panel": {
+                    "type": "panel",
+                    "size": [
+                        "100%",
+                        30.6
+                    ],
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/field",
+                                "color": [
+                                    0.168627,
+                                    0.160784,
+                                    0.188235
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    7.65,
+                                    7.65,
+                                    7.65,
+                                    7.65
+                                ]
+                            }
+                        },
+                        {
+                            "outline": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/field_outline",
+                                "color": [
+                                    0.331765,
+                                    0.320784,
+                                    0.352941
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 1,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    7.65,
+                                    7.65,
+                                    7.65,
+                                    7.65
+                                ]
+                            }
+                        }
+                    ],
+                    "offset": [
+                        0.0,
+                        17.0
+                    ],
+                    "layer": 6,
+                    "visible": false
+                }
+            }
+        ]
+    },
+    "dark_dropdown_item@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            30.6
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.168627,
+                                    0.160784,
+                                    0.188235
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.227294,
+                                    0.21851,
+                                    0.245019
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.28596,
+                                    0.276235,
+                                    0.301804
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "button_label": {
+                    "type": "label",
+                    "color": [
+                        0.901961,
+                        0.882353,
+                        0.898039
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%-20.4px",
+                        "100%"
+                    ],
+                    "layer": 2,
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "offset": [
+                        10.2,
+                        0.0
+                    ]
+                }
+            }
+        ],
+        "layer": 7,
+        "anchor_from": "top_middle",
+        "anchor_to": "top_middle",
+        "offset": [
+            0.0,
+            0.0
+        ]
+    },
+    "dark_slider_native@fui_ore_sliders.slider_common": {
+        "$slider_name": "netease_slider_name",
+        "$slider_direction": "horizontal",
+        "$slider_box_size": [
+            17.0,
+            17.0
+        ],
+        "$slider_box_layout": "fui_flutter.dark_slider_thumb",
+        "$slider_box_hover_layout": "fui_flutter.dark_slider_thumb",
+        "$slider_box_indent_layout": "fui_flutter.dark_slider_thumb",
+        "$slider_box_locked_layout": "fui_flutter.dark_slider_thumb",
+        "default_control": "track",
+        "hover_control": "track_hover",
+        "progress_control": "progress",
+        "progress_hover_control": "progress_hover",
+        "controls": [
+            {
+                "slider_box@common.slider_box": {
+                    "$slider_box_layout": "$slider_box_layout",
+                    "$slider_box_size": "$slider_box_size",
+                    "$slider_track_button": "$slider_name"
+                }
+            },
+            {
+                "track": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/track",
+                    "color": [
+                        0.290196,
+                        0.266667,
+                        0.345098
+                    ],
+                    "size": [
+                        "100%",
+                        5.1
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        2.55,
+                        2.55,
+                        2.55,
+                        2.55
+                    ]
+                }
+            },
+            {
+                "track_hover": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/track",
+                    "color": [
+                        0.290196,
+                        0.266667,
+                        0.345098
+                    ],
+                    "size": [
+                        "100%",
+                        5.1
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        2.55,
+                        2.55,
+                        2.55,
+                        2.55
+                    ],
+                    "visible": false
+                }
+            },
+            {
+                "progress": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/track",
+                    "color": [
+                        0.815686,
+                        0.737255,
+                        1.0
+                    ],
+                    "size": [
+                        "100%",
+                        5.1
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        2.55,
+                        2.55,
+                        2.55,
+                        2.55
+                    ],
+                    "clip_direction": "left"
+                }
+            },
+            {
+                "progress_hover": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/track",
+                    "color": [
+                        0.815686,
+                        0.737255,
+                        1.0
+                    ],
+                    "size": [
+                        "100%",
+                        5.1
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        2.55,
+                        2.55,
+                        2.55,
+                        2.55
+                    ],
+                    "clip_direction": "left",
+                    "visible": false
+                }
+            }
+        ]
+    },
+    "dark_slider_thumb": {
+        "type": "image",
+        "texture": "textures/ui/flutter/circle",
+        "color": [
+            0.815686,
+            0.737255,
+            1.0
+        ],
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "layer": 3,
+        "bilinear": true
+    },
+    "dark_slider": {
+        "type": "panel",
+        "size": [
+            "100%",
+            51.0
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+            {
+                "label": {
+                    "type": "label",
+                    "color": [
+                        0.792157,
+                        0.768627,
+                        0.815686
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%-44.2px",
+                        15.3
+                    ],
+                    "layer": 2,
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        3.4,
+                        1.7
+                    ]
+                }
+            },
+            {
+                "value": {
+                    "type": "label",
+                    "color": [
+                        0.815686,
+                        0.737255,
+                        1.0
+                    ],
+                    "font_type": "smooth",
+                    "font_scale_factor": 0.85,
+                    "text": "",
+                    "max_size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 2,
+                    "anchor_from": "top_right",
+                    "anchor_to": "top_right",
+                    "offset": [
+                        -3.4,
+                        1.7
+                    ]
+                }
+            },
+            {
+                "slider@fui_flutter.dark_slider_native": {
+                    "anchor_from": "bottom_middle",
+                    "anchor_to": "bottom_middle",
+                    "offset": [
+                        0.0,
+                        -13.6
+                    ],
+                    "size": [
+                        "100%-20.4px",
+                        17.0
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_close@common.button": {
+        "type": "button",
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "$pressed_button_name": "%netease_editor_template_namespace.click",
+        "button_mappings": [],
+        "is_handle_button_move_event": true,
+        "default_control": "default",
+        "hover_control": "hover",
+        "pressed_control": "pressed",
+        "controls": [
+            {
+                "default": {
+                    "type": "panel",
+                    "visible": true,
+                    "controls": [
+                        {
+                            "icon": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/close",
+                                "color": [
+                                    0.792157,
+                                    0.768627,
+                                    0.815686
+                                ],
+                                "size": [
+                                    15.3,
+                                    15.3
+                                ],
+                                "layer": 2,
+                                "bilinear": true
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "hover": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.164392,
+                                    0.158902,
+                                    0.177098
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "icon": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/close",
+                                "color": [
+                                    0.792157,
+                                    0.768627,
+                                    0.815686
+                                ],
+                                "size": [
+                                    15.3,
+                                    15.3
+                                ],
+                                "layer": 2,
+                                "bilinear": true
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "pressed": {
+                    "type": "panel",
+                    "visible": false,
+                    "controls": [
+                        {
+                            "background": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/pill",
+                                "color": [
+                                    0.21898,
+                                    0.211921,
+                                    0.232628
+                                ],
+                                "size": [
+                                    "100%",
+                                    "100%"
+                                ],
+                                "layer": 0,
+                                "bilinear": true,
+                                "nineslice_size": [
+                                    11.05,
+                                    11.05,
+                                    11.05,
+                                    11.05
+                                ]
+                            }
+                        },
+                        {
+                            "icon": {
+                                "type": "image",
+                                "texture": "textures/ui/flutter/close",
+                                "color": [
+                                    0.792157,
+                                    0.768627,
+                                    0.815686
+                                ],
+                                "size": [
+                                    15.3,
+                                    15.3
+                                ],
+                                "layer": 2,
+                                "bilinear": true
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "dark_scroll_thumb": {
+        "type": "image",
+        "texture": "textures/ui/flutter/track",
+        "color": [
+            0.413138,
+            0.401568,
+            0.432549
+        ],
+        "size": [
+            "100%",
+            "100%"
+        ],
+        "layer": 0,
+        "bilinear": true,
+        "nineslice_size": [
+            2.55,
+            2.55,
+            2.55,
+            2.55
+        ]
+    },
+    "dark_scroll_track@fui.blank": {},
+    "dark_scroll@common.scrolling_panel": {
+        "$scroll_background_image_control": "fui.blank",
+        "$show_background": false,
+        "$scrolling_content": "fui_ore_panels.scrolling_content",
+        "$scroll_box_mouse_image_control": "fui_flutter.dark_scroll_thumb",
+        "$scroll_box_touch_image_control": "fui_flutter.dark_scroll_thumb",
+        "$scroll_track_image_control": "fui_flutter.dark_scroll_track",
+        "$scroll_size": [
+            5.1,
+            "100%"
+        ],
+        "$scroll_size_touch": [
+            6,
+            "100%"
+        ],
+        "$scroll_bar_contained": true,
+        "$scroll_box_size": [
+            "100%",
+            "100%"
+        ],
+        "$scroll_box_visible_touch": true,
+        "$use_touch_mode": true,
+        "$scroll_bar_and_track_size": [
+            "100%c",
+            "100%-3.4px"
+        ],
+        "$scroll_bar_right_padding_size": [
+            0.0,
+            0.0
+        ],
+        "$scroll_view_port_offset": [
+            0.0,
+            0.0
+        ],
+        "$scroll_view_port_offset_touch": [
+            0,
+            0
+        ],
+        "$scroll_view_port_size": [
+            "100%-8.5px",
+            "100%-3.4px"
+        ],
+        "$scroll_view_port_size_touch": [
+            "100%-10px",
+            "100%-4px"
+        ]
+    },
+    "dark_panel": {
+        "type": "panel",
+        "size": [
+            "61.2%y",
+            "76.5%"
+        ],
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "controls": [
+            {
+                "shadow": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/surface",
+                    "color": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 0,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        14.45,
+                        14.45,
+                        14.45,
+                        14.45
+                    ],
+                    "alpha": 0.18,
+                    "offset": [
+                        0.0,
+                        2.55
+                    ]
+                }
+            },
+            {
+                "background": {
+                    "type": "image",
+                    "texture": "textures/ui/flutter/surface",
+                    "color": [
+                        0.109804,
+                        0.105882,
+                        0.121569
+                    ],
+                    "size": [
+                        "100%",
+                        "100%"
+                    ],
+                    "layer": 1,
+                    "bilinear": true,
+                    "nineslice_size": [
+                        14.45,
+                        14.45,
+                        14.45,
+                        14.45
+                    ]
+                }
+            },
+            {
+                "header": {
+                    "type": "panel",
+                    "size": [
+                        "100%",
+                        44.2
+                    ],
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "controls": [
+                        {
+                            "title": {
+                                "type": "label",
+                                "color": [
+                                    0.901961,
+                                    0.882353,
+                                    0.898039
+                                ],
+                                "font_type": "smooth",
+                                "font_scale_factor": 1.275,
+                                "text": "",
+                                "max_size": [
+                                    "100%-68px",
+                                    "100%"
+                                ],
+                                "layer": 2,
+                                "anchor_from": "left_middle",
+                                "anchor_to": "left_middle",
+                                "offset": [
+                                    17.0,
+                                    0.0
+                                ]
+                            }
+                        },
+                        {
+                            "close@fui_flutter.dark_close": {
+                                "size": [
+                                    27.2,
+                                    27.2
+                                ],
+                                "anchor_from": "right_middle",
+                                "anchor_to": "right_middle",
+                                "offset": [
+                                    -10.2,
+                                    0.0
+                                ]
+                            }
+                        }
+                    ],
+                    "layer": 8
+                }
+            },
+            {
+                "content@fui_flutter.dark_scroll": {
+                    "size": [
+                        "100%-27.2px",
+                        "100%-57.8px"
+                    ],
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "offset": [
+                        13.6,
+                        44.2
+                    ],
+                    "layer": 2
+                }
+            }
+        ]
+    }
+}

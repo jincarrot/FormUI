@@ -11,3 +11,11 @@
 [布局与参数约定](docs/layout-parameters.md)
 
 [使用 AI Skill 编写 FormUI 表单](docs/skill-usage.md)
+
+[Flutter / Material 风格内置控件](docs/flutter-ui.md)
+
+[Fluent Qt 窗口风格内置控件](docs/fluent-ui.md)
+
+内置样式标识符可通过 `from FormUI.lib import InnerStyles` 使用，例如 `InnerStyles.flutter.FilledBtn`、`InnerStyles.fluent.PrimaryBtn`。也可独立导入 `FormUI.innerStyles`，获取 `InnerStyles`、`OreUIStyles`、`FlutterStyles` 和 `FluentStyles`。
+
+[聊天触发的客户端 / 服务端功能测试与双正方形动画](docs/test-examples.md)

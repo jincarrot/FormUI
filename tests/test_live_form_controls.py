@@ -255,7 +255,7 @@ class LiveFormControlTests(unittest.TestCase):
     def test_uiinit_requests_registrations_after_registering_ui(self):
         package_name = self.prefix + '.general.controls'
         package = types.ModuleType(package_name)
-        package.__path__ = []
+        package.__path__ = [str(Path(__file__).resolve().parents[1] / 'behavior/scripts/FormUI/core/general/controls')]
         sys.modules[package_name] = package
         self.modules.append(package_name)
         module = types.ModuleType(package_name + '.oreui')
@@ -267,6 +267,12 @@ class LiveFormControlTests(unittest.TestCase):
         self.client.NotifyToServer = lambda event, data: seen.append((event, data))
         self.client.UIInit({})
         self.assertEqual(seen, ['registered', ('requestControls', {'playerId': 'p1'})])
+        self.modules.append(package_name + '.flutter')
+        self.modules.append(package_name + '.fluent')
+        self.assertTrue(self.client.controlManager.has('flutter:filled_button'))
+        self.assertTrue(self.client.controlManager.has('flutter:dark_dropdown'))
+        self.assertTrue(self.client.controlManager.has('fluent:primary_button'))
+        self.assertTrue(self.client.controlManager.has('fluent:dark_panel'))
 
     def test_close_all_cancels_all_forms_waiting_for_a_screen(self):
         forms = [self.make_form(width=400, height=200) for _ in range(2)]

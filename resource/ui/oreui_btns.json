@@ -564,16 +564,16 @@
     "namespace": "fui_ore_btns",
     "normal_btn@btn_panel": {
         "$label_color": [
-            0,
-            0,
-            0
+            0.2,
+            0.2,
+            0.2
         ]
     },
     "normal_btn_thin@btn_panel_thin": {
         "$label_color": [
-            0,
-            0,
-            0
+            0.2,
+            0.2,
+            0.2
         ]
     },
     "red_btn@btn_panel": {

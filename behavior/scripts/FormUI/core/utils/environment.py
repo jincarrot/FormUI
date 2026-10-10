@@ -15,11 +15,17 @@ def isClient():
 
 def getServerSystem():
     import mod.server.extraServerApi as s
-    return s.GetSystem(Namespace, SystemNameServer)
+    system = s.GetSystem(Namespace, SystemNameServer)
+    if not system:
+        from ..init_system import server_system_path
+    return system
 
 def getClientSystem():
     import mod.client.extraClientApi as c
-    return c.GetSystem(Namespace, SystemNameClient)
+    system = c.GetSystem(Namespace, SystemNameClient)
+    if not system:
+        from ...register import client_system_path
+    return system
 
 def getSystem():
     if isServer():

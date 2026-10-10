@@ -97,9 +97,9 @@
         "$control_alpha": 1.0,
         "$label_anchor": "left_middle",
         "$label_color": [
-            0,
-            0,
-            0
+            0.2,
+            0.2,
+            0.2
         ],
         "$label_font_scale_factor": 1.1,
         "$label_font_size": "normal",

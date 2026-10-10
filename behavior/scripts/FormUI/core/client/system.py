@@ -35,6 +35,10 @@ class Client(ClientSystem):
     def UIInit(self, data):
         from ..general.controls.oreui import OreUI
         OreUI()
+        from ..general.controls.flutter import FlutterUI
+        FlutterUI()
+        from ..general.controls.fluent import FluentUI
+        FluentUI()
         from ..config import Namespace
         c.RegisterUI(Namespace, "screen", Client.__module__.split("system")[0] + "ui.screen.Screen", "fui.screen")
         self.NotifyToServer('requestControls', {'playerId': c.GetLocalPlayerId()})

@@ -182,9 +182,9 @@
                                 ],
                                 "layer": 2,
                                 "color": [
-                                    0,
-                                    0,
-                                    0
+                                    0.2,
+                                    0.2,
+                                    0.2
                                 ],
                                 "font_scale_factor": 1.5,
                                 "font_type": "smooth",
@@ -274,11 +274,11 @@
                                 ],
                                 "layer": 2,
                                 "color": [
-                                    0,
-                                    0,
-                                    0
+                                    0.2,
+                                    0.2,
+                                    0.2
                                 ],
-                                "font_scale_factor": 1.5,
+                                "font_scale_factor": 1.25,
                                 "font_type": "smooth",
                                 "text": "Title"
                             }

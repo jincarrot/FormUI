@@ -1,9 +1,10 @@
 """Static-only public API examples; checked with mypy, not executed in game."""
-from typing import Any, assert_type
+from typing import Any, Literal, assert_type
 from FormUI.lib import (
     Button, Control, ControlType, Custom, Dropdown, Form, Group, Label,
-    Observable, Screen, Slider,
+    Observable, Screen, Slider, InnerStyles,
 )
+from FormUI.innerStyles import FlutterStyles, FluentStyles
 from FormUI.core.general.observable import Observable as ObservableValue
 from FormUI.core.general.form import Form as FormInstance, FormShowResult
 from FormUI.core.general.interfaces.controls import GroupChildren, GroupControlStyle, GroupStyle
@@ -30,6 +31,12 @@ def on_close(args: FormShowResultArgs) -> None:
 
 
 def example() -> None:
+    assert_type(InnerStyles.flutter.FilledBtn, Literal['flutter:filled_button'])
+    assert_type(FluentStyles.DarkPanel, Literal['fluent:dark_panel'])
+    Form.create('Fluent', {'class': InnerStyles.fluent.LightPanel}).button(
+        '保存', style={'class': InnerStyles.fluent.PrimaryBtn})
+    Form.create('Flutter', {'class': FlutterStyles.DarkPanel}).toggle(
+        '启用', True, {'class': InnerStyles.flutter.DarkToggle})
     angle = Observable.create(0.0)
     text = Observable.create('title')
     visible = Observable.create(True)

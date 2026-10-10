@@ -8,6 +8,9 @@
         "ui/oreui_panels.json",
         "ui/oreui_sliders.json",
         "ui/oreui_textfields.json",
-        "ui/samples.json"
+        "ui/flutter.json",
+        "ui/fluent.json",
+        "ui/samples.json",
+        "ui/fui_examples.json"
     ]
 }

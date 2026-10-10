@@ -1,0 +1,35 @@
+{
+    "namespace": "fui_examples",
+    "custom_label": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": ["100%", 52],
+        "controls": [
+            {"label": {"type": "label", "anchor_from": "top_left", "anchor_to": "top_left", "size": ["100%", 24], "text": "", "color": [1, 1, 1], "shadow": true}},
+            {"detail": {"type": "label", "anchor_from": "top_left", "anchor_to": "top_left", "offset": [0, 26], "size": ["100%", 24], "text": "", "font_scale_factor": 0.7, "color": [0.3, 0.3, 0.3]}}
+        ]
+    },
+    "square_image": {
+        "type": "image",
+        "texture": "textures/ui/square",
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "rotate_pivot": [0.5, 0.5],
+        "size": [100, 100]
+    },
+    "squares": {
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "size": ["100%", 224],
+        "controls": [
+            {"canvas": {"type": "panel", "anchor_from": "top_left", "anchor_to": "top_left", "size": ["100%", "100%-56px"], "controls": [
+                {"rotating@square_image": {"color": [0.1, 0.65, 1.0], "layer": 1}},
+                {"fixed@square_image": {"color": [1.0, 0.4, 0.1], "layer": 2}}
+            ]}},
+            {"angle": {"type": "label", "anchor_from": "bottom_middle", "anchor_to": "bottom_middle", "offset": [0, -34], "size": ["100%", 20], "text": "0°", "color": [0.2, 0.2, 0.2]}},
+            {"play@fui_ore_btns.normal_btn_thin": {"anchor_from": "bottom_middle", "anchor_to": "bottom_middle", "offset": [0, -2], "size": ["100%-8px", 30]}}
+        ]
+    }
+}

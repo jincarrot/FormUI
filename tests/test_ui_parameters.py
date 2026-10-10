@@ -1,7 +1,9 @@
 """Dimension expressions and slider boundaries without the game runtime."""
 import importlib.util
+import builtins
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 
 spec = importlib.util.spec_from_file_location(
     'ui_parameter_utils', Path(__file__).resolve().parents[1] / 'behavior/scripts/FormUI/core/utils/ui.py')
@@ -10,6 +12,24 @@ spec.loader.exec_module(ui)
 
 
 class UIParameterTests(unittest.TestCase):
+    def test_numeric_validation_works_without_numbers_module(self):
+        original_import = builtins.__import__
+        def restricted_import(name, *args, **kwargs):
+            if name == 'numbers':
+                raise ImportError('numbers is unavailable in the game runtime')
+            return original_import(name, *args, **kwargs)
+        module = importlib.util.module_from_spec(spec)
+        with patch('builtins.__import__', restricted_import):
+            spec.loader.exec_module(module)
+        large_integer = 2 ** 70
+        self.assertEqual(module.validateGrids([large_integer, 1.5]), [large_integer, 1.5])
+        self.assertEqual(module.getSizeDict(large_integer)['absoluteValue'], large_integer)
+        self.assertEqual(module.getFontScale(2), 2.0)
+        self.assertEqual(module.getStepedValue(7, 0, 10, 2), 8)
+        for invalid in (True, 1j, '2', None, float('nan'), float('inf'), 10 ** 400):
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                module.validateGrids([invalid])
+
     def test_dimensions_support_signed_decimals_and_numeric_strings(self):
         cases = [('50.5%-2.25px', -2.25, .505, 'parent'),
                  ('-.5px', -.5, 0, 'parent'), ('12.5', 12.5, 0, 'parent'),
