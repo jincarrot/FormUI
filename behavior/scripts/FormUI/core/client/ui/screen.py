@@ -153,7 +153,11 @@ class Screen(ScreenNode):
                 self.RemoveChildControl(root)
             self._refreshFormVisibility()
             if not self.forms:
-                c.PopScreen()
+                def popScreen():
+                    c.PopScreen()
+                    if not hasattr(c.GetTopScreen(), "isFormScreen"):
+                        c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(timer)
+                timer = c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddTimer(0.05, popScreen)
             from ...utils.environment import getSystem
             getSystem().NotifyToServer("formClose%s" % formId, {"closeReason": "api" if "closeByInterface" in data else "user", "playerId": c.GetLocalPlayerId()})
             getSystem().BroadcastEvent("formClose%s" % formId, {"closeReason": "api" if "closeByInterface" in data else "user", "playerId": c.GetLocalPlayerId()})
@@ -559,6 +563,7 @@ class Screen(ScreenNode):
             self._prepareGroup(child, ancestors + (name,))
 
     def _childDefaults(self, data, typeId):
+        data['custom'] = wrapVariable(typeId == ControlType.Custom)
         defaults = {'label': ''}
         if typeId == ControlType.Button:
             data.setdefault('callbacks', {})
@@ -595,7 +600,9 @@ class Screen(ScreenNode):
             for childName, child in data['children'].items():
                 self._createControl(formId, prefix + (childName,), child, native, childName, created)
         else:
-            typeId = cls.typeId if isinstance(address, tuple) else (ControlType.Custom if 'params' in data else cls.typeId)
+            # Legacy payloads used params presence as the custom marker.
+            isCustom = data.get('custom', {}).get('value', 'params' in data)
+            typeId = ControlType.Custom if not isinstance(address, tuple) and isCustom else cls.typeId
             getattr(self, 'set' + typeId[0].upper() + typeId[1:] + 'Properties')(formId, address, cls, native)
         created.append((address, cls, native))
         return native
@@ -608,7 +615,9 @@ class Screen(ScreenNode):
             if callback:
                 from ...utils.type import CreateArguments
                 data = self._getControlData(formId, address)
-                callback(CreateArguments(self, native, unwrapWrappedValue(data.get('params', {}))))
+                callback(CreateArguments(
+                    self, native, unwrapWrappedValue(data.get('params', {})),
+                    style=unwrapWrappedValue(data.get('style', {}))))
             state = self.__customControls.get(formId, {}).get(address)
             if state:
                 state['ready'] = True
@@ -839,7 +848,13 @@ class Screen(ScreenNode):
             while pending and formId in self.forms:
                 index, key, oldValue, newValue = pending[0]
                 state = self.__customControls.get(formId, {}).get(index)
-                if not state or not state['ready']:
+                if not state:
+                    # Unprepared Group children can queue params updates before
+                    # their actual registered type is known. Ordinary controls
+                    # have no custom update callback and must not block the queue.
+                    pending.popleft()
+                    continue
+                if not state['ready']:
                     break
                 pending.popleft()
                 control = self._getControlData(formId, index)

@@ -58,9 +58,9 @@ child_visible.setValue(False)  # 隐藏标题，不移动组内其他子控件�
 
 ## 实例数据
 
-`form.group(children={}, style={})` 返回表单，支持链式调用。`style` 定义组自身的尺寸、位移和可见性，也支持 offset/size 简写以及 Observable。
+`form.group(children={}, style={}, params={})` 返回表单，支持链式调用。`style` 定义组自身的尺寸、位移和可见性，也支持 offset/size 简写以及 Observable。`params` 传给组根的 `onCreate(args)`，通过 `args.params` 读取。
 
-`children` 按注册的子控件名称提供数据，字段沿用对应控件：`label`、`state`、`value`、`minValue`、`maxValue`、`step`、`items`、`callbacks`；custom 使用 `params`。省略子控件数据时使用该类型的空文本、初始值和空回调等默认值。子控件样式统一由 Group 注册配置定义。
+`children` 按注册的子控件名称提供数据，字段沿用对应控件：`label`、`state`、`value`、`minValue`、`maxValue`、`step`、`items`、`callbacks`；各类型都可以用 `params` 提供创建参数。子控件参数与组根参数相互独立，不自动继承；Custom 的参数仍用于原有更新通知。省略子控件数据时使用该类型的空文本、初始值和空回调等默认值。子控件样式统一由 Group 注册配置定义。
 
 回调在调用 form.group 的一端保存，传输使用回调编号。输入控件将 Observable 更新发往该 Observable 所属端，组内绑定的客户端 Observable 与服务端 Observable 都可以使用。
 

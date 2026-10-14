@@ -17,6 +17,7 @@ def _ignore(value: object) -> None:
 
 def on_create(args: CreateArguments) -> None:
     assert_type(args.params, dict[str, Any])
+    assert_type(args.style, dict[str, Any])
 
 
 def on_update(args: ObservableUpdateArguments) -> None:
@@ -69,16 +70,17 @@ def example() -> None:
     }
     form = Form.create('example', {'class': 'oreui:light_panel_thin'})
     assert_type(form, FormInstance)
-    assert_type(form.group(children, style), FormInstance)
-    form.button('confirm', {'onClick': lambda player: _ignore(assert_type(player, str))}, {'height': 30})
-    form.toggle('running', visible)
-    form.slider('angle', angle, maxValue=360)
-    form.textfield('title', text)
-    form.label(text, {'fontSize': Observable.create(1.5)})
+    assert_type(form.group(children, style, {'id': 'group'}), FormInstance)
+    form.button('confirm', {'onClick': lambda player: _ignore(assert_type(player, str))}, {'height': 30}, {'id': 'confirm'})
+    form.toggle('running', visible, params={'id': 'running'})
+    form.slider('angle', angle, maxValue=360, params={'angle': angle})
+    form.textfield('title', text, params={'id': 'title'})
+    form.label(text, {'fontSize': Observable.create(1.5)}, {'id': 'label'})
+    form.divider({}, {'id': 'divider'})
     font_size: ObservableValue[float | str] = Observable.create(1.0)
     form.label(text, {'fontSize': font_size})
     font_size.setValue('default')
-    form.dropdown('mode', [{'label': 'one', 'value': 1}], Observable.create(1))
+    form.dropdown('mode', [{'label': 'one', 'value': 1}], Observable.create(1), params={'id': 'mode'})
     form.custom({'nested': {'angle': angle}}, {'height': 40})
     result = form.show(['player'])
     assert_type(result, FormShowResult)

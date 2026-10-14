@@ -14,6 +14,63 @@
 
 创建期间调用 `close()` 会取消待显示任务和创建定时器，按 `api` 原因触发关闭回调。即使旧定时器已进入执行队列，也不会重新创建被关闭的表单或影响重新打开的实例。
 
+## 创建回调中的实例参数
+
+除 `custom` 外，所有添加控件方法都在 `style` 后提供可选的 `params` 字典，默认为 `{}`：
+
+```python
+form.button(label, callbacks={}, style={}, params={})
+form.toggle(label, state, style={}, params={})
+form.divider(style={}, params={})
+form.label(text, style={}, params={})
+form.slider(label, value, minValue=0.0, maxValue=1.0, step=1, style={}, params={})
+form.textfield(label, value, style={}, params={})
+form.dropdown(label, items, value, style={}, params={})
+form.group(children={}, style={}, params={})
+```
+
+`form.custom(params={}, style={})` 保持原有顺序。新参数在末尾，不影响已有的位置参数调用；可以用 `params=...` 省略其他可选参数。
+
+```python
+def on_create(args):
+    print('created button: %s' % args.params.get('name', ''))
+
+# 注册 Button(onCreate=on_create) 后添加多个实例。
+form.button('确认', style={'class': 'demo:named_button'}, params={'name': 'confirm'})
+form.button('取消', style={'class': 'demo:named_button'}, params={'name': 'cancel'})
+```
+
+`onCreate` 在客户端通过 `args.params` 获取当前实例的独立参数快照。参数支持普通可传输值，以及嵌套列表、字典中的 Observable；创建前发生的 Observable 更新会反映在创建快照中。修改快照不会修改源参数、Observable 或表单缓存。参数必须是字典，传入 None、列表或字符串会抛出 `TypeError`。
+
+Group 根的 params 传给根的创建回调；子控件在 children 的对应名称下单独提供 `params`，各层不会自动继承或合并参数。普通控件的 params 用于创建回调，不改变原有输入、按钮事件或布局行为，也不会触发 Custom 的 `onObservableUpdate`。需要 Custom 更新通知时继续使用 `form.custom`。
+
+## 创建回调中的实例样式
+
+注册控件的 `onCreate(args)` 可以通过 `args.style` 读取当前实例的样式，包括 `form.button(..., style=...)` 传入的 `name` 等自定义字段。同一控件类型的不同实例各自获取独立快照；普通按钮、Custom 和 Group 的创建回调均支持。
+
+```python
+# -*- coding: utf-8 -*-
+from FormUI.lib import Control, Button, Form
+
+def on_create(args):
+    print('created button: %s' % args.style.get('name', ''))
+
+# 在客户端 FormUI 系统和内置 UI 初始化完成后注册。
+Control.register('demo:named_button', 'fui_ore_btns.normal_btn_thin', Button(
+    onCreate=on_create, buttonPath='/button',
+    labelPaths=['/default/label', '/hover/label', '/pressed/label'],
+))
+
+form = Form.create('按钮示例', {'class': 'oreui:light_panel_thin'})
+form.button('确认', style={'class': 'demo:named_button', 'name': 'confirm'})
+form.button('取消', style={'class': 'demo:named_button', 'name': 'cancel'})
+form.show()
+```
+
+`args.style` 是调用 `onCreate` 时合并默认配置后的样式快照，Observable 已递归解包为当前值。尺寸保留 `"50%"`、`"default"` 等表达式；Group 的 offset/size 简写会规范化为独立轴属性。它包含实例样式，不包含注册时的 `options`。
+
+修改快照不会修改表单缓存、Observable 或原生控件。创建后的样式更新不会改变此前保存的快照；运行时调整仍使用绑定的 Observable 或客户端原生控件接口。自定义字段不会自动改变布局或产生事件，需要创建回调自行使用；跨端传输时应使用可传输的数据。
+
 ## 字体大小
 
 `form.label(text, {'fontSize': 1.5})` 设置字体缩放倍数，沿用网易原生 `SetTextFontSize` 的语义，不是像素字号。接受非负有限数值或 Observable；创建时的 `"default"` 保留模板设置，运行时设置为 `"default"` 将缩放恢复为 `1.0`。

@@ -108,6 +108,192 @@ class LiveFormControlTests(unittest.TestCase):
         text.setValue('updated')
         self.assertEqual(child.children['/label'].text, 'updated')
 
+    def test_all_add_methods_deliver_params_and_keep_native_interactions(self):
+        from test_group_controls import NativeControl
+        kinds = ('button', 'toggle', 'divider', 'label', 'slider', 'textfield', 'dropdown', 'group')
+        self.system.controlManager.create('divider', 'divider', 'divider.path', {})
+        self.system.controlManager.create('dropdown', 'dropdown', 'dropdown.path', {
+            'dropdownPath': '', 'contentPath': '/items', 'labelPaths': ['/label'],
+            'boxLabelPaths': ['/label'], 'itemLabelPaths': ['/label'], 'itemControl': 'item.path',
+        })
+        original = self.ui.CreateChildControl
+        def create(path, name, parent):
+            native = original(path, name, parent)
+            if path == 'dropdown.path':
+                native.children['/items'] = NativeControl(native, native.path + '/items')
+            elif path == 'item.path':
+                native.children['/button_label'] = native.children['/label']
+            return native
+        self.ui.CreateChildControl = create
+        self.register('group', {})
+        value = self.system.observableManager.create({'items': [7]})
+        for server_side in (True, False):
+            with self.subTest(server_side=server_side):
+                self.server_side = server_side
+                self.client.formManager = self.system.formManager
+                created, clicked = {}, []
+                for kind in kinds:
+                    self.system.controlManager.get(kind).options['onCreate'] = (
+                        lambda args, kind=kind: created.setdefault(kind, args))
+                form = self.make_form(width=400, height=400)
+                for kind in kinds:
+                    params = {'kind': kind, 'nested': {'values': [value]}}
+                    style = {'class': kind, 'height': 30}
+                    if kind == 'button':
+                        result = form.button('button', {'onClick': clicked.append}, style, params)
+                    elif kind == 'toggle':
+                        result = form.toggle('toggle', True, style, params)
+                    elif kind == 'divider':
+                        result = form.divider(style, params)
+                    elif kind == 'label':
+                        result = form.label('label', style, params)
+                    elif kind == 'slider':
+                        result = form.slider('slider', 30, 0, 100, 1, style, params)
+                    elif kind == 'textfield':
+                        result = form.textfield('textfield', 'text', style, params)
+                    elif kind == 'dropdown':
+                        result = form.dropdown('dropdown', [{'label': 'one', 'value': 1}], 1, style, params)
+                    else:
+                        result = form.group({}, style, params)
+                    self.assertIs(result, form)
+                    params['later'] = 'not part of the added control'
+                fid, data = self.add(form)
+                self.assertEqual(set(created), set(kinds))
+                for index, kind in enumerate(kinds):
+                    args = created[kind]
+                    self.assertEqual(args.params, {'kind': kind, 'nested': {'values': [{'items': [7]}]}})
+                    self.assertIs(args.control, self.ui.getControl(fid, index))
+                    self.assertNotIn(index, self.ui._Screen__customControls.get(fid, {}))
+                    args.params['nested']['values'][0]['items'].append(99)
+                    self.assertEqual(data['controls'][index]['params']['nested']['values'][0]['value'],
+                                     {'items': [7]})
+                self.assertEqual(value.getValue(), {'items': [7]})
+                created['button'].control.handlers['click']({})
+                self.assertEqual(clicked, ['p1'])
+                self.assertTrue(created['toggle'].control.toggle)
+                self.assertEqual(created['label'].control.children['/label'].text, 'label')
+                self.assertEqual(created['slider'].control.slider, 0.3)
+                self.assertEqual(created['textfield'].control.text, 'text')
+                item = created['dropdown'].control.children['/items'].children['/item_1']
+                self.assertEqual(item.children['/button_label'].text, 'one')
+                self.assertIn('click', item.handlers)
+
+    def test_params_default_isolated_and_invalid_values_rejected_for_all_methods(self):
+        calls = (
+            lambda form, **kw: form.button('button', **kw),
+            lambda form, **kw: form.toggle('toggle', True, **kw),
+            lambda form, **kw: form.divider(**kw),
+            lambda form, **kw: form.label('label', **kw),
+            lambda form, **kw: form.slider('slider', 0, **kw),
+            lambda form, **kw: form.textfield('textfield', '', **kw),
+            lambda form, **kw: form.dropdown('dropdown', [], 0, **kw),
+            lambda form, **kw: form.group(**kw),
+        )
+        for call in calls:
+            for invalid in (None, [], 'invalid'):
+                with self.subTest(call=call, invalid=invalid), self.assertRaises(TypeError):
+                    call(self.make_form(), params=invalid)
+        created = []
+        def on_create(args):
+            created.append(dict(args.params))
+            args.params['local'] = True
+        self.system.controlManager.get('button').options['onCreate'] = on_create
+        form = self.make_form().button('first', style={'class': 'button'})
+        form.button('second', style={'class': 'button'})
+        fid, data = self.add(form)
+        form.button('appended', style={'class': 'button'}, params={'id': 3})
+        self.assertEqual(created, [{}, {}, {'id': 3}])
+        self.assertEqual([item['params'] for item in data['controls'][:2]], [{}, {}])
+
+    def test_pending_ordinary_and_group_params_do_not_block_custom_updates(self):
+        created = []
+        value = self.system.observableManager.create(0)
+        self.system.controlManager.get('button').options['onCreate'] = created.append
+        self.register('group', {'button': {'class': 'button'}, 'custom': {'class': 'custom'}},
+                      on_create=created.append)
+        form = self.make_form().button('ordinary', style={'class': 'button'}, params={'count': value})
+        form.group({'button': {'label': 'nested', 'params': {'count': value}},
+                    'custom': {'params': {'count': value}}},
+                   {'class': 'group'}, {'count': value})
+        form.custom({'count': value}, {'class': 'custom'})
+        form.show('p1')
+        self.ui.addForm(self.payloads[-1])
+        value.setValue(1)
+        value.setValue(2)
+        self.timers.drain()
+        self.assertEqual([args.params for args in created], [{'count': 2}] * 3)
+        self.assertEqual(len(self.created), 2)
+        self.assertEqual([args.params for args in self.created], [{'count': 2}] * 2)
+        self.assertEqual([(args.oldValue, args.newValue) for args in self.updated],
+                         [(0, 1), (0, 1), (1, 2), (1, 2)])
+        value.setValue(3)
+        self.assertEqual([(args.oldValue, args.newValue) for args in self.updated[-2:]], [(2, 3)] * 2)
+        self.assertEqual(created[0].params, {'count': 2})
+        fid = self.payloads[-1]['formId']['value']
+        self.assertFalse(self.ui._Screen__pendingCustomUpdates.get(fid))
+
+    def test_group_child_params_validation(self):
+        for invalid in (None, [], 'invalid'):
+            with self.subTest(invalid=invalid), self.assertRaises(TypeError):
+                self.make_form().group({'button': {'params': invalid}}, {'class': 'group'})
+
+    def test_button_creation_style_snapshots_are_per_instance_and_preserve_bindings(self):
+        created = []
+        clicked = []
+        self.system.controlManager.get('button').options['onCreate'] = created.append
+        width = self.system.observableManager.create('50%')
+        metadata = self.system.observableManager.create({'tags': ['first']})
+        form = self.make_form(width=400, height=200)
+        form.button('first', {'onClick': clicked.append}, {
+            'class': 'button', 'name': 'first', 'width': width,
+            'metadata': {'payload': metadata},
+        }).button('second', style={
+            'class': 'button', 'name': 'second', 'width': '25%',
+        })
+        fid, data = self.add(form)
+        first, second = created
+        self.assertEqual((first.style['name'], second.style['name']), ('first', 'second'))
+        self.assertEqual(first.style['width'], '50%')
+        self.assertEqual(second.style['width'], '25%')
+        self.assertEqual(first.style['metadata'], {'payload': {'tags': ['first']}})
+        self.assertIs(first.control, self.ui.getControl(fid, 0))
+        self.assertIs(second.control, self.ui.getControl(fid, 1))
+        self.assertEqual(first.params, {})
+
+        first.style['name'] = 'local change'
+        first.style['metadata']['payload']['tags'].append('local change')
+        self.assertEqual(metadata.getValue(), {'tags': ['first']})
+        self.assertEqual(data['controls'][0]['style']['name']['value'], 'first')
+        self.assertEqual(data['controls'][0]['style']['metadata']['payload']['value'],
+                         {'tags': ['first']})
+        first.control.handlers['click']({})
+        self.assertEqual(clicked, ['p1'])
+
+        width.setValue('75%')
+        self.assertEqual(first.style['width'], '50%')  # Creation snapshot stays fixed.
+        self.assertEqual(data['controls'][0]['style']['width']['value'], '75%')
+        form.button('appended', style={'class': 'button', 'name': 'appended', 'width': width})
+        self.assertEqual((created[-1].style['name'], created[-1].style['width']),
+                         ('appended', '75%'))
+
+    def test_group_creation_callbacks_get_each_instances_normalized_style(self):
+        created = []
+        offset = self.system.observableManager.create(12)
+        self.system.controlManager.get('button').options['onCreate'] = created.append
+        self.register('group', {'button': {
+            'class': 'button', 'size': ['50%', 24], 'offset': [offset, 8],
+        }}, on_create=created.append)
+        fid, _ = self.add(self.group_form(width=180, height=60))
+        child, group = created
+        self.assertIs(child.control, self.ui.getControl(fid, (0, 'button')))
+        self.assertEqual(child.style, {
+            'class': 'button', 'width': '50%', 'height': 24,
+            'offsetX': 12, 'offsetY': 8, 'visible': True,
+        })
+        self.assertIs(group.control, self.ui.getControl(fid, 0))
+        self.assertEqual((group.style['class'], group.style['width'], group.style['height']),
+                         ('group', 180, 60))
+
     def test_additions_in_oncreate_are_mounted_after_initial_creation(self):
         seen = []
         form = self.make_form(width=400, height=200)

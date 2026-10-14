@@ -27,7 +27,7 @@ form.show()
 text.setValue('更新内容')
 ```
 
-`onCreate` 在控件创建并完成布局后调用一次。`args.control` 是本实例的原生控件，`args.screenNode` 是所属页面，`args.params` 是解包后的初始参数快照。
+`onCreate` 在控件创建并完成布局后调用一次。`args.control` 是本实例的原生控件，`args.screenNode` 是所属页面，`args.params` 是解包后的初始参数快照，`args.style` 是本实例合并默认配置后的样式快照。样式中的 Observable 同样解包为当前值，修改快照不会改动原始样式或绑定值；详见[创建回调中的实例样式](layout-parameters.md#创建回调中的实例样式)。
 
 `onObservableUpdate` 提供同一实例的 `control`、`screenNode`，以及 `key`、`oldValue`、`newValue`。`args.params` 是回调时的当前参数快照。多个实例共用同一个注册回调时，直接使用 `args.control` 更新目标实例。
 

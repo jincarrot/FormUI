@@ -52,7 +52,7 @@ def create_summary():
 
 注册配置每个命名子控件的 class 必填；只接受 class、offset、size、offsetX、offsetY、width、height、visible。名称非空且不含 `/`。offset/size 为两个元素的列表，可整体或按元素绑定 Observable；独立轴键覆盖简写，class/visible 也支持 Observable。class 变化会重建子控件。
 
-实例 children 按注册名称传入数据：label、state、value、minValue、maxValue、step、items、callbacks；Custom 使用 params，嵌套 Group 使用 children。不要把文本或回调放进注册布局字典，也不要在实例数据中编造子控件 style。
+`form.group(children, style, params={})` 的 params 传给组根的创建回调。实例 children 按注册名称传入数据：label、state、value、minValue、maxValue、step、items、callbacks；所有类型可单独提供 params，嵌套 Group 使用 children。各层 params 不自动继承或合并；普通控件只在 onCreate 读取参数，Custom 保留更新通知。不要把文本或回调放进注册布局字典，也不要在实例数据中编造子控件 style。
 
 子控件绝对定位，百分比相对直接父组；父组改变大小会更新子控件。组不会按内容自动撑高，应显式预留 height。注册配置中的 Observable 被多个实例共用时会共同改变布局；需要实例独立大小时优先绑定 form.group 的根 style。嵌套组引用须无环，实例数据的名称须存在于定义中。
 
@@ -88,7 +88,7 @@ def create_custom_form():
     return form, text
 ```
 
-`onCreate(args)` 在本实例布局完成后调用，提供 args.control、args.screenNode、args.params。更新回调另有 key、oldValue、newValue；params 为当前解包快照。不要根据绑定编号查询另一端 Observable，不把快照当源对象修改。
+`onCreate(args)` 在本实例布局完成后调用，提供 args.control、args.screenNode、args.params 和 args.style。args.style 是当前实例合并默认项后的独立样式快照，递归解包 Observable，并保留普通控件 style 中的 name 等自定义字段；Group 的布局简写会规范化。它适用于 Button、Custom 和 Group 等创建回调，不是注册 options，也不会随后续更新变化。不要通过修改快照控制原生控件。更新回调另有 key、oldValue、newValue；params 为当前解包快照。不要根据绑定编号查询另一端 Observable，不把快照当源对象修改。
 
 params 支持普通值、值为列表/字典的 Observable 及嵌套绑定。更新按顶层键通知：`{'config': {'angle': angle}}` 的 key 为 config，oldValue/newValue 为整个 config 字典。创建前通知会排队，初始化使用最新快照，之后通知仍按各次变化提供旧值与新值。普通参数只初始化；运行时更新使用 Observable。
 

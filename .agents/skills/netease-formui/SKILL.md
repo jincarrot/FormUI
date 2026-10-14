@@ -32,6 +32,8 @@ description: 使用本项目 FormUI 库为网易版我的世界 ModSDK 编写客
 - `Form.create(title, style)` 接收显示与布局配置；`show(target=None)` 没有 `options` 参数。表单根必须使用已注册的滚动面板 class。
 - 控件添加方法返回 Form，可链式调用；`show()` 返回显示结果，`result.onClose(callback)` 和 `close()` 返回 `None`。
 - 按钮回调接收 `playerId` 字符串；关闭回调接收带 `playerId`、`closeReason` 的对象；Custom 回调接收原生控件与参数快照。三者不能混用。
+- 注册控件的 `onCreate` 另提供 `args.style`，为当前实例合并默认项、解包 Observable 后的独立样式快照；可读取普通控件 style 的自定义字段，不能靠修改快照更新控件，也不能把它当注册 options。
+- 除 `custom(params, style)` 外，添加控件方法均在 `style` 后接收可选的 `params={}`，由创建回调的 `args.params` 读取实例快照；业务数据优先放 params。Group 根和各子控件分别传参，普通控件 params 不会触发 Custom 更新通知。
 - 正在显示或等待创建的同一玩家再次 `show()` 会抛出 `RuntimeError`。服务端关闭依赖客户端回执，需要回执后再重开。`isShowing()` 的服务端语义为历史显示过的全部玩家，不是“任一玩家”。
 - Observable 使用 `create/getValue/setValue/subscribe/unsubscribe`，不编造 `.value` 属性。绑定数据用 `setValue` 更新，不通过 Form 的内部成员查找原生控件。
 - 下拉框 `items`、选项 `label/value` 为静态数据；菜单标题和选中值可绑定 Observable。面板风格不会自动替换子控件 class。

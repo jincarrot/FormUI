@@ -66,7 +66,7 @@ GroupStyle = TypedDict("GroupStyle", {
 }, total=False)
 
 class GroupChildData(TypedDict, total=False):
-    """按子控件类型选择字段；嵌套组使用 children，custom 使用 params。"""
+    """按子控件类型选择字段；嵌套组使用 children，各类型均可提供 params。"""
     label: TextValue
     callbacks: ButtonCallbacks
     state: BoolValue

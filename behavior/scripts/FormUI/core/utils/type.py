@@ -3,10 +3,11 @@ from copy import deepcopy
 
 class CreateArguments(object):
 
-    def __init__(self, screenNode, control, params=None):
+    def __init__(self, screenNode, control, params=None, style=None):
         self.__screenNode = screenNode
         self.__control = control
         self.__params = deepcopy(params) if params is not None else {}
+        self.__style = deepcopy(style) if style is not None else {}
 
     @property
     def screenNode(self):
@@ -18,8 +19,13 @@ class CreateArguments(object):
 
     @property
     def params(self):
-        """An independent snapshot of custom parameters, with Observable values unwrapped."""
+        """An independent snapshot of instance parameters, with Observable values unwrapped."""
         return self.__params
+
+    @property
+    def style(self):
+        """An independent instance-style snapshot, with Observable values unwrapped."""
+        return self.__style
 
 class FormShowResultArgs:
     def __init__(self, data):
@@ -112,6 +118,8 @@ def getCustomObservableUpdates(form, previous, value):
         return False
     from .group import iterControls
     for index, control in iterControls(form.get('controls', [])):
+        if not control.get('custom', {}).get('value', True):
+            continue
         for key, binding in control.get('params', {}).items():
             if changed(binding):
                 updates.append((index, key, unwrapWrappedValue(binding, previous), unwrapWrappedValue(binding)))

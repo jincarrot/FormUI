@@ -110,8 +110,8 @@ class Form:
                 playerId = c.GetLocalPlayerId()
             return self._isShowing.get(playerId, False)
     
-    def button(self, label, callbacks={}, style={}):
-        # type: (str, dict, dict) -> Form
+    def button(self, label, callbacks={}, style={}, params={}):
+        # type: (str, dict, dict, dict) -> Form
         """
         添加一个按钮。
         """
@@ -138,10 +138,15 @@ class Form:
             "label": label,
             "callbacks": defaultCallbacks,
             "style": defaultStyle
-        })
+        }, params)
         return self
 
-    def _appendControl(self, control):
+    def _appendControl(self, control, params={}):
+        """Store independent instance params and an explicit creation-mode marker."""
+        if not isinstance(params, dict):
+            raise TypeError('control params must be a dict')
+        control['params'] = dict(params)
+        control.setdefault('custom', False)
         index = len(self.__controls)
         self.__controls.append(control)
         targets = [player for player, showing in self._isShowing.items() if showing]
@@ -158,7 +163,7 @@ class Form:
         else:
             getSystem().appendFormControl(data)
     
-    def toggle(self, label, state, style={}):
+    def toggle(self, label, state, style={}, params={}):
         """
         添加一个开关。
         """
@@ -175,11 +180,11 @@ class Form:
             "label": label,
             "state": state,
             "style": defaultStyle
-        })
+        }, params)
         return self
 
-    def divider(self, style={}):
-        # type: (str, dict) -> Form
+    def divider(self, style={}, params={}):
+        # type: (dict, dict) -> Form
         """
         添加一个分割线。
         """
@@ -194,13 +199,13 @@ class Form:
         defaultStyle.update(style)
         self._appendControl({
             "style": defaultStyle
-        })
+        }, params)
         return self
 
-    def label(self, text, style={}):
+    def label(self, text, style={}, params={}):
         # type: (str, dict, dict) -> Form
         """
-        添加一个按钮。
+        添加一个文本控件。
         """
         defaultStyle = getSystem().screen.getDefaultStyle("label", {
             "class": "oreui:label",
@@ -217,10 +222,10 @@ class Form:
         self._appendControl({
             "label": text,
             "style": defaultStyle
-        })
+        }, params)
         return self
 
-    def slider(self, label, value, minValue=0.0, maxValue=1.0, step=1, style={}):
+    def slider(self, label, value, minValue=0.0, maxValue=1.0, step=1, style={}, params={}):
         """添加滑动条；step=0 为连续模式，负步长取绝对值，反向边界自动排序。"""
         defaultStyle = getSystem().screen.getDefaultStyle("slider", {
             "class": "oreui:slider",
@@ -238,10 +243,10 @@ class Form:
             "maxValue": maxValue,
             "step": step,
             "style": defaultStyle
-        })
+        }, params)
         return self
 
-    def textfield(self, label, value, style={}):
+    def textfield(self, label, value, style={}, params={}):
         defaultStyle = getSystem().screen.getDefaultStyle("textfield", {
             "class": "oreui:textfield",
             "width": "100%-8px",
@@ -255,10 +260,10 @@ class Form:
             "label": label,
             "value": value,
             "style": defaultStyle
-        })
+        }, params)
         return self
 
-    def dropdown(self, label, items, value, style={}):
+    def dropdown(self, label, items, value, style={}, params={}):
         items = validateDropdownItems(items)
         defaultStyle = getSystem().screen.getDefaultStyle("dropdown", {
             "class": "oreui:dropdown",
@@ -274,10 +279,10 @@ class Form:
             "items": items,
             "value": value,
             "style": defaultStyle
-        })
+        }, params)
         return self
     
-    def group(self, children={}, style={}):
+    def group(self, children={}, style={}, params={}):
         """Add a registered Group; children supplies named child values and callbacks."""
         if not isinstance(children, dict):
             raise TypeError('group children must be a dict')
@@ -287,6 +292,10 @@ class Form:
                 if not isinstance(properties, dict):
                     raise TypeError('group child data must be a dict')
                 data = dict(properties)
+                if 'params' in data:
+                    if not isinstance(data['params'], dict):
+                        raise TypeError('group child params must be a dict')
+                    data['params'] = dict(data['params'])
                 if 'items' in data:
                     data['items'] = validateDropdownItems(data['items'])
                 if 'callbacks' in data:
@@ -317,7 +326,7 @@ class Form:
                         defaults[axis] = values[i]
                         groupLayout.pop(axis, None)
                 defaults.pop(pair, None)
-        self._appendControl({'children': encode(children), 'style': defaults, 'group': True, '_groupLayout': groupLayout})
+        self._appendControl({'children': encode(children), 'style': defaults, 'group': True, '_groupLayout': groupLayout}, params)
         return self
 
     def custom(self, params={}, style={}):
@@ -334,9 +343,9 @@ class Form:
         })
         defaultStyle.update(style)
         self._appendControl({
-            "params": dict(params),
+            "custom": True,
             "style": defaultStyle
-        })
+        }, params)
         return self
 
     def show(self, target=None):

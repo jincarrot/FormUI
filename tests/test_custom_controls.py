@@ -48,6 +48,8 @@ class CustomControlTests(unittest.TestCase):
                                         'nested': {'a': False, 'b': [None, 0]}})
         self.assertEqual(first.control.GetSize(), (192, 32))
         self.assertEqual(first.control.GetPosition(), (4, 0))
+        self.assertEqual(first.style['class'], 'custom')
+        self.assertEqual(first.style['width'], '100%-8px')
         self.assertEqual(second.control.GetPosition(), (204, 0))
         self.assertEqual(self.updated, [])
 
@@ -127,6 +129,15 @@ class CustomControlTests(unittest.TestCase):
         _, data = self.add(self.make_form(width=400, height=200).custom({'plain': 1}))
         self.assertEqual(data['controls'][0]['style']['class']['value'], 'oreui:light_panel_thin')
         self.assertEqual(self.native_customs[0].GetSize(), (392, 32))
+
+    def test_legacy_custom_payload_without_explicit_marker_still_mounts(self):
+        form = self.make_custom({'text': 'legacy'}, **{'class': 'oreui:light_panel_thin'})
+        form.show('p1')
+        payload = self.payloads[-1]
+        del payload['controls'][0]['custom']
+        self.ui.addForm(payload)
+        self.timers.drain()
+        self.assertIn(0, self.ui._Screen__customControls[payload['formId']['value']])
 
     def test_updates_before_creation_keep_context_and_order_during_reentrant_updates(self):
         value = self.system.observableManager.create(10)
@@ -214,6 +225,7 @@ class CustomControlTests(unittest.TestCase):
         create = self.util.CreateArguments(self.ui, object())
         update = self.util.ObservableUpdateArguments(1, 2, 'count')
         self.assertEqual(create.params, {})
+        self.assertEqual(create.style, {})
         self.assertEqual((update.oldValue, update.newValue, update.key), (1, 2, 'count'))
         self.assertIsNone(update.control)
 

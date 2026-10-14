@@ -48,16 +48,18 @@ def create_settings():
 | 调用 | 主要参数 |
 | --- | --- |
 | `Form.create(title, style={})` | 标题可绑定 Observable；style 包含 class、宽高、偏移、grids、hideOtherForms、layer、visible |
-| `button(label, callbacks={}, style={})` | callbacks 可含 onClick、onMoveIn、onMoveOut，均接收 playerId |
-| `label(text, style={})` | fontSize 为缩放倍数，可绑定 Observable |
-| `toggle(label, state, style={})` | state 使用布尔值或布尔 Observable |
-| `slider(label, value, minValue=0.0, maxValue=1.0, step=1, style={})` | 值、边界、步长可绑定数值 Observable |
-| `textfield(label, value, style={})` | 文本值可绑定 Observable |
-| `dropdown(label, items, value, style={})` | items 为字符串 label、整数或字符串 value 的静态字典列表 |
-| `divider(style={})` | 无文本和回调参数 |
-| `group(children={}, style={})`、`custom(params={}, style={})` | 见 composition.md |
+| `button(label, callbacks={}, style={}, params={})` | callbacks 可含 onClick、onMoveIn、onMoveOut，均接收 playerId |
+| `label(text, style={}, params={})` | fontSize 为缩放倍数，可绑定 Observable |
+| `toggle(label, state, style={}, params={})` | state 使用布尔值或布尔 Observable |
+| `slider(label, value, minValue=0.0, maxValue=1.0, step=1, style={}, params={})` | 值、边界、步长可绑定数值 Observable |
+| `textfield(label, value, style={}, params={})` | 文本值可绑定 Observable |
+| `dropdown(label, items, value, style={}, params={})` | items 为字符串 label、整数或字符串 value 的静态字典列表 |
+| `divider(style={}, params={})` | 无文本和回调参数 |
+| `group(children={}, style={}, params={})`、`custom(params={}, style={})` | 见 composition.md |
 
 普通控件 style 使用 `class/offsetX/offsetY/width/height/visible`，Label 另外支持 `fontSize`。`offset/size` 二元素列表简写用于 Group，不推广到普通控件或 Form 根样式。
+
+params 必须是字典，默认空字典；注册控件的客户端 `onCreate` 通过 args.params 读取当前实例的独立快照，嵌套 Observable 会解包为当前值。普通控件 params 用于初始化，不会触发 Custom 的 onObservableUpdate；也不会作为按钮点击回调的额外参数。业务数据优先通过 params 传入，style 仍用于布局。
 
 ## 状态所有权与回调
 
