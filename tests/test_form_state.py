@@ -23,7 +23,6 @@ class FormStateTests(unittest.TestCase):
         self.system.NotifyToClient = lambda target, event, data: self.sent.append(([target], event))
         self.system.NotifyToMultiClients = lambda targets, event, data: self.sent.append((list(targets), event))
         self.system.showForm = lambda data: self.sent.append((['p1'], 'showForm'))
-        self.system.screen = types.SimpleNamespace(getDefaultStyle=lambda kind, defaults: defaults)
         prefix = self.observable_class.__module__.split('.general')[0]
         environment = sys.modules[prefix + '.utils.environment']
         environment.isServer = lambda: self.server_side
@@ -54,7 +53,11 @@ class FormStateTests(unittest.TestCase):
 
         load('.utils.type', 'utils/type.py')
         load('.utils.ui', 'utils/ui.py')
+        load('.utils.grid', 'utils/grid.py')
+        load('.utils.theme', 'utils/theme.py')
+        self.system.screen = load('.general.screen', 'general/screen.py').Screen()
         load('.utils.group', 'utils/group.py')
+        load('.utils.bindings', 'utils/bindings.py')
         load('.general.form', 'general/form.py')
         manager = load('.general.managers.form', 'general/managers/form.py')
         self.system.formManager = manager.FormManager()

@@ -22,6 +22,8 @@ class ControlType:
 
     Dropdown = "dropdown"
 
+    ListView = "listview"
+
     Custom = "custom"
 
     Group = "group"

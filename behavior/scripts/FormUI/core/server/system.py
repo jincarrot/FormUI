@@ -31,10 +31,14 @@ class Server(ServerSystem):
     def onButtonTrigger(self, data):
         form = self.formManager.get(data['formId'])
         if form:
-            form._btnCallbacks[data['callbackId']](data['playerId'])
+            callback = form._btnCallbacks.get(data['callbackId'])
+            if callback:
+                callback(data['playerId'])
 
     def applyObservableUpdate(self, data):
-        self.observableManager.get(data['obId']).setValue(data['value'])
+        observable = self.observableManager.get(data['obId'])
+        if observable is not None:
+            observable.setValue(data['value'])
 
     def setDefaultStyle(self, data):
         self.screen.setDefaultStyle(data['controlType'], data['style'])

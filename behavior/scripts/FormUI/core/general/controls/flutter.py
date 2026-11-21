@@ -6,6 +6,11 @@ BUTTON_OPTIONS = {
     'labelPaths': ('/default/label', '/hover/label', '/pressed/label'),
 }
 CONTROL_DEFINITIONS = (
+    ('listview', 'listview', {
+        'scrollingPanelPath': '/content', 'labelPaths': ['/label'], 'emptyLabelPath': '/empty',
+        'itemControl': 'fui_flutter_listviews.listview_item', 'itemButtonPath': '',
+        'itemLabelPaths': ['/button_label'], 'selectedPath': '/selected',
+    }),
     ('filled_button', 'button', BUTTON_OPTIONS),
     ('tonal_button', 'button', BUTTON_OPTIONS),
     ('outlined_button', 'button', BUTTON_OPTIONS),
@@ -37,8 +42,10 @@ class FlutterUI(object):
                 instanceOptions = deepcopy(options)
                 if controlType == 'dropdown':
                     instanceOptions['itemControl'] = 'fui_flutter.' + prefix + 'dropdown_item'
+                elif controlType == 'listview':
+                    instanceOptions['itemControl'] = 'fui_flutter_listviews.' + prefix + 'listview_item'
                 manager.create(controlType, 'flutter:' + identifier,
-                               'fui_flutter.' + identifier, instanceOptions)
+                               ('fui_flutter_listviews.' if controlType == 'listview' else 'fui_flutter.') + identifier, instanceOptions)
         for theme in ('light', 'dark'):
             name = theme + '_panel'
             manager.create('scrolling_panel', 'flutter:' + name, 'fui_flutter.' + name, {

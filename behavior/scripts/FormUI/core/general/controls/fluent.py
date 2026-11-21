@@ -6,6 +6,11 @@ BUTTON_OPTIONS = {
     'labelPaths': ('/default/label', '/hover/label', '/pressed/label'),
 }
 CONTROL_DEFINITIONS = (
+    ('listview', 'listview', {
+        'scrollingPanelPath': '/content', 'labelPaths': ['/label'], 'emptyLabelPath': '/empty',
+        'itemControl': 'fui_fluent_listviews.listview_item', 'itemButtonPath': '',
+        'itemLabelPaths': ['/button_label'], 'selectedPath': '/selected',
+    }),
     ('primary_button', 'button', BUTTON_OPTIONS),
     ('button', 'button', BUTTON_OPTIONS),
     ('outlined_button', 'button', BUTTON_OPTIONS),
@@ -37,8 +42,10 @@ class FluentUI(object):
                 instanceOptions = deepcopy(options)
                 if controlType == 'dropdown':
                     instanceOptions['itemControl'] = 'fui_fluent.' + prefix + 'dropdown_item'
+                elif controlType == 'listview':
+                    instanceOptions['itemControl'] = 'fui_fluent_listviews.' + prefix + 'listview_item'
                 manager.create(controlType, 'fluent:' + identifier,
-                               'fui_fluent.' + identifier, instanceOptions)
+                               ('fui_fluent_listviews.' if controlType == 'listview' else 'fui_fluent.') + identifier, instanceOptions)
         for theme in ('light', 'dark'):
             name = theme + '_panel'
             manager.create('scrolling_panel', 'fluent:' + name, 'fui_fluent.' + name, {

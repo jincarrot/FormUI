@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
 from copy import deepcopy
 
+
+def copyContainers(value):
+    """Snapshot configuration containers while preserving Observable/callback identity."""
+    if isinstance(value, dict):
+        return {key: copyContainers(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [copyContainers(item) for item in value]
+    if isinstance(value, tuple):
+        return tuple(copyContainers(item) for item in value)
+    return value
+
 class CreateArguments(object):
 
     def __init__(self, screenNode, control, params=None, style=None):
@@ -12,6 +23,11 @@ class CreateArguments(object):
     @property
     def screenNode(self):
         return self.__screenNode
+
+    @property
+    def hostScreenNode(self):
+        """The native ScreenNode that owns this control."""
+        return getattr(self.__screenNode, '_hostNode', self.__screenNode)
 
     @property
     def control(self):
@@ -27,7 +43,7 @@ class CreateArguments(object):
         """An independent instance-style snapshot, with Observable values unwrapped."""
         return self.__style
 
-class FormShowResultArgs:
+class FormShowResultArgs(object):
     def __init__(self, data):
         self.__closeReason = data['closeReason']
         self.__playerId = data['playerId']
@@ -65,6 +81,10 @@ class ObservableUpdateArguments(object):
     @property
     def screenNode(self):
         return self.__screenNode
+
+    @property
+    def hostScreenNode(self):
+        return getattr(self.__screenNode, '_hostNode', self.__screenNode)
 
     @property
     def control(self):
@@ -125,8 +145,10 @@ def getCustomObservableUpdates(form, previous, value):
                 updates.append((index, key, unwrapWrappedValue(binding, previous), unwrapWrappedValue(binding)))
     return updates
 
-def wrapVariable(value, record=[]):
+def wrapVariable(value, record=None):
     # type: (any, list) -> dict
+    if record is None:
+        record = []
     typeId = value.__class__.__name__
     data = {
         "type": typeId,
@@ -137,8 +159,10 @@ def wrapVariable(value, record=[]):
         record.append(value._id)
     return data
 
-def wrapDict(value, record=[]):
+def wrapDict(value, record=None):
     # type: (dict, list) -> dict
+    if record is None:
+        record = []
     data = {}
     for key in value.keys():
         if isinstance(value[key], dict):
@@ -149,8 +173,10 @@ def wrapDict(value, record=[]):
             data[key] = wrapVariable(value[key], record)
     return data
 
-def wrapList(value, record=[]):
+def wrapList(value, record=None):
     # type: (list, list) -> list
+    if record is None:
+        record = []
     data = []
     for el in value:
         if isinstance(el, dict):

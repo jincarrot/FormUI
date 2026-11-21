@@ -3,6 +3,32 @@
 import math
 import re
 
+try:
+    STRING_TYPES = (basestring,)
+except NameError:
+    STRING_TYPES = (str,)
+
+
+def normalizeTargets(target):
+    """Materialize nonempty player IDs once; an explicit empty collection stays empty."""
+    if isinstance(target, STRING_TYPES):
+        players = [target]
+    else:
+        if isinstance(target, dict):
+            raise TypeError('target must be a player ID or an iterable of player IDs')
+        try:
+            players = list(target)
+        except TypeError:
+            raise TypeError('target must be a player ID or an iterable of player IDs')
+    unique, seen = [], set()
+    for player in players:
+        if not isinstance(player, STRING_TYPES) or not player:
+            raise ValueError('player IDs must be nonempty strings')
+        if player not in seen:
+            seen.add(player)
+            unique.append(player)
+    return unique
+
 # 网易运行时使用 Python 2；long 同样是有效整数，无需依赖 numbers。
 try:
     _NUMBER_TYPES = (int, long, float)
@@ -32,6 +58,28 @@ def validateGrids(grids):
 
 def isFormScreen(screen):
     return hasattr(screen, "isFormScreen")
+
+def getTopScreenNode():
+    import mod.client.extraClientApi as c
+    getter = getattr(c, 'GetTopUINode', None)
+    if getter is not None:
+        return getter()
+    node = c.GetTopScreen()
+    # Older SDKs expose only pushed mod nodes. A native screen can cover that node.
+    getName = getattr(node, 'GetScreenName', None)
+    getTopName = getattr(c, 'GetTopUI', None)
+    if getName is not None and getTopName is not None:
+        name = getName()
+        if not name or getTopName() not in (name, name.rsplit('.', 1)[-1]):
+            return None
+    return node
+
+def notifyFormClosed(system, formId, reason):
+    import mod.client.extraClientApi as c
+    event = 'formClose%s' % formId
+    payload = {'closeReason': reason, 'playerId': c.GetLocalPlayerId()}
+    system.NotifyToServer(event, payload)
+    system.BroadcastEvent(event, payload)
 
 def getScrollingContent(control):
     target = control.GetChildByPath("/scroll_mouse/scroll_view/panel/background_and_viewport/scrolling_view_port/scrolling_content")
@@ -120,6 +168,37 @@ def getFontScale(value):
     if scale < 0:
         raise ValueError('fontSize must be nonnegative')
     return scale
+
+
+def validateListViewItems(items):
+    """ListView rows have stable, unique string/integer keys and plain labels."""
+    try:
+        strings, integers = (basestring,), (int, long)
+    except NameError:
+        strings, integers = (str,), (int,)
+    if not isinstance(items, list):
+        raise TypeError('listview items must be a list')
+    result, keys = [], set()
+    for item in items:
+        if not isinstance(item, dict) or set(item) != set(('label', 'value')):
+            raise ValueError('listview items require exactly label and value')
+        key = item['value']
+        if not isinstance(item['label'], strings):
+            raise TypeError('listview label must be a string')
+        if isinstance(key, bool) or not isinstance(key, strings + integers):
+            raise TypeError('listview value must be an integer or string')
+        if key in keys:
+            raise ValueError('listview item values must be unique')
+        keys.add(key)
+        result.append(dict(item))
+    return result
+
+
+def validateListViewHeight(value):
+    value = _finiteNumber(value, 'listview itemHeight')
+    if value <= 0:
+        raise ValueError('listview itemHeight must be positive')
+    return value
 
 
 def getStepedValue(v, minV, maxV, step):

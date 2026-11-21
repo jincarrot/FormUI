@@ -31,6 +31,8 @@ text.setValue('更新内容')
 
 `onObservableUpdate` 提供同一实例的 `control`、`screenNode`，以及 `key`、`oldValue`、`newValue`。`args.params` 是回调时的当前参数快照。多个实例共用同一个注册回调时，直接使用 `args.control` 更新目标实例。
 
+使用 `combineUI` 嵌入其他界面时，两个回调都可通过 `args.hostScreenNode` 取得实际的宿主 ScreenNode。已有的 `args.screenNode.addRepeatFunc(...)` 仍可调度动画，`args.screenNode.GetBaseUIControl(args.control.GetPath())` 也可按宿主中的实际路径取得控件。
+
 `params` 支持普通值、值为列表或字典的 Observable，以及包含 Observable 的嵌套列表/字典。嵌套更新按顶层参数名通知，例如 `{'config': {'angle': angle}}` 中的 `angle` 变化时，`key` 为 `'config'`，旧值和新值是整个 `config` 字典。同一顶层参数内多处绑定同一个 Observable，每次更新仅通知一次。
 
 参数快照不暴露绑定编号，修改快照不会修改原始 Observable 或表单缓存。普通参数只用于初始化；需要运行时更新的值使用 Observable。

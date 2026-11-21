@@ -3,6 +3,8 @@
 import mod.server.extraServerApi as serverApi
 from FormUI.lib import *
 from .example_shared import DemoSession, register_groups
+from .example_listview import create_listview_form
+from .example_grid import create_grid_form
 
 ServerSystem = serverApi.GetServerSystemCls()
 
@@ -12,6 +14,8 @@ class ExampleServer(ServerSystem):
         ServerSystem.__init__(self, namespace, systemName)
         self.sessions = {}
         self.shared = None
+        self.listviewForms = {}
+        self.gridForms = {}
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(),
                             'ServerChatEvent', self, self.onChat)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(),
@@ -34,6 +38,8 @@ class ExampleServer(ServerSystem):
 
     def onPlayerLeft(self, data):
         self.sessions.pop(data['id'], None)
+        self.listviewForms.pop(data['id'], None)
+        self.gridForms.pop(data['id'], None)
 
     def onChat(self, data):
         words = data.get('message', '').strip().lower().split()
@@ -42,6 +48,29 @@ class ExampleServer(ServerSystem):
         data['cancel'] = True
         playerId = data['playerId']
         command = words[1] if len(words) == 2 else 'help'
+        if command == 'grid':
+            self.NotifyToClient(playerId, 'runClientDemo', {'action': 'grid'})
+            return
+        if command == 'grid-server':
+            form = self.gridForms.get(playerId)
+            if form is None:
+                form = create_grid_form()
+                self.gridForms[playerId] = form
+            if not form.isShowing(playerId):
+                form.show(playerId)
+            return
+        if command in ('listview', 'listview-oreui', 'listview-flutter', 'listview-flutter-dark',
+                       'listview-fluent', 'listview-fluent-dark'):
+            self.NotifyToClient(playerId, 'runClientDemo', {'action': command})
+            return
+        if command == 'listview-server':
+            form = self.listviewForms.get(playerId)
+            if form is None:
+                form = create_listview_form('fluent')
+                self.listviewForms[playerId] = form
+            if not form.isShowing(playerId):
+                form.show(playerId)
+            return
         if command in ('client', 'animation', 'cancel-client', 'flutter', 'flutter-dark', 'fluent', 'fluent-dark', 'compare'):
             self.NotifyToClient(playerId, 'runClientDemo', {
                 'action': {'client': 'show', 'animation': 'animation', 'cancel-client': 'cancel',
@@ -75,7 +104,9 @@ class ExampleServer(ServerSystem):
             self.showShared(playerId, True)
         else:
             self.report(playerId, '聊天输入（不带 /）：fui client | server | animation | shared | all | '
-                        'flutter | flutter-dark | fluent | fluent-dark | compare | cancel-client | cancel-server | close | help')
+                        'flutter | flutter-dark | fluent | fluent-dark | compare | listview | listview-flutter | '
+                        'listview-flutter-dark | listview-fluent | listview-fluent-dark | listview-server | '
+                        'grid | grid-server | cancel-client | cancel-server | close | help')
 
     def showShared(self, requester, allPlayers):
         # 同一表单对象向不同玩家显示，状态、按钮计数由服务端统一维护。

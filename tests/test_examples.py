@@ -122,7 +122,10 @@ class ExampleTests(unittest.TestCase):
         style_spec.loader.exec_module(style_constants)
         lib.Screen = types.SimpleNamespace(
             setDefaultStyle=lambda kind, style: self.system.screen.setDefaultStyle(kind, style, True),
+            setGrid=self.system.screen.setGrid, getGrid=self.system.screen.getGrid,
+            clearGrid=self.system.screen.clearGrid,
             closeAllForms=self.system.screen.closeAllForms)
+        lib.Theme = self.system.screen.themes
         for name in ('Custom', 'Group', 'Label'):
             setattr(lib, name, getattr(descriptors, name))
         package = types.ModuleType('FormUI')
@@ -151,6 +154,8 @@ class ExampleTests(unittest.TestCase):
         self.flutter_example = self.load_example('example_flutter')
         self.fluent_example = self.load_example('example_fluent')
         self.styles_example = self.load_example('example_styles')
+        self.listview_example = self.load_example('example_listview')
+        self.grid_example = self.load_example('example_grid')
         self.client_example = self.load_example('example_c')
         self.server_example = self.load_example('example_s')
 
@@ -306,6 +311,84 @@ class ExampleTests(unittest.TestCase):
             status = self.system.observableManager.get(payload['controls'][1]['label']['obId'])
             self.assertIn('playerId=p1', status.getValue())
 
+    def test_listview_previews_reuse_forms_and_update_items_and_selection(self):
+        client = self.make_client()
+        for action in ('listview', 'listview-flutter', 'listview-flutter-dark',
+                       'listview-fluent', 'listview-fluent-dark'):
+            client.onCommand({'action': action})
+            form = client.listviewForms[action]
+            payload = self.payloads[-1]
+            rows = payload['controls'][1]
+            theme = action.split('-')[1] if '-' in action else 'oreui'
+            self.assertEqual(rows['style']['class']['value'], theme + ':' +
+                             ('dark_listview' if action.endswith('-dark') else 'listview'))
+            items = self.system.observableManager.get(rows['items']['obId'])
+            selected = self.system.observableManager.get(rows['value']['obId'])
+            status = self.system.observableManager.get(payload['controls'][2]['label']['obId'])
+            self.assertEqual(len(items.getValue()), 30)
+            count = len(self.payloads)
+            client.onCommand({'action': action})
+            self.assertEqual(len(self.payloads), count)
+            def click(index):
+                callback = payload['controls'][index]['callbacks']['onClick']['value']
+                form._btnCallbacks[callback]('p1')
+            click(3)
+            self.assertEqual(len(items.getValue()), 15)
+            click(4)
+            self.assertEqual(items.getValue()[0]['value'], 30)
+            click(5)
+            self.assertEqual(selected.getValue(), 10)
+            self.assertIn('10', status.getValue())
+            click(6)
+            self.assertIsNone(selected.getValue())
+            click(7)
+            self.assertEqual(items.getValue(), [])
+            click(8)
+            self.assertEqual(len(items.getValue()), 30)
+
+    def test_grid_example_captures_layout_restores_globals_and_routes_both_sides(self):
+        self.system.screen.setGrid(2, 2, padding=3)
+        before = self.system.screen.getGrid()
+        client = self.make_client()
+        client.onCommand({'action': 'grid'})
+        form = client.gridForm
+        data = self.payloads[-1]
+        self.assertEqual(data['style']['grid']['columnSpan']['value'], 10)
+        self.assertEqual(data['controls'][1]['style']['grid']['columnSpan']['value'], 2)
+        self.assertEqual(data['controls'][2]['style']['class']['value'], 'fluent:dark_outlined_button')
+        self.assertEqual(self.system.screen.getGrid(), before)
+        callback = data['controls'][2]['callbacks']['onClick']['value']
+        form._btnCallbacks[callback]('p1')
+        value = self.system.observableManager.get(data['controls'][1]['value']['obId'])
+        self.assertEqual(value.getValue(), 10)
+        client.onCommand({'action': 'grid'})
+        self.assertIs(client.gridForm, form)
+        self.server_side = True
+        server = self.server_example.ExampleServer('FormUIExample', 'ExampleServer')
+        server.onChat({'playerId': 'p2', 'message': 'fui grid'})
+        self.assertEqual(server.messages[-1], ('p2', 'runClientDemo', {'action': 'grid'}))
+        server.onChat({'playerId': 'p2', 'message': 'fui grid-server'})
+        self.assertTrue(server.gridForms['p2'].isShowing('p2'))
+        server.onPlayerLeft({'id': 'p2'})
+        self.assertNotIn('p2', server.gridForms)
+
+    def test_listview_chat_routes_and_server_players_have_independent_state(self):
+        server = self.server_example.ExampleServer('FormUIExample', 'ExampleServer')
+        for command in ('listview', 'listview-flutter', 'listview-flutter-dark',
+                        'listview-fluent', 'listview-fluent-dark'):
+            server.onChat({'playerId': 'p1', 'message': 'fui ' + command})
+            self.assertEqual(server.messages[-1], ('p1', 'runClientDemo', {'action': command}))
+        for player in ('p1', 'p2'):
+            server.onChat({'playerId': player, 'message': 'fui listview-server'})
+            self.assertTrue(server.listviewForms[player].isShowing(player))
+        first, second = self.payloads[-2:]
+        first_value = self.system.observableManager.get(first['controls'][1]['value']['obId'])
+        second_value = self.system.observableManager.get(second['controls'][1]['value']['obId'])
+        first_value.setValue(10)
+        self.assertIsNone(second_value.getValue())
+        server.onPlayerLeft({'id': 'p1'})
+        self.assertNotIn('p1', server.listviewForms)
+
     def test_fluent_previews_reuse_forms_bind_values_and_close_both_themes(self):
         client = self.make_client()
         for action in ('fluent', 'fluent-dark'):
@@ -371,7 +454,7 @@ class ExampleTests(unittest.TestCase):
         panels = self.payloads[-3:]
         for panel in panels:
             self.ui.forms[panel['formId']['value']] = panel
-            self.ui.observables.extend(panel['observables'])
+            self.ui._refreshFormBindings(panel['formId']['value'])
         for index, key, value in ((2, 'value', 'Alex'), (3, 'value', 2),
                                   (4, 'state', False), (5, 'value', 25)):
             ids = {panel['controls'][index][key]['obId'] for panel in panels}

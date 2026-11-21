@@ -36,7 +36,7 @@ class FlutterUITests(unittest.TestCase):
             spec.loader.exec_module(self.module)
             self.assertEqual(create.call_count, 0)  # No registration during imports.
             getattr(self.module, self.registration_class)()
-            self.assertEqual(create.call_count, 24)
+            self.assertEqual(create.call_count, 26)
         self.manager = manager
         self.templates = {}
         definitions = json.loads((ROOT / 'resource/ui/_ui_defs.json').read_text())
@@ -109,6 +109,14 @@ class FlutterUITests(unittest.TestCase):
                     item = self.resolve(options['itemControl'])
                     for path in options['itemLabelPaths']:
                         self.child(item, path)
+                elif control['type'] == 'listview':
+                    self.child(root, options['scrollingPanelPath'])
+                    self.assertEqual(self.child(root, options['emptyLabelPath'])['type'], 'label')
+                    item = self.resolve(options['itemControl'])
+                    self.assertEqual(item['type'], 'button')
+                    self.assertFalse(self.child(item, options['selectedPath'])['visible'])
+                    for path in options['itemLabelPaths']:
+                        self.assertEqual(self.child(item, path)['type'], 'label')
                 elif control['type'] == 'toggle':
                     # /this_toggle comes from the engine's common_toggles.switch_toggle.
                     native = self.child(root, '/toggle')

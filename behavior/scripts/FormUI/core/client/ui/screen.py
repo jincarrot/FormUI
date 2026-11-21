@@ -4,48 +4,43 @@ from copy import deepcopy
 from collections import deque
 
 from ...general.enums.controlType import ControlType
-from ...utils.ui import getScrollingContent, getSizeDict, getSliderPercentage, getSliderValue, getStepedValue, validateGrids, getFontScale
-from ...utils.type import updateWrappedObservable, getCustomObservableUpdates, unwrapWrappedValue, wrapDict, wrapVariable
-from ...utils.group import groupStyle, iterControls, collectObservableIds
+from ...utils.ui import getScrollingContent, getSizeDict, getSliderPercentage, getSliderValue, getStepedValue, validateGrids, getFontScale, validateDropdownItems, validateListViewItems, validateListViewHeight, getTopScreenNode, notifyFormClosed
+from ...utils.type import unwrapWrappedValue, wrapDict, wrapVariable
+from ...utils.group import groupStyle, iterControls
+from .grid import GridLayoutMixin
+from .bindings import BindingMixin
 
 import mod.client.extraClientApi as c
 
 ScreenNode = c.GetScreenNodeCls()
 
-class Screen(ScreenNode):
-    
-    def __init__(self, namespace, name, params):
-        from ...utils.environment import getClientSystem
-        ScreenNode.__init__(self, namespace, name, params)
-        self.observables = []
+class _Screen(GridLayoutMixin, BindingMixin):
+    _panelPath = '/panel'
+    _showLoadingIndicator = True
+
+    def _initRenderer(self, system, ready=False):
+        self.controlManager = system.controlManager
+        self._system = system
+        self._destroyed = False
+        self._resetForms()
+        self.__allready = ready
+
+    def isAllReady(self):
+        return self.__allready and not self._destroyed
+
+    def Create(self):
+        self._resetForms()
+        self.__allready = True
+
+    def _resetForms(self):
         self.forms = {}
         self.__formOrder = []
-        self.controlManager = getClientSystem().controlManager
-        self.__allready = False
         self.toggles = []
         self.sliders = []
         self.textfields = []
-        self.__loadingForms = []
-        self.__repeatFuncs = []
-        self.__pendingCustomUpdates = {}
-        self.__customControls = {}
-        self.__nativeControls = {}
-        self.__creatingForms = set()
-        self.__flushingCustomUpdates = set()
-        self.__deferredFormUpdates = {}
-        self.__geometryTransitions = {}
-        self.__creationTimers = {}
-        self.__pendingControlMounts = {}
-        getClientSystem()._registerFormScreen(self)
-
-    def isAllReady(self):
-        return self.__allready
-
-    def Create(self):
-        self.forms = {}
-        self.__formOrder = []
-        self.toggles = []
         self.observables = []
+        self._resetBindings()
+        self._resetGridCaches()
         self.__pendingCustomUpdates = {}
         self.__customControls = {}
         self.__nativeControls = {}
@@ -56,26 +51,54 @@ class Screen(ScreenNode):
         self.__creationTimers = {}
         self.__pendingControlMounts = {}
         self.__loadingForms = []
-        self.__allready = True
+        self.__listViews = {}
+        self.__repeatFuncs = []
+        self.__loadingVisible = None
+        self.__loadingControl = None
+        self.__inputRecords = {}
+
+    def _formControl(self, formId, path=''):
+        return self.GetBaseUIControl('%s/fm%s%s' % (self._panelPath, formId, path))
+
+    def _formParent(self):
+        return self.GetBaseUIControl(self._panelPath)
 
     def addForm(self, formData, pendingCustomUpdates=()):
         formId = formData['formId']['value']
+        if self._destroyed:
+            raise RuntimeError('FormUI host screen has closed')
         if formId in self.forms:
             raise RuntimeError('该表单已经被显示出来了，关闭后才能再次调用 show()。')
         validateGrids([entry['value'] for entry in formData['style']['grids']])
         for control in formData['controls']:
             self._prepareGroup(control)
-        formData['observables'] = list(collectObservableIds(formData))
-        self.observables += formData['observables']
-        self.observables = list(set(self.observables))
+        gridPlans = self._validateGridData(formData)
 
         style = formData['style']
-        formId = formData['formId']['value']
         formData['basePath'] = self.controlManager.get(style['class']['value']).options['scrollingPanelPath']
 
         self.forms[formId] = formData
-        self.__pendingCustomUpdates[formId] = deque(pendingCustomUpdates)
         self.__formOrder.append(formId)
+        try:
+            self._setGridPlans(formId, gridPlans)
+            self._refreshFormBindings(formId)
+            self.__pendingCustomUpdates[formId] = deque(pendingCustomUpdates)
+            if formData.get('options', {}).get('combineUI'):
+                parent = self._formParent()
+                if not parent:
+                    raise RuntimeError('FormUI host panel is unavailable')
+                self._mountForm(formId, formData, parent)
+                return
+            self._scheduleFormCreation(formId, formData)
+        except Exception as error:
+            if self.forms.get(formId) is not formData:
+                # A creation callback already closed this display and sent its receipt.
+                print('[FormUI] Error after form %s was closed: %s' % (formId, error))
+                return
+            self._removeForm(formId)
+            raise
+
+    def _scheduleFormCreation(self, formId, formData):
         comp = c.GetEngineCompFactory().CreateGame(c.GetLevelId())
         timerId = {'after': None, 'repeat': None}
         self.__creationTimers[formId] = timerId
@@ -84,88 +107,123 @@ class Screen(ScreenNode):
                 if timerId['repeat'] is not None:
                     comp.CancelTimer(timerId['repeat'])
                 return
-            if self.GetBaseUIControl("/panel"):
-                title = formData['title']
-                style = formData['style']
+            parent = self._formParent()
+            if parent:
                 comp.CancelTimer(timerId['repeat'])
                 self.__creationTimers.pop(formId, None)
                 self.__loadingForms.remove(formId)
-                self.__creatingForms.add(formId)
-                try:
-                    base = self.controlManager.get(style['class']['value'])
-                    baseControl = self.CreateChildControl(base.path, "fm%s" % formId, self.GetBaseUIControl("/panel"))
-                    if self.forms.get(formId) is not formData:
-                        self.RemoveChildControl(baseControl)
-                        return
-                    self.forms[formId]['defaultSize'] = deepcopy((baseControl.GetFullSize("x"), baseControl.GetFullSize("y")))
-                    self.forms[formId]['defaultOffset'] = deepcopy((baseControl.GetFullPosition("x"), baseControl.GetFullPosition("y")))
-                    self.setSize(formId, -1, "x", getSizeDict(style['width']['value']), baseControl)
-                    self.setSize(formId, -1, "y", getSizeDict(style['height']['value']), baseControl)
-                    self.setOffset(formId, -1, "x", getSizeDict(style['offsetX']['value']), baseControl)
-                    self.setOffset(formId, -1, "y", getSizeDict(style['offsetY']['value']), baseControl)
-                    close = baseControl.GetChildByPath(base.options['closeBtnPath'])
-                    if close:
-                        close = close.asButton()
-                        close.AddTouchEventParams({"formId": formId})
-                        close.SetButtonTouchUpCallback(self.onClose)
-                    self.setFormTitle(formId, base.options['titlePath'], title['value'])
-                    self.setFormContent(formId, base.options['scrollingPanelPath'])
-
-                    self.setLayer(formId, -1, style['layer']['value'], baseControl)
-                    self._refreshFormVisibility()
-                finally:
-                    self.__creatingForms.discard(formId)
-                    self._mountAddedControls(formId)
-                    self._applyDeferredFormUpdates(formId)
-                    self._flushCustomUpdates(formId)
+                self._mountForm(formId, formData, parent)
 
         def after(formData):
             if self.forms.get(formId) is formData:
                 timerId['repeat'] = comp.AddRepeatedTimer(0.05, create, formData)
         timerId['after'] = comp.AddTimer(0.05 * len(self.__loadingForms), after, formData)
         self.__loadingForms.append(formId)
-        
+
+    def _mountForm(self, formId, formData, parent):
+        style = formData['style']
+        base = self.controlManager.get(style['class']['value'])
+        self.__creatingForms.add(formId)
+        try:
+            root = self.CreateChildControl(base.path, 'fm%s' % formId, parent)
+            if not root:
+                raise RuntimeError('FormUI could not create the form root')
+            if self.forms.get(formId) is not formData:
+                if not self._destroyed:
+                    self.RemoveChildControl(root)
+                return
+            formData['defaultSize'] = deepcopy((root.GetFullSize('x'), root.GetFullSize('y')))
+            formData['defaultOffset'] = deepcopy((root.GetFullPosition('x'), root.GetFullPosition('y')))
+            if not self._layoutRootGrid(formId, root):
+                self.setSize(formId, -1, 'x', getSizeDict(style['width']['value']), root)
+                self.setSize(formId, -1, 'y', getSizeDict(style['height']['value']), root)
+                self.setOffset(formId, -1, 'x', getSizeDict(style['offsetX']['value']), root)
+                self.setOffset(formId, -1, 'y', getSizeDict(style['offsetY']['value']), root)
+            close = root.GetChildByPath(base.options['closeBtnPath'])
+            if close:
+                close = close.asButton()
+                close.AddTouchEventParams({'formId': formId})
+                def onClose(data):
+                    if self.forms.get(formId) is formData:
+                        self.onClose(data)
+                close.SetButtonTouchUpCallback(onClose)
+            self.setFormTitle(formId, base.options['titlePath'], formData['title']['value'])
+            self.setFormContent(formId, base.options['scrollingPanelPath'])
+            if self.forms.get(formId) is formData:
+                self.setLayer(formId, -1, style['layer']['value'], root)
+                self._refreshFormVisibility()
+        finally:
+            if self.forms.get(formId) is formData:
+                self.__creatingForms.discard(formId)
+        if self.forms.get(formId) is formData:
+            self._mountAddedControls(formId)
+            self._applyDeferredFormUpdates(formId)
+            self._flushCustomUpdates(formId)
+
     def onClose(self, data):
         formId = data['AddTouchEventParams']['formId']
-        if formId in self.forms:
-            del self.forms[formId]
-            timers = self.__creationTimers.pop(formId, {})
-            self.__pendingControlMounts.pop(formId, None)
+        self._closeForm(formId, 'api' if 'closeByInterface' in data else 'user')
+
+    def _closeForm(self, formId, reason):
+        form = self.forms.get(formId)
+        if form is None:
+            return
+        try:
+            self._removeForm(formId)
+        finally:
+            try:
+                if not self._destroyed:
+                    self._afterFormClosed(form)
+            finally:
+                notifyFormClosed(self._system, formId, reason)
+
+    def _removeForm(self, formId):
+        del self.forms[formId]
+        self._forgetFormBindings(formId)
+        self._gridPlans.pop(formId, None)
+        self._gridWatches.pop(formId, None)
+        timers = self.__creationTimers.pop(formId, {})
+        if timers:
             comp = c.GetEngineCompFactory().CreateGame(c.GetLevelId())
             for timer in timers.values():
                 if timer is not None:
                     comp.CancelTimer(timer)
-            if formId in self.__loadingForms:
-                self.__loadingForms.remove(formId)
-            self.__pendingCustomUpdates.pop(formId, None)
-            self.__customControls.pop(formId, None)
-            self.__nativeControls.pop(formId, None)
-            self.__deferredFormUpdates.pop(formId, None)
-            for key in list(self.__geometryTransitions):
-                if key[0] == formId:
-                    del self.__geometryTransitions[key]
-            self.__formOrder.remove(formId)
-            for updatedData in (self.sliders, self.textfields, self.toggles):
-                updatedData[:] = [entry for entry in updatedData if entry['formId'] != formId]
-            self.observables = list(set(obId for form in self.forms.values() for obId in form['observables']))
-            root = self.GetBaseUIControl("/panel/fm%s" % formId)
+        if formId in self.__loadingForms:
+            self.__loadingForms.remove(formId)
+        self.__pendingControlMounts.pop(formId, None)
+        self.__pendingCustomUpdates.pop(formId, None)
+        self.__customControls.pop(formId, None)
+        self.__nativeControls.pop(formId, None)
+        self.__listViews.pop(formId, None)
+        self.__inputRecords.pop(formId, None)
+        self.__deferredFormUpdates.pop(formId, None)
+        self.__creatingForms.discard(formId)
+        self.__flushingCustomUpdates.discard(formId)
+        for key in list(self.__geometryTransitions):
+            if key[0] == formId:
+                del self.__geometryTransitions[key]
+        self.__formOrder.remove(formId)
+        for updatedData in (self.sliders, self.textfields, self.toggles):
+            updatedData[:] = [entry for entry in updatedData if entry['formId'] != formId]
+        if not self._destroyed:
+            root = self._formControl(formId)
             if root:
                 self.RemoveChildControl(root)
             self._refreshFormVisibility()
-            if not self.forms:
-                def popScreen():
-                    c.PopScreen()
-                    if not hasattr(c.GetTopScreen(), "isFormScreen"):
-                        c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(timer)
-                timer = c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddTimer(0.05, popScreen)
-            from ...utils.environment import getSystem
-            getSystem().NotifyToServer("formClose%s" % formId, {"closeReason": "api" if "closeByInterface" in data else "user", "playerId": c.GetLocalPlayerId()})
-            getSystem().BroadcastEvent("formClose%s" % formId, {"closeReason": "api" if "closeByInterface" in data else "user", "playerId": c.GetLocalPlayerId()})
+
+    def _hostClosed(self):
+        self._destroyed = True
+        self.__repeatFuncs = []
+        for formId in list(self.forms):
+            try:
+                self._closeForm(formId, 'user')
+            except Exception as error:
+                print('[FormUI] Error closing form %s with its host: %s' % (formId, error))
 
     def _refreshFormVisibility(self):
         hiddenByLaterForm = False
         for formId in reversed(self.__formOrder):
-            control = self.GetBaseUIControl("/panel/fm%s" % formId)
+            control = self._formControl(formId)
             if not control:
                 continue
             style = self.forms[formId]['style']
@@ -177,13 +235,9 @@ class Screen(ScreenNode):
     def setLayer(self, formId, controlIndex, value, c=None):
         if formId not in self.forms:
             return
-        if controlIndex == -1:
-            control = self.GetBaseUIControl("/panel/fm%s" % formId)
-        else:
-            control = self.getControl(formId, controlIndex)
-        if c:
-            control = c
-        control.SetLayer(value)
+        control = c or (self._formControl(formId) if controlIndex == -1 else self.getControl(formId, controlIndex))
+        if control:
+            control.SetLayer(value)
 
     def setSize(self, formId, controlIndex, axis, value, c=None):
         self._setGeometry(formId, controlIndex, axis, value, c, 'Size')
@@ -194,7 +248,7 @@ class Screen(ScreenNode):
     def _setGeometry(self, formId, controlIndex, axis, value, native, kind):
         if formId not in self.forms:
             return
-        control = native or (self.GetBaseUIControl('/panel/fm%s' % formId)
+        control = native or (self._formControl(formId)
                              if controlIndex == -1 else self.getControl(formId, controlIndex))
         if not control:
             return
@@ -253,28 +307,31 @@ class Screen(ScreenNode):
                 pass
 
     def setFormTitle(self, formId, titlePath, value):
-        control = self.GetBaseUIControl("/panel/fm%s%s" % (formId, titlePath))
+        control = self._formControl(formId, titlePath)
         if not control:
             return
         control.asLabel().SetText(str(value))
         self.forms[formId]['title']['value'] = value
 
     def setFormContent(self, formId, contentPath):
-        controls = self.forms[formId]['controls']
-        scrollPanel = self.GetBaseUIControl("/panel/fm%s%s" % (formId, contentPath)).asScrollView()
+        form = self.forms[formId]
+        controls = form['controls']
+        scrollPanel = self._formControl(formId, contentPath).asScrollView()
         content = getScrollingContent(scrollPanel)
         wasCreating = formId in self.__creatingForms
         self.__creatingForms.add(formId)
         try:
             created = []
-            for index, control in enumerate(controls):
+            for control in controls:
                 self._prepareGroup(control)
+            self._refreshFormBindings(formId)
+            for index, control in enumerate(controls):
                 self._createControl(formId, index, control, content, "c%s" % index, created)
             self._relayoutForm(formId)
             self._layoutGroups(formId)
             self._finishControlCreation(formId, created)
         finally:
-            if not wasCreating:
+            if not wasCreating and self.forms.get(formId) is form:
                 self.__creatingForms.discard(formId)
                 self._mountAddedControls(formId)
                 self._applyDeferredFormUpdates(formId)
@@ -291,10 +348,12 @@ class Screen(ScreenNode):
             raise ValueError('Out-of-order form control index')
         control = deepcopy(data['control'])
         self._prepareGroup(control)
+        candidate = dict(form, controls=form['controls'] + [control])
+        gridPlans = self._validateGridData(candidate)
         form['controls'].append(control)
+        self._setGridPlans(formId, gridPlans)
         self.__pendingControlMounts.setdefault(formId, set()).add(data['index'])
-        form['observables'] = list(collectObservableIds(form))
-        self.observables = list(set(self.observables + form['observables']))
+        self._refreshFormBindings(formId)
         self._mountAddedControls(formId)
 
     def _mountAddedControls(self, formId):
@@ -308,7 +367,7 @@ class Screen(ScreenNode):
             if not missing:
                 self.__pendingControlMounts.pop(formId, None)
                 return
-            panel = self.GetBaseUIControl('/panel/fm%s%s' % (formId, form['basePath']))
+            panel = self._formControl(formId, form['basePath'])
             if not panel:
                 return
             content = getScrollingContent(panel)
@@ -326,9 +385,10 @@ class Screen(ScreenNode):
                 self._layoutGroups(formId)
                 self._finishControlCreation(formId, created)
             finally:
-                self.__creatingForms.discard(formId)
-                self._applyDeferredFormUpdates(formId)
-                self._flushCustomUpdates(formId)
+                if self.forms.get(formId) is form:
+                    self.__creatingForms.discard(formId)
+                    self._applyDeferredFormUpdates(formId)
+                    self._flushCustomUpdates(formId)
 
     def moveNextControls(self, formId, index):
         self._relayoutForm(formId)
@@ -337,11 +397,13 @@ class Screen(ScreenNode):
         if formId not in self.forms:
             return
         form = self.forms[formId]
-        panel = self.GetBaseUIControl("/panel/fm%s%s" % (formId, form['basePath']))
+        panel = self._formControl(formId, form['basePath'])
         if not panel:
             return
         content = getScrollingContent(panel)
         if not content:
+            return
+        if self._layoutFormGrid(formId, panel, content):
             return
         grids = validateGrids([entry['value'] for entry in form['style']['grids']])
         visibleIndex = 0
@@ -375,8 +437,12 @@ class Screen(ScreenNode):
         fraction = grids[column] / total
         columnStart = sum(grids[:column]) / total
         style = controlData['style']
-        defaultSize = controlData.get('defaultSize', (control.GetFullSize('x'), control.GetFullSize('y')))
-        defaultOffset = controlData.get('defaultOffset', (control.GetFullPosition('x'), control.GetFullPosition('y')))
+        defaultSize = controlData.get('defaultSize')
+        if defaultSize is None:
+            defaultSize = (control.GetFullSize('x'), control.GetFullSize('y'))
+        defaultOffset = controlData.get('defaultOffset')
+        if defaultOffset is None:
+            defaultOffset = (control.GetFullPosition('x'), control.GetFullPosition('y'))
         sizeX = dict(getSizeDict(style['width']['value']) or defaultSize[0])
         sizeY = dict(getSizeDict(style['height']['value']) or defaultSize[1])
         sizeX['relativeValue'] *= fraction
@@ -417,7 +483,7 @@ class Screen(ScreenNode):
         if not toggle:
             return
         controlData = self._getControlData(formId, index)
-        self.toggles.append({"control": toggle, "formId": formId, "index": index, "value": controlData['state']['value'], "path": controlCls.options['togglePath']})
+        self._trackInput(self.toggles, {"control": toggle, "formId": formId, "index": index, "value": controlData['state']['value'], "path": controlCls.options['togglePath']})
         toggle.SetToggleState(bool(controlData['state']['value']), controlCls.options['togglePath'])
         self.setControlLabel(formId, index, controlCls.options['labelPaths'], controlData['label']['value'], toggle)
 
@@ -448,8 +514,9 @@ class Screen(ScreenNode):
             return
         controlData = self._getControlData(formId, index)
         sliderValue = getStepedValue(controlData['value']['value'], controlData['minValue']['value'], controlData['maxValue']['value'], controlData['step']['value'])
-        self.sliders.append({"control": slider, "formId": formId, "index": index, "value": sliderValue, "minValue": controlData['minValue']['value'], "maxValue": controlData['maxValue']['value'], "step": controlData['step']['value'], "valuePaths": controlCls.options['valuePaths']})
-        slider.SetSliderValue(getSliderPercentage(sliderValue, controlData['minValue']['value'], controlData['maxValue']['value'], controlData['step']['value']))
+        percentage = getSliderPercentage(sliderValue, controlData['minValue']['value'], controlData['maxValue']['value'], controlData['step']['value'])
+        self._trackInput(self.sliders, {"control": slider, "formId": formId, "index": index, "value": sliderValue, "minValue": controlData['minValue']['value'], "maxValue": controlData['maxValue']['value'], "step": controlData['step']['value'], "valuePaths": controlCls.options['valuePaths'], "lastPercentage": percentage})
+        slider.SetSliderValue(percentage)
         for valuePath in controlCls.options['valuePaths']:
             c.GetChildByPath(valuePath).asLabel().SetText(str(sliderValue))
         self.setControlLabel(formId, index, controlCls.options['labelPaths'], controlData['label']['value'], c)
@@ -462,7 +529,7 @@ class Screen(ScreenNode):
         if not textfield:
             return
         controlData = self._getControlData(formId, index)
-        self.textfields.append({"control": textfield, "formId": formId, "index": index, "value": controlData['value']['value']})
+        self._trackInput(self.textfields, {"control": textfield, "formId": formId, "index": index, "value": controlData['value']['value']})
         textfield.SetEditText(str(controlData['value']['value']))
         self.setControlLabel(formId, index, controlCls.options['labelPaths'], controlData['label']['value'], c)
 
@@ -495,6 +562,82 @@ class Screen(ScreenNode):
             dropdown.GetChildByPath(labelPath).asLabel().SetText(str(current))
         self.setControlLabel(formId, index, controlCls.options['labelPaths'], controlData['label']['value'], c)
 
+    def _trackInput(self, records, record):
+        records.append(record)
+        self.__inputRecords.setdefault(record['formId'], {})[record['index']] = record
+
+    def _inputIsAlive(self, record):
+        return (record['formId'] in self.forms and
+                self.__inputRecords.get(record['formId'], {}).get(record['index']) is record)
+
+    def setListviewProperties(self, formId, index, controlCls, c):
+        data = self._getControlData(formId, index)
+        items = validateListViewItems(unwrapWrappedValue(data['items']))
+        height = validateListViewHeight(unwrapWrappedValue(data['style'].get('itemHeight', wrapVariable(32))))
+        content = getScrollingContent(c.GetChildByPath(controlCls.options['scrollingPanelPath']))
+        if content is None:
+            raise ValueError('ListView template requires a native scrolling content panel')
+        states = self.__listViews.setdefault(formId, {})
+        previous = states.get(index)
+        if previous:
+            for row, key in previous['rows']:
+                self.RemoveChildControl(row)
+        state = {'root': c, 'rows': [], 'markers': {}, 'selectedMarker': None}
+        states[index] = state
+        for position, item in enumerate(items):
+            # Names use indices, so arbitrary business keys never become native paths.
+            row = self.CreateChildControl(controlCls.options['itemControl'], 'row_%s' % position, content)
+            state['rows'].append((row, item['value']))
+            marker = row.GetChildByPath(controlCls.options['selectedPath'])
+            state['markers'][item['value']] = marker
+            marker.SetVisible(False)
+            row.SetFullSize('y', {'absoluteValue': height, 'relativeValue': 0.0, 'followType': 'parent'})
+            row.SetFullPosition('y', {'absoluteValue': position * height, 'relativeValue': 0.0, 'followType': 'parent'})
+            for path in controlCls.options['itemLabelPaths']:
+                row.GetChildByPath(path).asLabel().SetText(item['label'])
+            button = row.GetChildByPath(controlCls.options['itemButtonPath']).asButton()
+            button.AddTouchEventParams()
+            button.SetButtonTouchUpCallback(
+                lambda event, key=item['value'], owner=state: self.onListviewItemClick(formId, index, key, owner))
+        content.SetFullSize('y', {'absoluteValue': len(items) * height,
+                                  'relativeValue': 0.0, 'followType': 'parent'})
+        empty = c.GetChildByPath(controlCls.options['emptyLabelPath'])
+        empty.asLabel().SetText(unwrapWrappedValue(data['style'].get('emptyText', wrapVariable('暂无内容'))))
+        empty.SetVisible(not items)
+        self.setControlLabel(formId, index, controlCls.options['labelPaths'], data['label']['value'], c)
+        self._refreshListviewSelection(formId, index, controlCls)
+
+    def _refreshListviewSelection(self, formId, index, cls):
+        state = self.__listViews.get(formId, {}).get(index)
+        if not state:
+            return
+        selected = self._getControlData(formId, index)['value']['value']
+        try:
+            marker = state['markers'].get(selected)
+        except TypeError:
+            marker = None  # An unsupported/unhashable selection matches no row.
+        previous = state['selectedMarker']
+        if marker is previous:
+            return
+        if previous is not None:
+            previous.SetVisible(False)
+        if marker is not None:
+            marker.SetVisible(True)
+        state['selectedMarker'] = marker
+
+    def onListviewItemClick(self, formId, index, value, owner):
+        if self.__listViews.get(formId, {}).get(index) is not owner:
+            return  # Ignore delayed touches from removed rows or closed forms.
+        data = self._getControlData(formId, index)
+        if value not in owner['markers'] or data['value']['value'] == value:
+            return
+        data['value']['value'] = value
+        self._writeInputValue(formId, index, 'value', value)
+        # A subscriber may have replaced the list or closed the form.
+        if formId in self.forms and self.__listViews.get(formId, {}).get(index) is owner:
+            cls = self.controlManager.get(data['style']['class']['value'])
+            self._refreshListviewSelection(formId, index, cls)
+
     def setCustomProperties(self, formId, index, controlCls, c):
         self.__customControls.setdefault(formId, {})[index] = {'control': c, 'ready': False}
 
@@ -503,8 +646,11 @@ class Screen(ScreenNode):
 
     def onButtonClick(self, formId, callbackId):
         from ...utils.environment import getClientSystem
+        form = self.forms.get(formId)
+        if form is None:
+            return
         data = {"formId": formId, "callbackId": callbackId, "playerId": c.GetLocalPlayerId()}
-        if self.forms[formId]['fromServer']['value']:
+        if form['fromServer']['value']:
             getClientSystem().NotifyToServer("buttonTriggerCallback", data)
         else:
             getClientSystem().onButtonTrigger(data)
@@ -521,7 +667,7 @@ class Screen(ScreenNode):
         mounted = self.__nativeControls.get(formId, {}).get(index)
         if mounted is not None:
             return mounted
-        content = getScrollingContent(self.GetBaseUIControl("/panel/fm%s%s" % (formId, self.forms[formId]['basePath'])))
+        content = getScrollingContent(self._formControl(formId, self.forms[formId]['basePath']))
         if isinstance(index, tuple):
             control = content.GetChildByPath("/c%s" % index[0])
             for name in index[1:]:
@@ -578,6 +724,14 @@ class Screen(ScreenNode):
         elif typeId == ControlType.Dropdown:
             defaults['value'] = None
             data.setdefault('items', [])
+            if isinstance(data['items'], dict):
+                raise TypeError('dropdown items must be a list of static options')
+            validateDropdownItems(unwrapWrappedValue(data['items']))
+        elif typeId == ControlType.ListView:
+            defaults['value'] = None
+            data.setdefault('items', [])
+            data['style'].setdefault('itemHeight', wrapVariable(32))
+            data['style'].setdefault('emptyText', wrapVariable('暂无内容'))
         elif typeId == ControlType.Custom:
             data.setdefault('params', {})
         for key, value in defaults.items():
@@ -608,9 +762,10 @@ class Screen(ScreenNode):
         return native
 
     def _finishControlCreation(self, formId, created):
+        form = self.forms.get(formId)
         for address, cls, native in created:
-            if formId not in self.forms:
-                break
+            if form is None or self.forms.get(formId) is not form:
+                return
             callback = cls.options.get('onCreate')
             if callback:
                 from ...utils.type import CreateArguments
@@ -618,16 +773,22 @@ class Screen(ScreenNode):
                 callback(CreateArguments(
                     self, native, unwrapWrappedValue(data.get('params', {})),
                     style=unwrapWrappedValue(data.get('style', {}))))
+                if self.forms.get(formId) is not form:
+                    return
             state = self.__customControls.get(formId, {}).get(address)
             if state:
                 state['ready'] = True
 
     def _layoutGroups(self, formId):
+        planned = {}
         for address, data in iterControls(self.forms[formId]['controls']):
             if '_groupDefinition' not in data:
                 continue
             data['style'] = groupStyle(data['_groupDefinition'])
             native = self.getControl(formId, address)
+            if self._layoutGroupCell(formId, address, data, native, planned):
+                native.SetVisible(bool(data['style']['visible']['value']))
+                continue
             for key, axis in (('width', 'x'), ('height', 'y')):
                 value = getSizeDict(data['style'][key]['value']) or data['defaultSize'][0 if axis == 'x' else 1]
                 self.setSize(formId, address, axis, dict(value), native)
@@ -638,7 +799,8 @@ class Screen(ScreenNode):
         self._updateDropdownExtent(formId)
 
     def _refreshGroupClasses(self, formId):
-        for address, data in list(iterControls(self.forms[formId]['controls'])):
+        form = self.forms[formId]
+        for address, data in list(iterControls(form['controls'])):
             if not isinstance(address, tuple):
                 continue
             name = data['style']['class']['value']
@@ -646,7 +808,9 @@ class Screen(ScreenNode):
                 continue
             self._rebuildGroupChild(formId, address, data)
             # Ancestor reconstruction replaces descendant records and addresses.
-            return self._refreshGroupClasses(formId)
+            if self.forms.get(formId) is form:
+                self._refreshGroupClasses(formId)
+            return
 
     def _rebuildGroupChild(self, formId, address, data):
         cls = self.controlManager.get(data['style']['class']['value'])
@@ -668,7 +832,8 @@ class Screen(ScreenNode):
         old = self.getControl(formId, address)
         for entries in (self.sliders, self.toggles, self.textfields):
             entries[:] = [entry for entry in entries if not (entry['formId'] == formId and matches(entry['index']))]
-        for mapping in (self.__nativeControls.get(formId, {}), self.__customControls.get(formId, {})):
+        for mapping in (self.__nativeControls.get(formId, {}), self.__customControls.get(formId, {}),
+                        self.__listViews.get(formId, {}), self.__inputRecords.get(formId, {})):
             for key in list(mapping):
                 if matches(key):
                     del mapping[key]
@@ -677,14 +842,15 @@ class Screen(ScreenNode):
         self.RemoveChildControl(old)
         data.clear()
         data.update(supplied)
+        self._setGridPlans(formId, self._validateGridData(self.forms[formId]))
+        self._refreshFormBindings(formId)
         parentAddress = address[0] if len(address) == 2 else address[:-1]
         created = []
         wasCreating = formId in self.__creatingForms
         self.__creatingForms.add(formId)
         try:
             self._createControl(formId, address, data, self.getControl(formId, parentAddress), address[-1], created)
-            self.forms[formId]['observables'] = list(collectObservableIds(self.forms[formId]))
-            self.observables = list(set(obId for form in self.forms.values() for obId in form['observables']))
+            self._refreshFormBindings(formId)
             self._layoutGroups(formId)
             self._finishControlCreation(formId, created)
         finally:
@@ -698,16 +864,17 @@ class Screen(ScreenNode):
     def applyObservableUpdate(self, id, value):
         if hasattr(self.controlManager, 'applyObservableUpdate'):
             self.controlManager.applyObservableUpdate(id, value)
-        if id in self.observables:
-            for formId in list(self.forms):
+        if id in self._observableForms:
+            for formId in list(self._observableForms[id]):
                 form = self.forms.get(formId)
                 if not form:
                     continue
-                oldValues = updateWrappedObservable(form, id, value)
+                bindings = self._getFormBindings(formId)
+                oldValues = bindings.update(id, value)
                 if not oldValues:
                     continue
                 self.__pendingCustomUpdates.setdefault(formId, deque()).extend(
-                    getCustomObservableUpdates(form, oldValues, value))
+                    bindings.customUpdates(id, oldValues))
                 if formId in self.__loadingForms or formId in self.__creatingForms:
                     # Creation reads the updated snapshot when the controls become available.
                     if formId in self.__creatingForms:
@@ -729,24 +896,39 @@ class Screen(ScreenNode):
         if shouldUpdate(form['title']):
             self.setFormTitle(formId, self.controlManager.get(form['style']['class']['value']).options['titlePath'], str(value))
         style = form['style']
-        for control in form['controls']:
-            if '_groupLayout' in control:
+        bindings = self._getFormBindings(formId)
+        for address, control in bindings.groupStyles.get(obId, ()):
+            if '_groupDefinition' in control:
+                control['style'] = groupStyle(control['_groupDefinition'])
+            elif '_groupLayout' in control:
                 control['style'].update(groupStyle(control['_groupLayout']))
         if shouldUpdate(style['layer']):
             self.setLayer(formId, -1, value)
         if any(shouldUpdate(style[key]) for key in ('visible', 'hideOtherForms')):
             self._refreshFormVisibility()
-        for key, axis in (('width', 'x'), ('height', 'y')):
-            if shouldUpdate(style[key]):
-                self.setSize(formId, -1, axis, getSizeDict(value))
-        for key, axis in (('offsetX', 'x'), ('offsetY', 'y')):
-            if shouldUpdate(style[key]):
-                self.setOffset(formId, -1, axis, getSizeDict(value))
-        self._refreshGroupClasses(formId)
-        self.updateControlsProperties(obId, formId, form['controls'], value)
-        if any('_groupLayout' in entry for entry in form['controls']):
+        geometryChanged = any(shouldUpdate(style[key]) for key in ('width', 'height', 'offsetX', 'offsetY'))
+        sizeChanged = any(shouldUpdate(style[key]) for key in ('width', 'height'))
+        if geometryChanged and self._layoutRootGrid(formId):
+            if sizeChanged:
+                self._relayoutForm(formId)
+        else:
+            for key, axis in (('width', 'x'), ('height', 'y')):
+                if shouldUpdate(style[key]):
+                    self.setSize(formId, -1, axis, getSizeDict(value))
+            for key, axis in (('offsetX', 'x'), ('offsetY', 'y')):
+                if shouldUpdate(style[key]):
+                    self.setOffset(formId, -1, axis, getSizeDict(value))
+        if obId in bindings.classIds:
+            self._refreshGroupClasses(formId)
+            if formId not in self.forms:
+                return
+            bindings = self._getFormBindings(formId)
+        layoutChanged = self.updateControlsProperties(
+            obId, formId, form['controls'], value, relayout=False)
+        if layoutChanged or obId in bindings.groupGeometryIds:
             self._relayoutForm(formId)
-        self._layoutGroups(formId)
+        if sizeChanged or layoutChanged or obId in bindings.groupGeometryIds:
+            self._layoutGroups(formId)
 
     def _applyDeferredFormUpdates(self, formId):
         if formId in self.__loadingForms or formId in self.__creatingForms:
@@ -758,14 +940,24 @@ class Screen(ScreenNode):
             except:
                 pass
                 
-    def updateControlsProperties(self, obId, formId, controls, value, oldValues=None):
+    def updateControlsProperties(self, obId, formId, controls, value, oldValues=None, relayout=True):
         if oldValues is None:
             oldValues = {}
         layoutChanged = False
         def shouldUpdate(data, obId):
             return data['type'] == "Observable" and data['obId'] == obId
-        for index, control in iterControls(controls):
+        bindings = self._getFormBindings(formId)
+        for index, control in bindings.controls.get(obId, ()):
             controlCls = self.controlManager.get(control['style']['class']['value'])
+            if controlCls.typeId == ControlType.ListView:
+                if index in bindings.itemChanges.get(obId, ()):
+                    self.setListviewProperties(formId, index, controlCls, self.getControl(formId, index))
+                elif shouldUpdate(control['value'], obId):
+                    self._refreshListviewSelection(formId, index, controlCls)
+                emptyText = control['style'].get('emptyText')
+                if emptyText is not None and shouldUpdate(emptyText, obId):
+                    self.getControl(formId, index).GetChildByPath(
+                        controlCls.options['emptyLabelPath']).asLabel().SetText(emptyText['value'])
             if "label" in control:
                 if shouldUpdate(control['label'], obId):
                     self.setControlLabel(formId, index, controlCls.options["labelPaths"], str(value))
@@ -778,10 +970,9 @@ class Screen(ScreenNode):
                     c = self.getControl(formId, index)
                     if controlCls.typeId == ControlType.Textfield:
                         c.GetChildByPath(controlCls.options['textfieldPath']).asTextEditBox().SetEditText(str(value))
-                        for textFieldData in self.textfields:
-                            if textFieldData['formId'] == formId and textFieldData['index'] == index:
-                                textFieldData['value'] = value
-                                break
+                        record = self.__inputRecords.get(formId, {}).get(index)
+                        if record is not None:
+                            record['value'] = value
                     elif controlCls.typeId == ControlType.Dropdown:
                         label = ""
                         for item in control['items']:
@@ -796,10 +987,9 @@ class Screen(ScreenNode):
                     c = self.getControl(formId, index)
                     c.asSwitchToggle().SetToggleState(value, controlCls.options['togglePath'])
                     control['state']['value'] = value
-                    for toggleData in self.toggles:
-                        if toggleData['formId'] == formId and toggleData['index'] == index:
-                            toggleData['value'] = value
-                            break
+                    record = self.__inputRecords.get(formId, {}).get(index)
+                    if record is not None:
+                        record['value'] = value
             if "style" in control:
                 style = control['style']
                 if controlCls.typeId == ControlType.Label and 'fontSize' in style and shouldUpdate(style['fontSize'], obId):
@@ -809,23 +999,24 @@ class Screen(ScreenNode):
                     if shouldUpdate(style[key], obId):
                         style[key]['value'] = value
                         layoutChanged = True
-        if layoutChanged:
+        if layoutChanged and relayout:
             self._relayoutForm(formId)
+        return layoutChanged
 
     def _refreshSlider(self, formId, index, data, cls):
         value = getStepedValue(data['value']['value'], data['minValue']['value'],
                               data['maxValue']['value'], data['step']['value'])
         root = self.getControl(formId, index)
-        root.GetChildByPath(cls.options['sliderPath']).asSlider().SetSliderValue(
-            getSliderPercentage(value, data['minValue']['value'], data['maxValue']['value'], data['step']['value']))
+        percentage = getSliderPercentage(value, data['minValue']['value'], data['maxValue']['value'], data['step']['value'])
+        root.GetChildByPath(cls.options['sliderPath']).asSlider().SetSliderValue(percentage)
         for path in cls.options['valuePaths']:
             root.GetChildByPath(path).asLabel().SetText(str(value))
-        for record in self.sliders:
-            if record['formId'] == formId and record['index'] == index:
-                for key in ('minValue', 'maxValue', 'step'):
-                    record[key] = data[key]['value']
-                record['value'] = value
-                break
+        record = self.__inputRecords.get(formId, {}).get(index)
+        if record is not None:
+            for key in ('minValue', 'maxValue', 'step'):
+                record[key] = data[key]['value']
+            record['value'] = value
+            record['lastPercentage'] = percentage
 
     def _notifyCustomUpdate(self, formId, index, key, oldValue, newValue):
         if formId not in self.forms:
@@ -845,7 +1036,7 @@ class Screen(ScreenNode):
             return
         self.__flushingCustomUpdates.add(formId)
         try:
-            while pending and formId in self.forms:
+            while pending and self.forms.get(formId) is form:
                 index, key, oldValue, newValue = pending[0]
                 state = self.__customControls.get(formId, {}).get(index)
                 if not state:
@@ -943,52 +1134,160 @@ class Screen(ScreenNode):
         # The menu overlays other cells. Only its actual bottom extends the scroll area.
         top = sum(self.getControl(formId, address).GetPosition()[1] for address in addresses)
         bottom = top + state['items'].GetPosition()[1] + state['items'].GetSize()[1]
-        panel = self.GetBaseUIControl('/panel/fm%s%s' % (formId, form['basePath']))
+        panel = self._formControl(formId, form['basePath'])
         content = getScrollingContent(panel)
         content.SetFullSize('y', {'absoluteValue': max(form['_layoutHeight'], bottom),
                                   'relativeValue': 0.0, 'followType': 'parent'})
 
+    def _hasFrameWork(self):
+        return bool(self._gridWatches or self.__repeatFuncs or self.toggles or self.sliders or self.textfields)
+
     def Update(self):
-        for funcData in list(self.__repeatFuncs):
+        self._updateGridLayouts()
+        pending, self.__repeatFuncs = self.__repeatFuncs, []
+        survivors = []
+        for funcData in pending:
             try:
                 funcData['function']()
-                funcData['current'] += 1
-                if funcData['current'] >= funcData['times']:
-                    self.__repeatFuncs.remove(funcData)
             except:
                 pass
-        preScreen = self.GetBaseUIControl("/pre_screen")
-        if preScreen:
-            if self.__loadingForms:
-                preScreen.SetVisible(True)
-            else:
-                preScreen.SetVisible(False)
-        try:
-            for data in self.toggles:
+            if self._destroyed:
+                return
+            # Count attempts too: a failing task must not run forever each frame.
+            funcData['current'] += 1
+            if funcData['current'] < funcData['times']:
+                survivors.append(funcData)
+        # Work added by a callback starts on the next frame, after existing tasks.
+        self.__repeatFuncs = survivors + self.__repeatFuncs
+        loading = bool(self.__loadingForms)
+        if self._showLoadingIndicator and self.__loadingVisible != loading:
+            if self.__loadingControl is None:
+                self.__loadingControl = self.GetBaseUIControl('/pre_screen')
+            if self.__loadingControl:
+                self.__loadingControl.SetVisible(loading)
+                self.__loadingVisible = loading
+        for data in tuple(self.toggles):
+            if not self._inputIsAlive(data):
+                continue
+            try:
                 value = data['control'].GetToggleState(data['path'])
                 if value != data['value']:
-                    self.onToggleUpdate(data['formId'], data['index'], value)
-                    self.toggles[self.toggles.index(data)]['value'] = value
+                    data['value'] = value
                     self._getControlData(data['formId'], data['index'])['state']['value'] = value
-            for data in self.sliders:
+                    self.onToggleUpdate(data['formId'], data['index'], value)
+            except:
+                continue
+        for data in tuple(self.sliders):
+            if not self._inputIsAlive(data):
+                continue
+            try:
+                percentage = data['control'].GetSliderValue()
+                if 'lastPercentage' in data and percentage == data['lastPercentage']:
+                    continue
                 minV = data['minValue']
                 maxV = data['maxValue']
                 step = data['step']
-                value = getSliderValue(data['control'].GetSliderValue(), minV, maxV, step)
-                root = self.getControl(data['formId'], data['index'])
-                for valuePath in data['valuePaths']:
-                    root.GetChildByPath(valuePath).asLabel().SetText(str(value))
+                value = getSliderValue(percentage, minV, maxV, step)
+                data['lastPercentage'] = percentage
                 if value != data['value']:
-                    self.onSliderUpdate(data['formId'], data['index'], value)
-                    self.sliders[self.sliders.index(data)]['value'] = value
+                    root = self.getControl(data['formId'], data['index'])
+                    for valuePath in data['valuePaths']:
+                        root.GetChildByPath(valuePath).asLabel().SetText(str(value))
+                    data['value'] = value
                     self._getControlData(data['formId'], data['index'])['value']['value'] = value
-            for data in self.textfields:
+                    self.onSliderUpdate(data['formId'], data['index'], value)
+            except:
+                continue
+        for data in tuple(self.textfields):
+            if not self._inputIsAlive(data):
+                continue
+            try:
                 value = data['control'].GetEditText()
                 if value != data['value']:
+                    data['value'] = value
                     self.onTextfieldUpdate(data['formId'], data['index'], value)
-                    self.textfields[self.textfields.index(data)]['value'] = value
-        except:
-            pass
+            except:
+                continue
 
     def addRepeatFunc(self, function, times):
-        self.__repeatFuncs.append({"function": function, "times": times, "current": 0})
+        if not self._destroyed:
+            self.__repeatFuncs.append({"function": function, "times": times, "current": 0})
+
+
+class Screen(_Screen, ScreenNode):
+    """The FormUI-owned screen driven by the engine's ScreenNode lifecycle."""
+
+    def __init__(self, namespace, name, params):
+        from ...utils.environment import getClientSystem
+        ScreenNode.__init__(self, namespace, name, params)
+        self._initRenderer(getClientSystem())
+        self._popPending = False
+        self._popOnUpdate = False
+        self._system._registerFormScreen(self)
+
+    def addForm(self, formData, pendingCustomUpdates=()):
+        _Screen.addForm(self, formData, pendingCustomUpdates)
+        self._popPending = self._popOnUpdate = False
+
+    def _afterFormClosed(self, form):
+        if not form.get('options', {}).get('combineUI'):
+            self._requestPop()
+
+    def _requestPop(self):
+        if self._destroyed or self._popPending or self.forms:
+            return
+        self._popPending = True
+        c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddTimer(0.05, self._popIfCurrent)
+
+    def _popIfCurrent(self):
+        if not self._popPending or self._destroyed:
+            return
+        if self.forms:
+            self._popPending = self._popOnUpdate = False
+        elif getTopScreenNode() is self:
+            self._popPending = self._popOnUpdate = False
+            c.PopScreen()
+        else:
+            self._popOnUpdate = True
+
+    def Update(self):
+        if self._popOnUpdate:
+            self._popIfCurrent()
+        if not self._destroyed:
+            _Screen.Update(self)
+
+    def Destroy(self):
+        self._hostClosed()
+        self._system._formScreenDestroyed(self)
+        destroy = getattr(ScreenNode, 'Destroy', None)
+        if destroy is not None:
+            destroy(self)
+
+
+class EmbeddedScreen(_Screen):
+    """Render on a foreign ScreenNode without taking over its methods or UI stack."""
+    _showLoadingIndicator = False
+
+    def __init__(self, system, host, panel, name):
+        self._hostNode = host
+        self._panel = panel
+        self._panelPath = '/' + name
+        self.popping = False
+        self._initRenderer(system, ready=True)
+
+    def _formParent(self):
+        return self._panel
+
+    def __getattr__(self, name):
+        # Custom controls can use both host-native methods and FormUI's addRepeatFunc.
+        return getattr(self._hostNode, name)
+
+    def panelOn(self, node):
+        try:
+            return node.GetBaseUIControl(self._panelPath)
+        except Exception:
+            return None
+
+    def _afterFormClosed(self, form):
+        if not self.forms:
+            self._system._releaseEmbeddedScreen(self)

@@ -18,6 +18,8 @@
 | `fui fluent` | Fluent Qt 浅色窗口预览，标题栏仅保留关闭按钮 |
 | `fui fluent-dark` | Fluent Qt 深色窗口预览 |
 | `fui compare` | 同一屏幕并排显示 OreUI、Flutter、Fluent，内容与绑定数据相同 |
+| `fui grid` | 客户端自定义主题与二维网格布局预览 |
+| `fui grid-server` | 服务端为当前玩家创建主题与网格预览 |
 
 `fui client` 和 `fui server` 只打开自己的表单，状态按玩家隔离。`fui shared` / `fui all` 有意共用状态。关闭后再次输入指令，会重新显示同一个表单对象并保留其 Observable 状态；已经显示时输入指令只提示，可在表单内按“重复 show”测试原生错误。
 
@@ -84,3 +86,14 @@ L = S / (abs(cos θ) + abs(sin θ))
 聊天入口及 `cancel` 字段使用 [网易 SDK 的 ServerChatEvent](https://github.com/MCNeteaseDevs/mc-netease-sdk/blob/main/1-ModAPI/%E4%BA%8B%E4%BB%B6/%E4%B8%96%E7%95%8C.md#serverchatevent)。原生图片操作参考 [UI 控件 Rotate](https://github.com/MCNeteaseDevs/mc-netease-sdk/blob/main/1-ModAPI/%E6%8E%A5%E5%8F%A3/%E8%87%AA%E5%AE%9A%E4%B9%89UI/UI%E6%8E%A7%E4%BB%B6.md#rotate) 和同页的 SetSize、SetTextColor。聊天反馈使用 Msg 组件的 [NotifyOneMessage](https://github.com/MCNeteaseDevs/mc-netease-sdk/blob/main/1-ModAPI/%E6%8E%A5%E5%8F%A3/%E4%B8%96%E7%95%8C/%E6%B6%88%E6%81%AF.md#notifyonemessage)。
 
 离线测试覆盖表单构建、指令分发、回调、动画几何和关闭后停止更新；实际游戏中的渲染、触摸操作及跨端时序仍需在网易客户端按上表检查。
+
+## ListView 补充演示
+
+聊天输入 `fui listview`、`fui listview-flutter`、`fui listview-flutter-dark`、
+`fui listview-fluent`、`fui listview-fluent-dark` 可分别检查五种列表外观。
+`fui listview-server` 检查服务端创建、独立玩家状态和选中值回传。
+各示例提供筛选、重排、程序选择、清空与恢复按钮，`fui close` 关闭。
+接入说明、完整 API 和注意事项见 [ListView 使用说明](listview.md)。
+## 主题与 Grid 演示
+
+新增 `fui grid`（客户端）和 `fui grid-server`（服务端单玩家）入口。显示继承 Fluent Dark 的自定义主题、屏幕 12×12 网格中的窗口、局部加权行列、跨列 ListView 和按钮回调。源文件为 `behavior/scripts/example_grid.py`，完整接口见[主题与 Grid](themes-grid.md)。游戏验证时检查窗口缩放/分辨率切换、列表滚动和关闭重开；`fui close` 可关闭演示。

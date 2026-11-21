@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from typing import Any, Callable, Literal, TypeAlias, TypedDict
 from ..observable import Observable
+from .grid import GridPosition, GridLayout
 
 # 数字为像素值；字符串支持百分比、default 等尺寸表达式。
 Dimension: TypeAlias = int | float | str | Observable[int] | Observable[float] | Observable[str]
@@ -15,7 +16,7 @@ BoolValue: TypeAlias = bool | Observable[bool]
 PlayerCallback: TypeAlias = Callable[[str], None]
 ControlKind: TypeAlias = Literal[
     "button", "panel", "scrolling_panel", "toggle", "label", "textfield",
-    "slider", "dropdown", "custom", "group", "divider",
+    "slider", "dropdown", "listview", "custom", "group", "divider",
 ]
 
 ControlStyle = TypedDict("ControlStyle", {
@@ -26,6 +27,7 @@ ControlStyle = TypedDict("ControlStyle", {
     "height": Dimension,
     "visible": BoolValue,
     "fontSize": FontSize,
+    "grid": GridPosition,
 }, total=False)
 
 class ButtonCallbacks(TypedDict, total=False):
@@ -34,10 +36,24 @@ class ButtonCallbacks(TypedDict, total=False):
     onMoveIn: PlayerCallback
     onMoveOut: PlayerCallback
 
+ButtonHandler: TypeAlias = ButtonCallbacks | PlayerCallback
+
 class DropdownItem(TypedDict):
     """静态选项；label/value 不支持 Observable。"""
     label: str
     value: int | str
+
+class ListViewItem(TypedDict):
+    """纯数据行；value 必须唯一，label/value 本身不绑定 Observable。"""
+    label: str
+    value: int | str
+
+ListViewItems: TypeAlias = list[ListViewItem] | Observable[list[ListViewItem]]
+ListViewValue: TypeAlias = int | str | None | Observable[int | str | None] | Observable[int] | Observable[str]
+
+class ListViewStyle(ControlStyle, total=False):
+    itemHeight: NumberValue
+    emptyText: TextValue
 
 class _GroupLayout(TypedDict, total=False):
     """offset/size 在运行时校验为两元素列表；独立轴属性优先。"""
@@ -48,6 +64,8 @@ class _GroupLayout(TypedDict, total=False):
     width: Dimension
     height: Dimension
     visible: BoolValue
+    grid: GridPosition
+    layout: GridLayout
 
 _GroupRequired = TypedDict("_GroupRequired", {"class": str | Observable[str]})
 
@@ -63,18 +81,20 @@ GroupStyle = TypedDict("GroupStyle", {
     "width": Dimension,
     "height": Dimension,
     "visible": BoolValue,
+    "grid": GridPosition,
+    "layout": GridLayout,
 }, total=False)
 
 class GroupChildData(TypedDict, total=False):
     """按子控件类型选择字段；嵌套组使用 children，各类型均可提供 params。"""
     label: TextValue
-    callbacks: ButtonCallbacks
+    callbacks: ButtonHandler
     state: BoolValue
     value: Any
     minValue: NumberValue
     maxValue: NumberValue
     step: NumberValue
-    items: list[DropdownItem]
+    items: list[DropdownItem] | ListViewItems
     params: dict[str, Any]
     children: dict[str, GroupChildData]
 

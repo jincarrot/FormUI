@@ -2,35 +2,35 @@
 
 以下导入以宿主可直接导入 `FormUI` 为前提，代码在系统和客户端 UI 就绪后的业务入口执行。路径及生命周期按宿主调整。
 
+自定义主题通过 `Theme.register(name, styles, base='oreui', replace=False)` 注册，`Screen.setDefaultTheme` 可设置当前端新表单的默认主题。完整样式优先级及 JSON UI 模板要求见项目 `docs/themes-grid.md`。
+
+同一文档还给出 `Screen.setGrid` 与 `Form.create(..., grid=..., layout=...)` 的用法：窗口位置相对屏幕网格，控件位置相对内容网格，行列从 0 开始，支持跨格。所有控件添加方法新增末尾参数 grid；旧 `grids=[...]` 和 `layout=False` 使用顺序布局。主题和全局网格在创建 Form 时保存快照。
+
 ## 最小客户端设置表单
 
 ```python
 # -*- coding: utf-8 -*-
 from FormUI.lib import Form, Observable
-from FormUI.innerStyles import InnerStyles
 
 
 def create_settings():
-    theme = InnerStyles.fluent
     name = Observable.create('Steve')
     enabled = Observable.create(True)
     volume = Observable.create(60)
     quality = Observable.create(1)
     form = Form.create('设置', {
-        'class': theme.LightPanel,
         'width': '80%y', 'height': '80%', 'grids': [1],
-    })
-    form.label('个人设置', {'class': theme.Label, 'fontSize': 1.2})
-    form.textfield('名称', name, {'class': theme.Textfield})
-    form.toggle('启用音效', enabled, {'class': theme.Toggle})
-    form.slider('音量', volume, 0, 100, 1, {'class': theme.Slider})
+    }, theme='fluent')
+    form.label('个人设置', {'fontSize': 1.2})
+    form.textfield('名称', name)
+    form.toggle('启用音效', enabled)
+    form.slider('音量', volume, 0, 100, 1)
     form.dropdown('画质', [
         {'label': '流畅', 'value': 0},
         {'label': '均衡', 'value': 1},
         {'label': '精致', 'value': 2},
-    ], quality, {'class': theme.Dropdown})
-    form.button('完成', {'onClick': lambda playerId: form.close(playerId)},
-                {'class': theme.PrimaryBtn})
+    ], quality)
+    form.button('完成', lambda playerId: form.close(playerId))
     return form, {'name': name, 'enabled': enabled,
                   'volume': volume, 'quality': quality}
 
@@ -47,13 +47,14 @@ def create_settings():
 
 | 调用 | 主要参数 |
 | --- | --- |
-| `Form.create(title, style={})` | 标题可绑定 Observable；style 包含 class、宽高、偏移、grids、hideOtherForms、layer、visible |
-| `button(label, callbacks={}, style={}, params={})` | callbacks 可含 onClick、onMoveIn、onMoveOut，均接收 playerId |
+| `Form.create(title, style=None, theme=None, grid=None, layout=None)` | 标题可绑定 Observable；theme 选择内置或自定义主题；grid 为窗口屏幕位置，layout 为内容网格，False 使用旧顺排 |
+| `button(label, callbacks={}, style={}, params={})` | callbacks 可为点击函数，或含 onClick、onMoveIn、onMoveOut 的字典，均接收 playerId |
 | `label(text, style={}, params={})` | fontSize 为缩放倍数，可绑定 Observable |
 | `toggle(label, state, style={}, params={})` | state 使用布尔值或布尔 Observable |
 | `slider(label, value, minValue=0.0, maxValue=1.0, step=1, style={}, params={})` | 值、边界、步长可绑定数值 Observable |
 | `textfield(label, value, style={}, params={})` | 文本值可绑定 Observable |
 | `dropdown(label, items, value, style={}, params={})` | items 为字符串 label、整数或字符串 value 的静态字典列表 |
+| `listview(label, items, value=None, style={}, params={})` | 内部滚动单选列表；items 可绑定整个列表，value 唯一；style 另支持 itemHeight、emptyText |
 | `divider(style={}, params={})` | 无文本和回调参数 |
 | `group(children={}, style={}, params={})`、`custom(params={}, style={})` | 见 composition.md |
 
@@ -65,6 +66,8 @@ params 必须是字典，默认空字典；注册控件的客户端 `onCreate` �
 
 Observable 可以保存列表、字典及普通可传输值。替换容器使用 `setValue(新列表或字典)`；原地修改已有容器不会自动通知。`subscribe(callback)` 的参数是本次新值，回调期间 `getValue()` 仍是旧值；回调内再次 setValue 会排队。派生运算如 `count + 1` 返回新的 Observable，`bool(observable)` 才直接读取当前值。
 
+`update(fn)` 把当前数据副本传给 fn，使用其返回值更新；可写 `count.update(lambda value: value + 1)`，避免重入时基于旧值重复计算。`map(fn)` 创建派生 Observable，构建表单时创建并复用。`watch(fn, immediate=True)` 默认立即通知当前值，并返回可重复调用的取消函数；不改变 subscribe 返回 None 的约定。详细示例见项目 `docs/api-design.md`。
+
 不要把 `observable == value` 当普通布尔比较或拿它做对象身份判断：比较运算会产生派生 Observable。身份判断用 `is`，比较当前值用 `getValue()`。
 
 创建 Observable 不等于在另一端创建可查询的同一个 Python 对象。显示表单时传输绑定编号和当前值；原始对象保存在创建端。服务端编号从 0 递增，客户端从 -1 递减，`-1` 是有效编号，业务代码无需自行管理编号。输入控件把更新送回对应编号的所属端；Custom 直接使用参数快照。
@@ -75,16 +78,18 @@ Observable 可以保存列表、字典及普通可传输值。替换容器使用
 
 - 客户端 `show()` 只显示给本地玩家；服务端 `show(playerId)`、`show([playerId, ...])`、`show()` 分别针对指定玩家、列表、全部在线玩家。
 - `isShowing(playerId)` 查询特定玩家。客户端省略参数查询本地玩家；服务端省略参数要求历史显示过的玩家全部在线且仍显示，未显示过返回 False，任一历史目标已关闭或离线也返回 False。
-- `form.show(playerId).onClose(callback)` 中 callback 接收对象，`closeReason` 为 `api` 或 `user`；玩家离线清理状态但不调用关闭回调。onClose 返回 None，不能把结果当 Form 保存。
-- `close()` 默认客户端关闭本地，服务端发给全部在线玩家；服务端单人关闭使用 `close(playerId)`。`Screen.closeAllForms(target)` 需要 target 参数，业务清理优先关闭自己拥有的表单。
+- `isAnyShowing()` 查询至少一位在线玩家正在显示，`getShowingPlayers()` 返回当前在线显示/等待创建的玩家列表。
+- `form.show(options={'combineUI': True})` 嵌入客户端当前界面。服务端使用 `form.show(playerId, options={'combineUI': True})`。表单随宿主关闭，`close` 只移除表单控件。`form.show(playerId).onClose(callback)` 的关闭原因为 `api`（接口关闭）、`user`（用户或宿主关闭），或 `unavailable`（服务端请求嵌入时目标客户端无法挂载）。玩家离线只清理状态。onClose 返回 None。
+- `show(playerId, onClose=callback)` 在发送前绑定回调。旧的 `.show(...).onClose(...)` 继续可用。
+- `close()` 默认客户端关闭本地，服务端发给全部在线玩家；服务端单人关闭使用 `close(playerId)`。`Screen.closeAllForms(target=None)` 默认本地/全部在线玩家，业务清理优先关闭自己拥有的表单。服务端目标支持生成器并去重；空集合不发送操作。
 - 可以在 show 后或 Custom.onCreate 中追加控件，库会创建并重排；不要为一次追加重复 show。
 - 多表单同时显示参考 `example_styles.py`：先等首个 FormUI 页面完成创建，再显示后续表单；设置适当位移、尺寸及 `hideOtherForms=False`。不要假设连续首次 show 会自动落在同一页面上。
 
 ## 风格与布局
 
-`InnerStyles.oreui/flutter/fluent` 和 `OreUIStyles/FlutterStyles/FluentStyles` 提供 class 常量，也从 lib 导出。Flutter 主按钮为 FilledBtn，Fluent 为 PrimaryBtn，OreUI 可用 NormalBtn/GreenBtn；OreUI 常量没有 Toggle，使用已注册的 `oreui:toggle_thin`。深色 Flutter/Fluent 子控件须显式使用 DarkLabel、DarkToggle 等，面板为 DarkPanel。
+`InnerStyles.oreui/flutter/fluent` 和 `OreUIStyles/FlutterStyles/FluentStyles` 提供 class 常量，也从 lib 导出。Flutter 主按钮为 FilledBtn，Fluent 为 PrimaryBtn，OreUI 可用 NormalBtn/GreenBtn；OreUI 常量没有 Toggle，使用已注册的 `oreui:toggle_thin`。深色主题可通过 theme='flutter-dark' 或 'fluent-dark' 自动搭配；显式 class 用法仍可用。
 
-客户端 UI 初始化自动注册内置风格。Flutter/Fluent 面板居中；根偏移基于其锚点。不指定控件 class 时仍沿用默认配置中的 OreUI class。单张表单选择其他风格时逐项传 class；`Screen.setDefaultStyle(controlType, style)` 会跨端同步并改变后续创建的默认配置，只有需要全局效果时才使用。
+客户端 UI 初始化自动注册内置风格。Flutter/Fluent 面板居中；根偏移基于其锚点。默认值覆盖顺序：内置默认值 → 全局配置 → Form theme 指定的 class → 显式 style。Group/Custom 不随 theme 重写。`Screen.setDefaultStyle(controlType, style)` 用于全局配置，`getDefaultStyle(controlType)` 返回其独立副本。
 
 `grids` 是非空有限正权重列表，如 `[1, 2]` 表示两列宽度比例；依添加顺序按行排列。Group 作为一个根控件占一个格子。下拉菜单展开覆盖后续控件，不挤开其他格子。
 

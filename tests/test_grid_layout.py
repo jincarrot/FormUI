@@ -50,6 +50,12 @@ class GeometryControl:
     def SetVisible(self, value):
         self.visible = value
 
+    def SetAnchorFrom(self, value):
+        self.anchor_from = value
+
+    def SetAnchorTo(self, value):
+        self.anchor_to = value
+
     def asScrollView(self):
         return self
 

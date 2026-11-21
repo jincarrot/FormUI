@@ -1,8 +1,8 @@
 """Static-only public API examples; checked with mypy, not executed in game."""
-from typing import Any, Literal, assert_type
+from typing import Any, Callable, Literal, assert_type
 from FormUI.lib import (
     Button, Control, ControlType, Custom, Dropdown, Form, Group, Label,
-    Observable, Screen, Slider, InnerStyles,
+    Observable, Screen, Slider, InnerStyles, Theme,
 )
 from FormUI.innerStyles import FlutterStyles, FluentStyles
 from FormUI.core.general.observable import Observable as ObservableValue
@@ -32,6 +32,33 @@ def on_close(args: FormShowResultArgs) -> None:
 
 
 def example() -> None:
+    Theme.register('demo:theme', {'button': {'height': 36}, 'label': 'oreui:label'}, base='fluent')
+    assert_type(Theme.get('demo:theme'), dict[str, dict[str, Any]])
+    assert_type(Theme.names(), list[str])
+    Screen.setDefaultTheme('demo:theme')
+    Screen.setGrid(columns=[1, 2], rows=4, gap=6, padding=8)
+    grid_form = Form.create('Grid', theme='demo:theme',
+                            grid={'row': 0, 'column': 0, 'columnSpan': 2},
+                            layout={'columns': 2, 'rows': 3, 'gap': 4})
+    grid_form.button('Button', grid={'row': 0, 'column': 1})
+    grid_form.custom(style={'class': 'demo:custom', 'grid': {'row': 1, 'column': 0}})
+    grid_form.group(style={'class': 'demo:group', 'layout': {'columns': 2, 'rows': 1}},
+                    grid={'row': 2, 'column': 0, 'columnSpan': 2})
+    Form.create('Legacy content', grid={'row': 1, 'column': 0}, layout=False)
+    Screen.clearGrid()
+    Screen.setDefaultTheme()
+    Theme.unregister('demo:theme')
+    themed = Form.create('简洁调用', theme='fluent-dark')
+    count = Observable.create(0)
+    assert_type(count.map(lambda current: str(current)), ObservableValue[str])
+    assert_type(count.watch(lambda current: _ignore(current)), Callable[[], None])
+    count.update(lambda current: current + 1)
+    themed.button('增加', lambda player: count.update(lambda current: current + 1))
+    assert_type(themed.isAnyShowing(), bool)
+    assert_type(themed.getShowingPlayers(), list[str])
+    themed.show((player for player in ['p1']), onClose=on_close)
+    assert_type(Screen.getDefaultStyle(ControlType.Button), dict[str, Any])
+    Screen.closeAllForms()
     assert_type(InnerStyles.flutter.FilledBtn, Literal['flutter:filled_button'])
     assert_type(FluentStyles.DarkPanel, Literal['fluent:dark_panel'])
     Form.create('Fluent', {'class': InnerStyles.fluent.LightPanel}).button(

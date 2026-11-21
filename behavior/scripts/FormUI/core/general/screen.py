@@ -1,12 +1,35 @@
 # -*- coding: utf-8 -*-
-from ..utils.ui import isFormScreen
+from ..utils.ui import getTopScreenNode, isFormScreen, normalizeTargets, STRING_TYPES
+from ..utils.type import copyContainers
+from ..utils.grid import validateGrid
+from ..utils.theme import ThemeRegistry
 
 from ..utils.environment import getSystem, isServer
 
-class Screen:
+class Screen(object):
 
     def __init__(self):
         self.__defaultStyles = {}
+        self.__grid = None
+        self.__theme = None
+        self.themes = ThemeRegistry()
+
+    def setGrid(self, columns=1, rows=1, gap=0, padding=0):
+        self.__grid = validateGrid(dict(columns=columns, rows=rows, gap=gap, padding=padding))
+
+    def getGrid(self):
+        return copyContainers(self.__grid)
+
+    def clearGrid(self):
+        self.__grid = None
+
+    def setDefaultTheme(self, name=None):
+        if name is not None:
+            self.themes.get(name)
+        self.__theme = name
+
+    def getDefaultTheme(self):
+        return self.__theme
 
     @property
     def isFormUI(self):
@@ -15,34 +38,37 @@ class Screen:
         
         仅客户端可用。
         """
-        if isServer():
-            return False
-        else:
-            import mod.client.extraClientApi as c
-            topScreen = c.GetTopScreen()
-            return isFormScreen(topScreen)
+        return not isServer() and isFormScreen(getTopScreenNode())
 
-    def closeAllForms(self, target):
+    def closeAllForms(self, target=None):
         """
         关闭所有表单。
         """
-        if isinstance(target, str):
-            target = [target]
         if isServer():
-            getSystem().NotifyToMultiClients(target, "closeForm", {"closeAll": True})
+            if target is None:
+                import mod.server.extraServerApi as s
+                target = s.GetPlayerList()
+            targets = normalizeTargets(target)
+            if targets:
+                getSystem().NotifyToMultiClients(targets, "closeForm", {"closeAll": True})
         else:
             getSystem().closeForm({"closeAll": True})
 
     def setDefaultStyle(self, controlType, style, sync=False):
-        self.__defaultStyles[controlType] = style
+        if not isinstance(controlType, STRING_TYPES) or not controlType:
+            raise ValueError('controlType must be a nonempty string')
+        if not isinstance(style, dict):
+            raise TypeError('default style must be a dict')
+        self.__defaultStyles[controlType] = copyContainers(style)
         if not sync:
             return
         if isServer():
-            getSystem().BroadcastToAllClient("setDefaultStyle", {"controlType": controlType, "style": style})
+            getSystem().BroadcastToAllClient("setDefaultStyle", {"controlType": controlType, "style": copyContainers(style)})
         else:
-            getSystem().NotifyToServer("setDefaultStyle", {"controlType": controlType, "style": style})
+            getSystem().NotifyToServer("setDefaultStyle", {"controlType": controlType, "style": copyContainers(style)})
 
-    def getDefaultStyle(self, controlType, defaultStyle={}):
+    def getDefaultStyle(self, controlType, defaultStyle=None):
         style = self.__defaultStyles.get(controlType, {})
-        defaultStyle.update(style)
-        return defaultStyle
+        result = copyContainers(defaultStyle) if defaultStyle is not None else {}
+        result.update(copyContainers(style))
+        return result

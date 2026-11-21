@@ -16,6 +16,7 @@ class OreUIStyles:
     Slider = "oreui:slider"
     Textfield = "oreui:textfield"
     Dropdown = "oreui:dropdown"
+    ListView = "oreui:listview"
 
 class FlutterStyles(object):
     """Flutter / Material 风格的浅色、深色控件标识符。"""
@@ -33,6 +34,8 @@ class FlutterStyles(object):
     Slider = "flutter:slider"
     Textfield = "flutter:textfield"
     Dropdown = "flutter:dropdown"
+    ListView = "flutter:listview"
+    DarkListView = "flutter:dark_listview"
     DarkFilledBtn = "flutter:dark_filled_button"
     DarkTonalBtn = "flutter:dark_tonal_button"
     DarkOutlinedBtn = "flutter:dark_outlined_button"
@@ -62,6 +65,8 @@ class FluentStyles(object):
     Slider = "fluent:slider"
     Textfield = "fluent:textfield"
     Dropdown = "fluent:dropdown"
+    ListView = "fluent:listview"
+    DarkListView = "fluent:dark_listview"
     DarkPrimaryBtn = "fluent:dark_primary_button"
     DarkNormalBtn = "fluent:dark_button"
     DarkOutlinedBtn = "fluent:dark_outlined_button"

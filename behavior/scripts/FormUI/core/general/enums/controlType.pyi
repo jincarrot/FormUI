@@ -11,6 +11,7 @@ class ControlType:
     Textfield: Final[Literal["textfield"]]
     Slider: Final[Literal["slider"]]
     Dropdown: Final[Literal["dropdown"]]
+    ListView: Final[Literal["listview"]]
     Custom: Final[Literal["custom"]]
     Group: Final[Literal["group"]]
     Divider: Final[Literal["divider"]]

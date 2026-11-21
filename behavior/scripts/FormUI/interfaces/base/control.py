@@ -10,6 +10,8 @@ class Control:
     def register(identifier, controlPath, control):
         from ...core.utils.environment import isServer
         controlType = control.__class__.__name__
+        if not hasattr(Control, "register" + controlType):
+            raise TypeError('Unsupported control descriptor: %s' % controlType)
         if hasattr(Control, "register" + controlType):
             options = {}
             for key in dir(control):
@@ -209,6 +211,21 @@ class Control:
         if isServer():
             system.BroadcastToAllClient("registerControl", data)
         getSystem().controlManager.create(ControlType.Dropdown, identifier, path, defaultOptions)
+
+    @staticmethod
+    def registerListView(identifier, path, options={}):
+        from .controls import ListView
+        from ...core.utils.environment import getSystem, isServer
+        defaults = dict(vars(ListView()))
+        defaults.update(options)
+        if not defaults['itemControl']:
+            raise ValueError('ListView requires an itemControl template')
+        system = getSystem()
+        if isServer():
+            system.BroadcastToAllClient('registerControl', {
+                'type': 'listview', 'name': identifier, 'path': path, 'options': defaults,
+            })
+        system.controlManager.create('listview', identifier, path, defaults)
 
     @staticmethod
     def registerGroup(identifier, path, options={}):

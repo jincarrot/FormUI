@@ -33,7 +33,7 @@
 | 输入框 | `flutter:textfield` | `flutter:dark_textfield` |
 | 下拉菜单 | `flutter:dropdown` | `flutter:dark_dropdown` |
 
-这些控件在客户端 `UiInitFinished` 时自动注册，客户端、服务端均可通过 class 引用；无需自行调用 `Control.register`。深色面板中的子控件需要显式使用对应的深色 class。Group 的子控件定义同样可以引用这些标识符。
+这些控件在客户端 `UiInitFinished` 时自动注册，客户端、服务端均可通过 class 引用；无需自行调用 `Control.register`。推荐 `Form.create('设置', theme='flutter')` 或 `theme='flutter-dark'`，自动为标准子控件选择对应风格。只指定根面板 class 时仍需逐项指定子控件 class。Group 的子控件定义同样可以引用这些标识符。
 
 也可以使用内置样式常量，避免手写标识符：
 

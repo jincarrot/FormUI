@@ -1,5 +1,9 @@
 # 布局与参数约定
 
+## 二维 Grid 布局
+
+窗口和全部控件现在都可通过 `grid={'row': 0, 'column': 0, 'rowSpan': 1, 'columnSpan': 1}` 指定位置。`Screen.setGrid(columns, rows, gap=0, padding=0)` 提供全局网格，`Form.create(..., layout={...})` 覆盖内容网格，Group 支持局部 layout。配置规则、优先级和示例见[自定义主题与 Grid](themes-grid.md)。以下旧式 `grids`、尺寸和偏移接口继续支持；使用新网格时百分比尺寸相对所占单元格计算。
+
 下拉菜单展开后覆盖其他控件，其他控件仍按 `grids` 的行列位置排列。滚动内容高度取正常布局高度与菜单实际底边中的较大值。选中、切换或隐藏菜单后重新计算高度；Group 中的菜单会累计各级父组的位移。
 
 下拉菜单的 `items` 为静态选项列表：每项的 `label` 是字符串，`value` 是整数或字符串，两者均不接受 Observable。菜单标题和选中值仍支持 Observable。添加控件时复制选项，修改原始列表不会改变已添加的菜单。

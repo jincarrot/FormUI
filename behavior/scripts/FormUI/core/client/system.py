@@ -2,8 +2,8 @@
 import mod.client.extraClientApi as c
 from weakref import WeakSet
 from ..config import Namespace, SystemNameServer
-from ..utils.ui import isFormScreen
-from ..utils.type import updateWrappedObservable, getCustomObservableUpdates
+from ..utils.ui import getTopScreenNode, isFormScreen, notifyFormClosed
+from ..utils.bindings import FormBindings
 
 ClientSystem = c.GetClientSystemCls()
 
@@ -21,6 +21,11 @@ class Client(ClientSystem):
         self.screen = Screen()
         self.__formScreens = WeakSet()
         self.__pendingForms = []
+        self.__embeddedScreens = {}
+        self.__embeddedListeners = []
+        self.__nextPanelId = 0
+        self.__embeddedFrame = 0
+        self.__destroying = False
         self.listenEvents()
 
     def listenEvents(self):
@@ -47,19 +52,38 @@ class Client(ClientSystem):
     def _registerFormScreen(self, screen):
         self.__formScreens.add(screen)
 
+    def _formScreenDestroyed(self, screen):
+        self.__formScreens.discard(screen)
+        for pending in list(self.__pendingForms):
+            if pending['screen'] is screen:
+                self._closePending(pending, 'user')
+
+    def _closePending(self, pending, reason):
+        if not any(entry is pending for entry in self.__pendingForms):
+            return
+        self.__pendingForms.remove(pending)
+        if pending['timer'] is not None:
+            c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(pending['timer'])
+        notifyFormClosed(self, pending['data']['formId']['value'], reason)
+
+    def _formScreens(self):
+        screens = list(self.__formScreens)
+        top = getTopScreenNode()
+        if isFormScreen(top) and top not in self.__formScreens:
+            screens.append(top)
+        return screens
+
     def applyObservableUpdate(self, data):
         obId = data['id']
         value = data['value']
         if hasattr(self.controlManager, 'applyObservableUpdate'):
             self.controlManager.applyObservableUpdate(obId, value)
         for pending in self.__pendingForms:
-            previous = updateWrappedObservable(pending['data'], obId, value)
-            pending['customUpdates'].extend(getCustomObservableUpdates(pending['data'], previous, value))
-        screens = list(self.__formScreens)
-        topScreen = c.GetTopScreen()
-        if isFormScreen(topScreen) and not any(screen is topScreen for screen in screens):
-            screens.append(topScreen)
-        for screen in screens:
+            bindings = pending['bindings']
+            previous = bindings.update(obId, value)
+            if previous:
+                pending['customUpdates'].extend(bindings.customUpdates(obId, previous))
+        for screen in self._formScreens():
             screen.applyObservableUpdate(obId, value)
         
     def registerControl(self, data):
@@ -68,34 +92,147 @@ class Client(ClientSystem):
     def onButtonTrigger(self, data):
         form = self.formManager.get(data['formId'])
         if form:
-            form._btnCallbacks[data['callbackId']](data['playerId'])
+            callback = form._btnCallbacks.get(data['callbackId'])
+            if callback:
+                callback(data['playerId'])
 
     def showForm(self, data):
         formId = data['formId']['value']
-        if any(pending['data']['formId']['value'] == formId for pending in self.__pendingForms):
+        if (any(pending['data']['formId']['value'] == formId for pending in self.__pendingForms)
+                or any(formId in screen.forms for screen in self.__formScreens)):
             raise RuntimeError('该表单已经被显示出来了，关闭后才能再次调用 show()。')
-        topScreen = c.GetTopScreen()
+        if data.get('options', {}).get('combineUI'):
+            self._showEmbedded(data)
+            return
+        topScreen = getTopScreenNode()
         if isFormScreen(topScreen) and topScreen.isAllReady():
             topScreen.addForm(data)
         else:
-            pending = {'data': data, 'customUpdates': [], 'timer': None}
+            pending = {'data': data, 'bindings': FormBindings(data), 'customUpdates': [], 'timer': None, 'screen': None}
             self.__pendingForms.append(pending)
             def pushFormScreen(data):
                 if not any(entry is pending for entry in self.__pendingForms):
                     if pending['timer'] is not None:
                         c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(pending['timer'])
                     return
-                topScreen = c.GetTopScreen()
+                topScreen = pending['screen'] or getTopScreenNode()
                 if isFormScreen(topScreen) and topScreen.isAllReady():
                     c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(pending['timer'])
                     self.__pendingForms.remove(pending)
                     topScreen.addForm(data, pending['customUpdates'])
             try:
-                c.PushScreen(Namespace, "screen", {})
+                pending['screen'] = c.PushScreen(Namespace, "screen", {})
                 pending['timer'] = c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddRepeatedTimer(0.05, pushFormScreen, data)
             except:
                 self.__pendingForms.remove(pending)
                 raise
+
+    def _showEmbedded(self, data):
+        screen = None
+        try:
+            host = getTopScreenNode()
+            if self.__destroying:
+                raise RuntimeError('FormUI client system is shutting down')
+            if host is None:
+                raise RuntimeError('combineUI requires a current ScreenNode')
+            if isFormScreen(host):
+                if not host.isAllReady():
+                    raise RuntimeError('The current FormUI screen is not ready')
+                host.addForm(data)
+            else:
+                screen = self._embeddedForHost(host)
+                if screen is None:
+                    screen = self._createEmbeddedScreen(host)
+                if screen.popping:
+                    raise RuntimeError('The current host screen is closing')
+                screen.addForm(data)
+        except Exception as error:
+            if screen is not None and not screen.forms:
+                self._releaseEmbeddedScreen(screen)
+            if not data['fromServer']['value']:
+                raise
+            formId = data['formId']['value']
+            print('[FormUI] Cannot mount form %s: %s' % (formId, error))
+            notifyFormClosed(self, formId, 'unavailable')
+
+    def _embeddedForHost(self, host):
+        screen = self.__embeddedScreens.get(id(host))
+        if screen is not None:
+            return screen
+        # Native screens can be returned through a different Python wrapper.
+        for screen in self.__embeddedScreens.values():
+            if screen.panelOn(host):
+                return screen
+        return None
+
+    def _createEmbeddedScreen(self, host):
+        from .ui.screen import EmbeddedScreen
+        while True:
+            self.__nextPanelId += 1
+            name = 'formui_embedded_%s' % self.__nextPanelId
+            if not host.GetBaseUIControl('/' + name):
+                break
+        panel = host.CreateChildControl('fui.embedded_root', name, None)
+        if not panel:
+            raise RuntimeError('The current ScreenNode could not create the FormUI panel')
+        try:
+            screen = EmbeddedScreen(self, host, panel, name)
+            getName = getattr(c, 'GetTopUI', None)
+            screen.hostName = getName() if getName is not None else None
+            self.__embeddedScreens[id(host)] = screen
+            self._registerFormScreen(screen)
+            if len(self.__embeddedScreens) == 1:
+                for event, callback in (('GameRenderTickEvent', self._updateEmbedded),
+                                        ('PopScreenEvent', self._onScreenPopping)):
+                    listener = (c.GetEngineNamespace(), c.GetEngineSystemName(), event, self, callback)
+                    self.ListenForEvent(*listener)
+                    self.__embeddedListeners.append(listener)
+        except Exception:
+            if id(host) in self.__embeddedScreens:
+                self._releaseEmbeddedScreen(self.__embeddedScreens[id(host)])
+            else:
+                host.RemoveChildControl(panel)
+            raise
+        return screen
+
+    def _onScreenPopping(self, data):
+        host = getTopScreenNode()
+        if host is not None:
+            screen = self._embeddedForHost(host)
+            names = (data.get('screenName'), data.get('screenDef'))
+            if screen is not None and (not screen.hostName or screen.hostName in names):
+                screen.popping = True
+
+    def _updateEmbedded(self, data=None):
+        # PopScreenEvent handles stack removals. Periodically catch a rebuilt canvas
+        # even for a static form, without a native lookup on every idle frame.
+        self.__embeddedFrame = (self.__embeddedFrame + 1) % 30
+        for screen in list(self.__embeddedScreens.values()):
+            if screen._destroyed:
+                continue
+            active = screen._hasFrameWork()
+            if screen.popping or ((active or not self.__embeddedFrame) and not screen.panelOn(screen._hostNode)):
+                self._releaseEmbeddedScreen(screen, hostGone=True)
+            elif active:
+                screen.Update()
+
+    def _releaseEmbeddedScreen(self, screen, hostGone=False):
+        host = screen._hostNode
+        if self.__embeddedScreens.get(id(host)) is not screen:
+            return
+        del self.__embeddedScreens[id(host)]
+        self.__formScreens.discard(screen)
+        if not self.__embeddedScreens:
+            for listener in self.__embeddedListeners:
+                self.UnListenForEvent(*listener)
+            self.__embeddedListeners = []
+        try:
+            if not hostGone:
+                panel = screen.panelOn(host)
+                if panel:
+                    host.RemoveChildControl(panel)
+        finally:
+            screen._hostClosed()
 
     def appendFormControl(self, data):
         from copy import deepcopy
@@ -104,40 +241,42 @@ class Client(ClientSystem):
             if form['formId']['value'] == data['formId']:
                 if data['index'] == len(form['controls']):
                     form['controls'].append(deepcopy(data['control']))
+                    pending['bindings'] = FormBindings(form)
                 return
-        screens = list(self.__formScreens)
-        top = c.GetTopScreen()
-        if isFormScreen(top) and not any(screen is top for screen in screens):
-            screens.append(top)
-        for screen in screens:
+        for screen in self._formScreens():
             if data['formId'] in screen.forms:
                 screen.appendFormControl(data)
 
     def closeForm(self, data):
         closeAll = data.get("closeAll", False)
-        cancelled = False
+        screens = self._formScreens()
+        if closeAll:
+            mounted = [(screen, formId, form) for screen in screens for formId, form in screen.forms.items()]
+        else:
+            formId = data['formId']
+            mounted = [(screen, formId, screen.forms[formId]) for screen in screens if formId in screen.forms]
+        cancelledScreens = set()
         for pending in list(self.__pendingForms):
             formId = pending['data']['formId']['value']
             if not closeAll and formId != data['formId']:
                 continue
-            self.__pendingForms.remove(pending)
-            cancelled = True
-            if pending['timer'] is not None:
-                c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(pending['timer'])
-            event = 'formClose%s' % formId
-            payload = {'closeReason': 'api', 'playerId': c.GetLocalPlayerId()}
-            self.NotifyToServer(event, payload)
-            self.BroadcastEvent(event, payload)
-        topScreen = c.GetTopScreen()
-        if isFormScreen(topScreen):
-            hadForms = bool(topScreen.forms)
-            if closeAll:
-                for formId in list(topScreen.forms):
-                    topScreen.onClose({"AddTouchEventParams": {"formId": formId}, "closeByInterface": True})
-            else:
-                topScreen.onClose({"AddTouchEventParams": {"formId": data['formId']}, "closeByInterface": True})
-            if cancelled and not hadForms and not self.__pendingForms and not topScreen.forms:
-                c.PopScreen()
+            if isFormScreen(pending['screen']):
+                cancelledScreens.add(pending['screen'])
+            self._closePending(pending, 'api')
+        for screen, formId, form in mounted:
+            if screen.forms.get(formId) is form:
+                screen._closeForm(formId, 'api')
+        for screen in cancelledScreens:
+            if not screen.forms and not any(p['screen'] is screen for p in self.__pendingForms):
+                screen._requestPop()
+
+    def Destroy(self):
+        self.__destroying = True
+        for screen in list(self.__embeddedScreens.values()):
+            self._releaseEmbeddedScreen(screen)
+        destroy = getattr(ClientSystem, 'Destroy', None)
+        if destroy is not None:
+            destroy(self)
 
     def setDefaultStyle(self, data):
         self.screen.setDefaultStyle(data['controlType'], data['style'])

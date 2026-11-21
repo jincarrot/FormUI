@@ -7,6 +7,8 @@ from .example_shared import DemoSession, register_groups
 from .example_flutter import create_flutter_form
 from .example_fluent import create_fluent_form
 from .example_styles import StyleComparison
+from .example_listview import create_listview_form
+from .example_grid import create_grid_form
 
 ClientSystem = clientApi.GetClientSystemCls()
 
@@ -26,6 +28,8 @@ class ExampleClient(ClientSystem):
         self.motionInstances = {}
         self.flutterForms = {}
         self.fluentForms = {}
+        self.listviewForms = {}
+        self.gridForm = None
         self.styleComparison = None
         self.ready = False
         self.pending = []
@@ -73,6 +77,11 @@ class ExampleClient(ClientSystem):
             for form in self.fluentForms.values():
                 if form.isShowing():
                     form.close()
+            for form in self.listviewForms.values():
+                if form.isShowing():
+                    form.close()
+            if self.gridForm and self.gridForm.isShowing():
+                self.gridForm.close()
             if self.styleComparison:
                 self.styleComparison.close()
             return
@@ -100,6 +109,21 @@ class ExampleClient(ClientSystem):
             if form.isShowing():
                 self.report('Flutter 风格预览已经显示。')
             else:
+                form.show()
+            return
+        if action == 'grid':
+            if self.gridForm is None:
+                self.gridForm = create_grid_form()
+            if not self.gridForm.isShowing():
+                self.gridForm.show()
+            return
+        if action.startswith('listview'):
+            theme = action.split('-')[1] if '-' in action else 'oreui'
+            form = self.listviewForms.get(action)
+            if form is None:
+                form = create_listview_form(theme, action.endswith('-dark'))
+                self.listviewForms[action] = form
+            if not form.isShowing():
                 form.show()
             return
         if action == 'animation':

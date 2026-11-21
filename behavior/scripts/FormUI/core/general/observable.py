@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from collections import deque
+from copy import deepcopy
 import operator
 from ..utils.environment import *
 
@@ -39,13 +40,23 @@ class Observable(object):
         return self.__v1
     
     def setValue(self, v):
-        self.__pendingValues.append(v)
+        self.__enqueue('value', v)
+
+    def update(self, updater):
+        """用当前值的独立副本计算新值；重入时按队列顺序执行。"""
+        if not callable(updater):
+            raise TypeError('updater must be callable')
+        self.__enqueue('update', updater)
+
+    def __enqueue(self, kind, value):
+        self.__pendingValues.append((kind, value))
         if self.__updating:
             return
         self.__updating = True
         try:
             while self.__pendingValues:
-                new = self.__pendingValues.popleft()
+                kind, pending = self.__pendingValues.popleft()
+                new = pending(deepcopy(self.__v1)) if kind == 'update' else pending
                 if self.__v1 != new:
                     try:
                         for callback in tuple(self.__callbacks):
@@ -70,7 +81,32 @@ class Observable(object):
         触发回调时，变量还未应用更新，可以通过getValue获取更新前的旧值。
         回调内再次调用setValue时，会在本次更新完成后依次处理。
         """
+        if not callable(callback):
+            raise TypeError('subscriber must be callable')
         self.__callbacks.append(callback)
+
+    def watch(self, callback, immediate=True):
+        """订阅并返回幂等的取消函数；默认立即接收当前值。"""
+        if not callable(callback):
+            raise TypeError('watch callback must be callable')
+        def listener(value):
+            callback(value)
+        self.subscribe(listener)
+        def stop():
+            self.unsubscribe(listener)
+        if immediate:
+            try:
+                callback(self.getValue())
+            except:
+                stop()
+                raise
+        return stop
+
+    def map(self, transform):
+        """创建随本变量变化的派生值；转换器不应产生副作用。"""
+        if not callable(transform):
+            raise TypeError('transform must be callable')
+        return self.__derive(lambda value: transform(deepcopy(value)))
 
     def unsubscribe(self, callback):
         """

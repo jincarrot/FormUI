@@ -33,7 +33,7 @@
 | 输入框 | `fluent:textfield` | `fluent:dark_textfield` |
 | 下拉菜单 | `fluent:dropdown` | `fluent:dark_dropdown` |
 
-客户端 UI 初始化时自动注册，可在客户端或服务端表单中引用，也支持 Group 子控件引用。深色面板中的子控件应显式选择深色 class。
+客户端 UI 初始化时自动注册，可在客户端或服务端表单中引用，也支持 Group 子控件引用。推荐 `Form.create('设置', theme='fluent')` 或 `theme='fluent-dark'`，自动为标准子控件选择对应风格。只指定根面板 class 时仍需逐项选择子控件 class。
 
 内置样式常量同时从 `FormUI.lib` 和独立模块 `FormUI.innerStyles` 导出：
 

@@ -2,10 +2,11 @@
 """Validation and binding-preserving styles for registered control groups."""
 from .type import unwrapWrappedValue, wrapVariable
 from .ui import getSizeDict
+from .grid import validateCell, validateGrid
 
 
 GROUP_KEYS = frozenset(('class', 'offset', 'size', 'offsetX', 'offsetY',
-                        'width', 'height', 'visible'))
+                        'width', 'height', 'visible', 'grid', 'layout'))
 
 
 def validateGroupControls(controls):
@@ -28,6 +29,8 @@ def validateGroupControls(controls):
             if key == 'class':
                 if not isinstance(current, str) or not current:
                     raise ValueError('Group child class must be a nonempty string')
+            elif key in ('grid', 'layout'):
+                copied[key] = validateCell(value) if key == 'grid' else validateGrid(value)
             elif key in ('offset', 'size'):
                 if not isinstance(current, list) or len(current) != 2:
                     raise ValueError('Group %s must be a list with two elements' % key)
@@ -62,6 +65,9 @@ def groupStyle(definition):
         for i, key in enumerate(axes):
             style[key] = definition.get(key, values[i])
     style['visible'] = definition.get('visible', style['visible'])
+    for key in ('grid', 'layout'):
+        if key in definition:
+            style[key] = definition[key]
     return style
 
 

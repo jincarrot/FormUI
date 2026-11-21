@@ -10,6 +10,9 @@
         "ui/oreui_textfields.json",
         "ui/flutter.json",
         "ui/fluent.json",
+        "ui/oreui_listviews.json",
+        "ui/flutter_listviews.json",
+        "ui/fluent_listviews.json",
         "ui/samples.json",
         "ui/fui_examples.json"
     ]

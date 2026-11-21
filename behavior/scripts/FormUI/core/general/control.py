@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from ..utils.type import copyContainers
 
 class Control:
     """控件类"""
@@ -7,7 +8,7 @@ class Control:
         self.__typeId = controlType
         self.__name = controlName
         self.__path = controlPath
-        self.__options = options
+        self.__options = copyContainers(options)
 
     @property
     def typeId(self):
@@ -24,4 +25,3 @@ class Control:
     @property
     def options(self):
         return self.__options
-    

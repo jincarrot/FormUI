@@ -17,6 +17,7 @@ class OreUIStyles:
     Slider: Final[Literal["oreui:slider"]]
     Textfield: Final[Literal["oreui:textfield"]]
     Dropdown: Final[Literal["oreui:dropdown"]]
+    ListView: Final[Literal["oreui:listview"]]
 
 class FlutterStyles:
     LightPanel: Final[Literal["flutter:light_panel"]]
@@ -32,6 +33,8 @@ class FlutterStyles:
     Slider: Final[Literal["flutter:slider"]]
     Textfield: Final[Literal["flutter:textfield"]]
     Dropdown: Final[Literal["flutter:dropdown"]]
+    ListView: Final[Literal["flutter:listview"]]
+    DarkListView: Final[Literal["flutter:dark_listview"]]
     DarkFilledBtn: Final[Literal["flutter:dark_filled_button"]]
     DarkTonalBtn: Final[Literal["flutter:dark_tonal_button"]]
     DarkOutlinedBtn: Final[Literal["flutter:dark_outlined_button"]]
@@ -58,6 +61,8 @@ class FluentStyles:
     Slider: Final[Literal["fluent:slider"]]
     Textfield: Final[Literal["fluent:textfield"]]
     Dropdown: Final[Literal["fluent:dropdown"]]
+    ListView: Final[Literal["fluent:listview"]]
+    DarkListView: Final[Literal["fluent:dark_listview"]]
     DarkPrimaryBtn: Final[Literal["fluent:dark_primary_button"]]
     DarkNormalBtn: Final[Literal["fluent:dark_button"]]
     DarkOutlinedBtn: Final[Literal["fluent:dark_outlined_button"]]

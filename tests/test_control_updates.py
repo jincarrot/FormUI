@@ -81,18 +81,18 @@ class ControlUpdateTests(unittest.TestCase):
         if kind == 'toggle':
             native.toggle = control['state']['value']
             record.update(value=native.toggle, path='/toggle')
-            self.ui.toggles.append(record)
+            self.ui._trackInput(self.ui.toggles, record)
         elif kind == 'textfield':
             native.text = control['value']['value']
             record['value'] = native.text
-            self.ui.textfields.append(record)
+            self.ui._trackInput(self.ui.textfields, record)
         else:
             for field in ('value', 'minValue', 'maxValue', 'step'):
                 record[field] = control[field]['value']
             record['valuePaths'] = ['/value']
             native.value = self.util.getSliderPercentage(record['value'], record['minValue'],
                                                         record['maxValue'], record['step'])
-            self.ui.sliders.append(record)
+            self.ui._trackInput(self.ui.sliders, record)
         return form_id, record, native
 
     def test_toggle_cache_matches_form_and_index(self):

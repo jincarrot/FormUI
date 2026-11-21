@@ -34,6 +34,9 @@ class Control:
     def registerDropdown(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
 
     @staticmethod
+    def registerListView(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
+
+    @staticmethod
     def registerCustom(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
 
     @staticmethod

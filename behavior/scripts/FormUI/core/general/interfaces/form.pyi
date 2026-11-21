@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
-from typing import TypedDict
+from typing import TypedDict, Literal, TypeAlias
 from .controls import BoolValue, Dimension
 from ..observable import Observable
+from .grid import GridPosition, FormLayout
+
+FormTheme: TypeAlias = str  # Built-ins or a name registered through Theme.register.
+
+class FormShowOptions(TypedDict, total=False):
+    combineUI: bool
 
 FormStyle = TypedDict("FormStyle", {
     "class": str,
@@ -10,6 +16,8 @@ FormStyle = TypedDict("FormStyle", {
     "width": Dimension,
     "height": Dimension,
     "grids": list[int | float],  # 非空，权重均为有限正数。
+    "grid": GridPosition,
+    "layout": FormLayout,
     "hideOtherForms": BoolValue,
     "layer": int | Observable[int],
     "visible": BoolValue,

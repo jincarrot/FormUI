@@ -18,6 +18,7 @@ def getServerSystem():
     system = s.GetSystem(Namespace, SystemNameServer)
     if not system:
         from ..init_system import server_system_path
+        system = s.GetSystem(Namespace, SystemNameServer)
     return system
 
 def getClientSystem():
@@ -25,6 +26,7 @@ def getClientSystem():
     system = c.GetSystem(Namespace, SystemNameClient)
     if not system:
         from ...register import client_system_path
+        system = c.GetSystem(Namespace, SystemNameClient)
     return system
 
 def getSystem():

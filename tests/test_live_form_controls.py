@@ -402,6 +402,8 @@ class LiveFormControlTests(unittest.TestCase):
                 self.make_form().label('bad', {'fontSize': invalid})
 
     def test_dropdown_options_reject_observables_in_forms_and_groups(self):
+        self.system.controlManager.create('dropdown', 'dropdown', 'dropdown.path', {})
+        self.register('dropdown_group', {'menu': {'class': 'dropdown'}})
         text = self.system.observableManager.create('label')
         number = self.system.observableManager.create(1)
         for items in ([{'label': text, 'value': 1}], [{'label': 'one', 'value': number}],
@@ -409,7 +411,9 @@ class LiveFormControlTests(unittest.TestCase):
             with self.assertRaises(TypeError):
                 self.make_form().dropdown('bad', items, number)
             with self.assertRaises(TypeError):
-                self.make_form().group({'menu': {'items': items}}, {'class': 'group'})
+                # Whole-list bindings are valid for ListView; resolve the Group's
+                # actual child type before rejecting them for Dropdown.
+                self.add(self.make_form().group({'menu': {'items': items}}, {'class': 'dropdown_group'}))
 
     def test_late_client_receives_latest_registration_defaults_and_group_values(self):
         self.system.controlManager = type(self.system.controlManager)()

@@ -99,6 +99,7 @@ class FormStyleTests(unittest.TestCase):
         engine.GetEngineCompFactory = lambda: types.SimpleNamespace(CreateGame=lambda level: self.timers)
         engine.GetLevelId = lambda: 'level'
         engine.PopScreen = lambda: None
+        engine.GetTopScreen = lambda: None
         for suffix in ('.general.enums', '.client', '.client.ui'):
             module = types.ModuleType(prefix + suffix)
             module.__path__ = []
@@ -116,6 +117,8 @@ class FormStyleTests(unittest.TestCase):
 
         load('.general.enums.controlType', 'general/enums/controlType.py')
         load('.utils.ui', 'utils/ui.py')
+        load('.client.ui.grid', 'client/ui/grid.py')
+        load('.client.ui.bindings', 'client/ui/bindings.py')
         self.screen_class = load('.client.ui.screen', 'client/ui/screen.py').Screen
         self.ui = self.screen_class('test', 'screen', {})
         self.sizes = []

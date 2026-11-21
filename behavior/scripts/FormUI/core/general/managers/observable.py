@@ -17,7 +17,7 @@ class ObservableManager:
         return v
 
     def update(self, id, value):
-        """Trigger when use Observable.value = x."""
+        """Publish an Observable.setValue/update change to the owning side."""
         data = {"id": id, "value": value}
         system = getServerSystem() if isServer() else getClientSystem()
         manager = getattr(system, 'controlManager', None)

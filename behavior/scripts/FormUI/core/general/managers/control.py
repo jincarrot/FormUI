@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from ..control import Control
+from ...utils.bindings import WrappedBindings
 
 class ControlManager:
     """
@@ -8,9 +9,23 @@ class ControlManager:
 
     def __init__(self):
         self.__controls = {} # type: dict[str, Control]
+        self.__groupBindings = {}
+        self.__observableGroups = {}
 
     def create(self, controlType, controlName, controlPath, options={}):
         v = Control(controlType, controlName, controlPath, options)
+        old = self.__groupBindings.pop(controlName, None)
+        if old is not None:
+            for obId in old.byId:
+                names = self.__observableGroups[obId]
+                names.discard(controlName)
+                if not names:
+                    del self.__observableGroups[obId]
+        if controlType == 'group':
+            bindings = WrappedBindings(v.options['controls'])
+            self.__groupBindings[controlName] = bindings
+            for obId in bindings.byId:
+                self.__observableGroups.setdefault(obId, set()).add(controlName)
         self.__controls[controlName] = v
         return v
 
@@ -21,10 +36,8 @@ class ControlManager:
         return self.__controls[name] if self.has(name) else None
 
     def applyObservableUpdate(self, obId, value):
-        from ...utils.type import updateWrappedObservable
-        for control in self.__controls.values():
-            if control.typeId == 'group':
-                updateWrappedObservable(control.options['controls'], obId, value)
+        for name in self.__observableGroups.get(obId, ()):
+            self.__groupBindings[name].update(obId, value)
 
     def getRegisteredData(self):
         from copy import deepcopy

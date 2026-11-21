@@ -52,6 +52,16 @@ class Dropdown(ControlType):
     itemControl: str
     def __init__(self, onCreate: CreateCallback | None = None, dropdownPath: str = "", labelPaths: LabelPaths = ..., boxLabelPaths: ControlPaths = ..., itemLabelPaths: ControlPaths = ..., contentPath: str = "/content_panel", itemControl: str = "") -> None: ...
 
+class ListView(ControlType):
+    scrollingPanelPath: str
+    labelPaths: LabelPaths
+    emptyLabelPath: str
+    itemControl: str
+    itemButtonPath: str
+    itemLabelPaths: ControlPaths
+    selectedPath: str
+    def __init__(self, onCreate: CreateCallback | None = None, scrollingPanelPath: str = "/content", labelPaths: LabelPaths = ..., emptyLabelPath: str = "/empty", itemControl: str = "", itemButtonPath: str = "", itemLabelPaths: ControlPaths = ..., selectedPath: str = "/selected") -> None: ...
+
 class Label(ControlType):
     def __init__(self, onCreate: CreateCallback | None = None) -> None: ...
 

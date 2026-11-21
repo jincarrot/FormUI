@@ -111,6 +111,15 @@ class Dropdown(Control):
         "itemControl": "fui_ore_dropdowns.dropdown_items"
     }
 
+class ListView(Control):
+    path = "fui_ore_listviews.listview"
+    typeId = "listview"
+    options = {
+        'scrollingPanelPath': '/content', 'labelPaths': ['/label'],
+        'emptyLabelPath': '/empty', 'itemControl': 'fui_ore_listviews.listview_item',
+        'itemButtonPath': '', 'itemLabelPaths': ['/button_label'], 'selectedPath': '/selected',
+    }
+
 class OreUI:
     """OreUI style controls."""
 
@@ -133,7 +142,8 @@ class OreUI:
             DividerLight,
             Slider,
             Textfield,
-            Dropdown
+            Dropdown,
+            ListView
         ]
         for control in CONTROLS:
             control()
