@@ -79,9 +79,10 @@ Observable 可以保存列表、字典及普通可传输值。替换容器使用
 - 客户端 `show()` 只显示给本地玩家；服务端 `show(playerId)`、`show([playerId, ...])`、`show()` 分别针对指定玩家、列表、全部在线玩家。
 - `isShowing(playerId)` 查询特定玩家。客户端省略参数查询本地玩家；服务端省略参数要求历史显示过的玩家全部在线且仍显示，未显示过返回 False，任一历史目标已关闭或离线也返回 False。
 - `isAnyShowing()` 查询至少一位在线玩家正在显示，`getShowingPlayers()` 返回当前在线显示/等待创建的玩家列表。
-- `form.show(options={'combineUI': True})` 嵌入客户端当前界面。服务端使用 `form.show(playerId, options={'combineUI': True})`。表单随宿主关闭，`close` 只移除表单控件。`form.show(playerId).onClose(callback)` 的关闭原因为 `api`（接口关闭）、`user`（用户或宿主关闭），或 `unavailable`（服务端请求嵌入时目标客户端无法挂载）。玩家离线只清理状态。onClose 返回 None。
+- `form.show(options={'combineUI': True})` 嵌入客户端当前界面。服务端使用 `form.show(playerId, options={'combineUI': True})`。表单随宿主关闭，`close` 只移除表单控件。`form.show(playerId).onClose(callback)` 的关闭原因为 `api`（接口关闭）、`user`（用户或宿主关闭），或 `unavailable`（服务端请求嵌入时目标客户端无法挂载，或异步创建原生控件失败）。玩家离线只清理状态。onClose 返回 None。
 - `show(playerId, onClose=callback)` 在发送前绑定回调。旧的 `.show(...).onClose(...)` 继续可用。
 - `close()` 默认客户端关闭本地，服务端发给全部在线玩家；服务端单人关闭使用 `close(playerId)`。`Screen.closeAllForms(target=None)` 默认本地/全部在线玩家，业务清理优先关闭自己拥有的表单。服务端目标支持生成器并去重；空集合不发送操作。
+- 固定控件定义完成后可调用 `form.bindTemplate('my_forms.settings')`。用 `tools/compile_form.py` 从同一工厂生成资源包控件，客户端和服务端照常调用 `show`。`bindTemplate(None)` 恢复动态创建，导出原生结构字典使用 `toJsonUI(name)`。具体命令和回退行为见 `docs/compiled-forms.md`。
 - 可以在 show 后或 Custom.onCreate 中追加控件，库会创建并重排；不要为一次追加重复 show。
 - 多表单同时显示参考 `example_styles.py`：先等首个 FormUI 页面完成创建，再显示后续表单；设置适当位移、尺寸及 `hideOtherForms=False`。不要假设连续首次 show 会自动落在同一页面上。
 

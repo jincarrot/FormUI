@@ -1,0 +1,173 @@
+{
+  "namespace": "fui_generated_examples",
+  "item_list@fui_ore_panels.light_panel_thin": {
+    "$formui_content": "fui_generated_examples.item_list__formui_v1_87ef02b0720bf76d388123d8_body"
+  },
+  "item_list__formui_v1_87ef02b0720bf76d388123d8@fui_generated_examples.item_list": {},
+  "_formui_rows_2952d2c2e61460dfc929fca6": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "controls": [
+      {
+        "_formui_rows_v1": {
+          "type": "panel",
+          "size": [
+            0,
+            0
+          ],
+          "visible": false
+        }
+      },
+      {
+        "row_0@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_1@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_2@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_3@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_4@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_5@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_6@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_7@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_8@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_9@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_10@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_11@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_12@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_13@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_14@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_15@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_16@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_17@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_18@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_19@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_20@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_21@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_22@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_23@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_24@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_25@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_26@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_27@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_28@fui_ore_listviews.listview_item": {}
+      },
+      {
+        "row_29@fui_ore_listviews.listview_item": {}
+      }
+    ],
+    "$formui_content": "fui_ore_panels.scrolling_content"
+  },
+  "item_list__formui_v1_87ef02b0720bf76d388123d8_body": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "controls": [
+      {
+        "_formui_body_v1": {
+          "type": "panel",
+          "size": [
+            0,
+            0
+          ],
+          "visible": false
+        }
+      },
+      {
+        "c0@fui_ore_base.label": {}
+      },
+      {
+        "c1@fui_ore_listviews.listview": {
+          "$formui_content": "fui_generated_examples._formui_rows_2952d2c2e61460dfc929fca6"
+        }
+      },
+      {
+        "c2@fui_ore_base.label": {}
+      },
+      {
+        "c3@fui_ore_btns.normal_btn_thin": {}
+      },
+      {
+        "c4@fui_ore_btns.normal_btn_thin": {}
+      },
+      {
+        "c5@fui_ore_btns.normal_btn_thin": {}
+      },
+      {
+        "c6@fui_ore_btns.normal_btn_thin": {}
+      },
+      {
+        "c7@fui_ore_btns.normal_btn_thin": {}
+      },
+      {
+        "c8@fui_ore_btns.normal_btn_thin": {}
+      },
+      {
+        "c9@fui_ore_btns.normal_btn_thin": {}
+      }
+    ],
+    "$formui_content": "fui_ore_panels.scrolling_content"
+  }
+}

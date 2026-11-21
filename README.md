@@ -10,6 +10,8 @@
 
 [客户端性能优化、调用次数对比和复测方法](docs/client-performance.md)
 
+[从 Python 表单生成 JSON UI 控件，并用 bindTemplate 绑定](docs/compiled-forms.md)
+
 ```python
 from FormUI.lib import Form, Observable
 

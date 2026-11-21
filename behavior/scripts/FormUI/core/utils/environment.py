@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 from ..config import Namespace, SystemNameServer, SystemNameClient
 
+def registerSystem():
+    if isServer():
+        from .. import init_system
+    else:
+        from ... import register
+
 def isServer():
     """Returns true if the code is running in server."""
     try:

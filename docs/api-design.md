@@ -2,6 +2,8 @@
 
 本次检查覆盖库入口与自动注册、Form/Observable/Screen/Control 公共接口、客户端与服务端消息处理、Group/ListView 的创建与更新、三种风格注册、UI 资源及其生成脚本、示例和类型声明。改进以兼容现有调用、减少重复配置和提前暴露调用错误为原则。
 
+复杂表单可在开发时生成资源包控件，并用 `form.bindTemplate(name)` 复用原生节点。生成工具、绑定示例和回退行为见[预编译表单指南](compiled-forms.md)。
+
 ## 推荐的表单写法
 
 ```python
@@ -80,7 +82,7 @@ def show_settings(playerId):
 | --- | --- |
 | `api` | 调用 `form.close()` 或 `Screen.closeAllForms()` |
 | `user` | 点击表单关闭按钮，或表单所在的宿主界面关闭 |
-| `unavailable` | 服务端请求嵌入，目标客户端无法取得宿主或创建控件 |
+| `unavailable` | 服务端请求嵌入时目标客户端无法挂载，或表单在异步创建原生控件时失败 |
 
 客户端本地调用时，如果没有可用的栈顶 ScreenNode，`show()` 抛出 `RuntimeError` 并撤销本次显示状态。服务端按玩家分别接收结果。
 

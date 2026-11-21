@@ -15,6 +15,7 @@ description: 使用本项目 FormUI 库为网易版我的世界 ModSDK 编写客
 - 新版简洁调用、表单主题及 Observable 辅助方法：`docs/api-design.md`；动态列表与三种风格：`docs/listview.md`。
 - 自定义主题注册、全局 Screen 网格、表单/控件定位和 Group 局部网格：`docs/themes-grid.md`。
 - 注册模板、组合控件、原生操作或动画：读取 [Group 与 Custom](references/composition.md)。
+- 复杂表单的开发时导出和模板绑定见 `docs/compiled-forms.md`。使用 `tools/compile_form.py` 生成资源，再通过 `form.bindTemplate('my_forms.settings')` 绑定当前固定控件。
 - 布局参数细节：`docs/layout-parameters.md`。
 - 完整公开签名：`behavior/scripts/FormUI/lib.pyi`、`core/general/form.pyi`、`core/general/interfaces/{form,controls}.pyi`、`interfaces/base/controls.pyi`（后三项相对库目录）。
 - 风格标识：`behavior/scripts/FormUI/innerStyles.py` 的导出及 `core/general/controls/innerStyles.py`；完整风格说明在 `docs/flutter-ui.md`、`docs/fluent-ui.md`。

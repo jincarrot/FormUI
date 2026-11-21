@@ -3,11 +3,8 @@
 FormUI
 """
 
-from .core.utils.environment import isServer as __t
-if __t():
-    import core.init_system
-else:
-    import register
+from .core.utils.environment import registerSystem as _registerSystem
+_registerSystem()
 
 from .interfaces.base.control import Control
 from .interfaces.base.controls import *

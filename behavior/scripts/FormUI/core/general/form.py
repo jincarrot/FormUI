@@ -118,6 +118,7 @@ class Form:
         contentGrid = defaultStyle.get('layout', inherited)
         defaultStyle['layout'] = validateGrid(contentGrid) if contentGrid is not None and contentGrid is not False else None
         self.__style = copyContainers(defaultStyle)
+        self.__template = None
         self._isShowing = {}
         self.identifier = ""
         self._btnCallbacks = {
@@ -453,6 +454,30 @@ class Form:
         }, params, grid)
         return self
 
+    def bindTemplate(self, name=None):
+        """绑定已生成的 JSON UI。当前控件组成模板，后续追加的控件仍可动态创建。"""
+        if name is None:
+            self.__template = None
+        else:
+            from ..utils.template import validateTemplateName
+            self.__template = {'name': validateTemplateName(name), 'count': len(self.__controls)}
+        return self
+
+    def toJsonUI(self, name):
+        """生成可写入资源包的 JSON UI 字典。使用当前端注册的原生控件定义。"""
+        from ..utils.template import templateStructure, exportTemplate, validateTemplateName
+        from ..utils.type import wrapList
+        validateTemplateName(name)
+        count = len(self.__controls)
+        if self.__template is not None and self.__template['name'] == name:
+            count = self.__template['count']
+        controls = wrapList(self.__controls[:count])
+        rootClass = self.__style['class']
+        if rootClass.__class__.__name__ == 'Observable':
+            rootClass = rootClass.getValue()
+        structure = templateStructure(getSystem().controlManager, rootClass, controls)
+        return exportTemplate(name, structure, controls)
+
     def show(self, target=None, onClose=None, options=None):
         """显示表单。options 中的 combineUI=True 将本次表单挂载到玩家当前的界面。"""
         validateGrids(self.__style['grids'])
@@ -492,6 +517,8 @@ class Form:
             "fromServer": serverSide
         }, observables)
         data['observables'] = observables
+        if self.__template is not None:
+            data['template'] = dict(self.__template)
         if combineUI:
             data['options'] = {'combineUI': True}
         result = FormShowResult(self.__id, targets)

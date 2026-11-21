@@ -25,4 +25,6 @@ def create_listview_form(themeName='oreui', dark=False):
     form.button('清空列表', lambda player: items.setValue([]))
     form.button('恢复列表', lambda player: items.setValue(list(initial)))
     form.button('关闭', lambda player: form.close(player))
+    if theme == 'oreui':
+        form.bindTemplate('fui_generated_examples.item_list')
     return form

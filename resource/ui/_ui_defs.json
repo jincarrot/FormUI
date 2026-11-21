@@ -14,6 +14,7 @@
         "ui/flutter_listviews.json",
         "ui/fluent_listviews.json",
         "ui/samples.json",
-        "ui/fui_examples.json"
+        "ui/fui_examples.json",
+        "ui/formui_generated/fui_generated_examples/item_list.json"
     ]
 }

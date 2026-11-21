@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from ..utils.type import copyContainers
 
-class Control:
+class Control(object):
     """控件类"""
 
     def __init__(self, controlType, controlName, controlPath, options={}):

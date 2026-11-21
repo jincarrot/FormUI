@@ -346,7 +346,8 @@
             "100%",
             "100%-4px"
         ],
-        "$scrolling_content": "fui_ore_panels.scrolling_content",
+        "$formui_content|default": "fui_ore_panels.scrolling_content",
+        "$scrolling_content": "$formui_content",
         "$show_background": true
     },
     "scroll_panel_thin@common.scrolling_panel": {
@@ -392,7 +393,8 @@
             "100%-8px",
             "100%-4px"
         ],
-        "$scrolling_content": "fui_ore_panels.scrolling_content",
+        "$formui_content|default": "fui_ore_panels.scrolling_content",
+        "$scrolling_content": "$formui_content",
         "$show_background": true,
         "$use_touch_mode|default": true
     },

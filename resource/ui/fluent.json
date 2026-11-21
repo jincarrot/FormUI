@@ -2774,7 +2774,8 @@
     "scroll@common.scrolling_panel": {
         "$scroll_background_image_control": "fui.blank",
         "$show_background": false,
-        "$scrolling_content": "fui_ore_panels.scrolling_content",
+        "$formui_content|default": "fui_ore_panels.scrolling_content",
+        "$scrolling_content": "$formui_content",
         "$scroll_box_mouse_image_control": "fui_fluent.scroll_thumb",
         "$scroll_box_touch_image_control": "fui_fluent.scroll_thumb",
         "$scroll_track_image_control": "fui_fluent.scroll_track",
@@ -5832,7 +5833,8 @@
     "dark_scroll@common.scrolling_panel": {
         "$scroll_background_image_control": "fui.blank",
         "$show_background": false,
-        "$scrolling_content": "fui_ore_panels.scrolling_content",
+        "$formui_content|default": "fui_ore_panels.scrolling_content",
+        "$scrolling_content": "$formui_content",
         "$scroll_box_mouse_image_control": "fui_fluent.dark_scroll_thumb",
         "$scroll_box_touch_image_control": "fui_fluent.dark_scroll_thumb",
         "$scroll_track_image_control": "fui_fluent.dark_scroll_track",

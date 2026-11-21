@@ -112,7 +112,12 @@ class _Screen(GridLayoutMixin, BindingMixin):
                 comp.CancelTimer(timerId['repeat'])
                 self.__creationTimers.pop(formId, None)
                 self.__loadingForms.remove(formId)
-                self._mountForm(formId, formData, parent)
+                try:
+                    self._mountForm(formId, formData, parent)
+                except Exception:
+                    if self.forms.get(formId) is formData:
+                        self._closeForm(formId, 'unavailable')
+                    raise
 
         def after(formData):
             if self.forms.get(formId) is formData:
@@ -125,7 +130,15 @@ class _Screen(GridLayoutMixin, BindingMixin):
         base = self.controlManager.get(style['class']['value'])
         self.__creatingForms.add(formId)
         try:
-            root = self.CreateChildControl(base.path, 'fm%s' % formId, parent)
+            root = None
+            rootName = 'fm%s' % formId
+            if formData.get('template'):
+                from .template import mountTemplate
+                root = mountTemplate(self, formData, parent, rootName, base)
+            if root is None:
+                if self.forms.get(formId) is not formData:
+                    return
+                root = self.CreateChildControl(base.path, rootName, parent)
             if not root:
                 raise RuntimeError('FormUI could not create the form root')
             if self.forms.get(formId) is not formData:
@@ -260,14 +273,21 @@ class _Screen(GridLayoutMixin, BindingMixin):
                 return
         target = {'absoluteValue': 0.0, 'relativeValue': 0.0, 'followType': 'parent'}
         target.update(value or {})
+        setter = getattr(control, 'SetFull' + kind)
+        if controlIndex != -1:
+            setter(axis, target)
+            return
+        key = (formId, controlIndex, kind, axis)
+        if formId in self.__creatingForms:
+            self.__geometryTransitions.pop(key, None)
+            setter(axis, target)
+            return
+        # Only a live window transition needs its current native geometry as a starting point.
         origin = dict(target)
         origin.update(getattr(control, 'GetFull' + kind)(axis) or {})
-        setter = getattr(control, 'SetFull' + kind)
-        key = (formId, controlIndex, kind, axis)
         token = object()
         self.__geometryTransitions[key] = token
-        if (controlIndex == -1 and formId not in self.__creatingForms
-                and origin['followType'] == target['followType']):
+        if origin['followType'] == target['followType']:
             frame = [0]
             def repeat():
                 if self.__geometryTransitions.get(key) is not token or formId not in self.forms:
@@ -284,7 +304,7 @@ class _Screen(GridLayoutMixin, BindingMixin):
             self.addRepeatFunc(repeat, 10)
         else:
             setter(axis, target)
-            if controlIndex == -1 and kind == 'Size' and formId not in self.__creatingForms:
+            if kind == 'Size':
                 self._relayoutForm(formId)
                 self._layoutGroups(formId)
 
@@ -322,11 +342,13 @@ class _Screen(GridLayoutMixin, BindingMixin):
         self.__creatingForms.add(formId)
         try:
             created = []
+            prebuilt = form.pop('_compiledNodes', None)
             for control in controls:
                 self._prepareGroup(control)
             self._refreshFormBindings(formId)
+            parent = form.get('_compiledParent', content)
             for index, control in enumerate(controls):
-                self._createControl(formId, index, control, content, "c%s" % index, created)
+                self._createControl(formId, index, control, parent, "c%s" % index, created, prebuilt)
             self._relayoutForm(formId)
             self._layoutGroups(formId)
             self._finishControlCreation(formId, created)
@@ -379,7 +401,8 @@ class _Screen(GridLayoutMixin, BindingMixin):
                 for index, control in missing:
                     if self.forms.get(formId) is not form:
                         return
-                    self._createControl(formId, index, control, content, 'c%s' % index, created)
+                    self._createControl(formId, index, control, form.get('_compiledParent', content),
+                                        'c%s' % index, created)
                     pending.discard(index)
                 self._relayoutForm(formId)
                 self._layoutGroups(formId)
@@ -533,7 +556,7 @@ class _Screen(GridLayoutMixin, BindingMixin):
         textfield.SetEditText(str(controlData['value']['value']))
         self.setControlLabel(formId, index, controlCls.options['labelPaths'], controlData['label']['value'], c)
 
-    def setDropdownProperties(self, formId, index, controlCls, c):
+    def setDropdownProperties(self, formId, index, controlCls, c, windowKey=None):
         dropdown = c.GetChildByPath(controlCls.options['dropdownPath'])
         if not dropdown:
             return
@@ -544,20 +567,27 @@ class _Screen(GridLayoutMixin, BindingMixin):
         dropdown.SetButtonTouchUpCallback(lambda data: self.onDropdownBoxClick(formId, index))
         controlData = self._getControlData(formId, index)
         content = c.GetChildByPath(controlCls.options['contentPath'])
-        itemIndex = 0
+        items = controlData['items']
+        rows = None
+        if windowKey and items:
+            from .template import mountMenuRows
+            rows = mountMenuRows(self, content, windowKey, controlCls.options['itemControl'], len(items))
         height = 0
         current = ""
-        for item in controlData['items']:
+        for itemIndex, item in enumerate(items):
             if item['value']['value'] == controlData['value']['value']:
                 current = item['label']['value']
-            itemControl = self.CreateChildControl(controlCls.options['itemControl'], "item_%s" % item['value']['value'], content)
+            if rows is None:
+                name = 'item_%s' % item['value']['value']
+                itemControl = self.CreateChildControl(controlCls.options['itemControl'], name, content)
+            else:
+                itemControl = rows[itemIndex]
             itemControl.asButton().AddTouchEventParams()
             itemControl.asButton().SetButtonTouchUpCallback(lambda data, itemIndex=item['value']['value'], itemLabel=item['label']['value']: self.onDropdownItemClick(formId, index, itemIndex, itemLabel))
             itemControl.GetChildByPath("/button_label").asLabel().SetText(item['label']['value'])
             height = itemControl.GetFullSize("y")['absoluteValue']
             itemControl.SetFullPosition("y", {"absoluteValue": itemIndex * height})
-            itemIndex += 1
-        content.SetFullSize("y", {"absoluteValue": itemIndex * height + 2})
+        content.SetFullSize("y", {"absoluteValue": len(items) * height + 2})
         for labelPath in controlCls.options['boxLabelPaths']:
             dropdown.GetChildByPath(labelPath).asLabel().SetText(str(current))
         self.setControlLabel(formId, index, controlCls.options['labelPaths'], controlData['label']['value'], c)
@@ -579,14 +609,26 @@ class _Screen(GridLayoutMixin, BindingMixin):
             raise ValueError('ListView template requires a native scrolling content panel')
         states = self.__listViews.setdefault(formId, {})
         previous = states.get(index)
-        if previous:
+        existing = {}
+        if '_compiledParent' in self.forms[formId]:
+            if previous:
+                existing = {i: entry[0] for i, entry in enumerate(previous['rows'])}
+            else:
+                from ...utils.template import ROWS_MARKER
+                if content.GetChildByPath('/' + ROWS_MARKER):
+                    for name in self.GetChildrenName(content.GetPath()):
+                        if name.startswith('row_') and name[4:].isdigit():
+                            existing[int(name[4:])] = content.GetChildByPath('/' + name)
+        elif previous:
             for row, key in previous['rows']:
                 self.RemoveChildControl(row)
         state = {'root': c, 'rows': [], 'markers': {}, 'selectedMarker': None}
         states[index] = state
         for position, item in enumerate(items):
             # Names use indices, so arbitrary business keys never become native paths.
-            row = self.CreateChildControl(controlCls.options['itemControl'], 'row_%s' % position, content)
+            row = existing.pop(position, None)
+            if row is None:
+                row = self.CreateChildControl(controlCls.options['itemControl'], 'row_%s' % position, content)
             state['rows'].append((row, item['value']))
             marker = row.GetChildByPath(controlCls.options['selectedPath'])
             state['markers'][item['value']] = marker
@@ -599,6 +641,8 @@ class _Screen(GridLayoutMixin, BindingMixin):
             button.AddTouchEventParams()
             button.SetButtonTouchUpCallback(
                 lambda event, key=item['value'], owner=state: self.onListviewItemClick(formId, index, key, owner))
+        for row in existing.values():
+            self.RemoveChildControl(row)
         content.SetFullSize('y', {'absoluteValue': len(items) * height,
                                   'relativeValue': 0.0, 'followType': 'parent'})
         empty = c.GetChildByPath(controlCls.options['emptyLabelPath'])
@@ -667,7 +711,8 @@ class _Screen(GridLayoutMixin, BindingMixin):
         mounted = self.__nativeControls.get(formId, {}).get(index)
         if mounted is not None:
             return mounted
-        content = getScrollingContent(self._formControl(formId, self.forms[formId]['basePath']))
+        form = self.forms[formId]
+        content = form.get('_compiledParent') or getScrollingContent(self._formControl(formId, form['basePath']))
         if isinstance(index, tuple):
             control = content.GetChildByPath("/c%s" % index[0])
             for name in index[1:]:
@@ -740,11 +785,13 @@ class _Screen(GridLayoutMixin, BindingMixin):
             # These types do not expose the standard label property.
             data.pop('label', None)
 
-    def _createControl(self, formId, address, data, parent, name, created):
+    def _createControl(self, formId, address, data, parent, name, created, prebuilt=None):
         cls = self.controlManager.get(data['style']['class']['value'])
         if isinstance(address, tuple):
             self._childDefaults(data, cls.typeId)
-        native = self.CreateChildControl(cls.path, name, parent)
+        native = prebuilt.get(address) if prebuilt else None
+        if native is None:
+            native = self.CreateChildControl(cls.path, name, parent)
         self.__nativeControls.setdefault(formId, {})[address] = native
         data['_mountedClass'] = cls.name if hasattr(cls, 'name') else data['style']['class']['value']
         data['defaultSize'] = (native.GetFullSize('x'), native.GetFullSize('y'))
@@ -752,12 +799,15 @@ class _Screen(GridLayoutMixin, BindingMixin):
         if cls.typeId == ControlType.Group:
             prefix = address if isinstance(address, tuple) else (address,)
             for childName, child in data['children'].items():
-                self._createControl(formId, prefix + (childName,), child, native, childName, created)
+                self._createControl(formId, prefix + (childName,), child, native, childName, created, prebuilt)
         else:
             # Legacy payloads used params presence as the custom marker.
             isCustom = data.get('custom', {}).get('value', 'params' in data)
             typeId = ControlType.Custom if not isinstance(address, tuple) and isCustom else cls.typeId
-            getattr(self, 'set' + typeId[0].upper() + typeId[1:] + 'Properties')(formId, address, cls, native)
+            if typeId == ControlType.Dropdown and prebuilt and address in prebuilt:
+                self.setDropdownProperties(formId, address, cls, native, self.forms[formId]['_compiledKey'])
+            else:
+                getattr(self, 'set' + typeId[0].upper() + typeId[1:] + 'Properties')(formId, address, cls, native)
         created.append((address, cls, native))
         return native
 

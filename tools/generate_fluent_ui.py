@@ -232,7 +232,8 @@ def build():
         ui[prefix+'scroll_track@fui.blank'] = {}
         ui[prefix+'scroll@common.scrolling_panel'] = {
             '$scroll_background_image_control': 'fui.blank', '$show_background': False,
-            '$scrolling_content': 'fui_ore_panels.scrolling_content',
+            '$formui_content|default': 'fui_ore_panels.scrolling_content',
+            '$scrolling_content': '$formui_content',
             '$scroll_box_mouse_image_control': ref('scroll_thumb'), '$scroll_box_touch_image_control': ref('scroll_thumb'),
             '$scroll_track_image_control': ref('scroll_track'), '$scroll_size': [4, '100%'],
             '$scroll_size_touch': [4, '100%'], '$scroll_bar_contained': True,
