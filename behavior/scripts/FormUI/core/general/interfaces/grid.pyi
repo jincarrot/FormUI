@@ -16,4 +16,7 @@ class GridPosition(_GridOrigin, total=False):
     rowSpan: int
     columnSpan: int
 
-FormLayout: TypeAlias = GridLayout | Literal[False]
+class _FormLayoutWithCombineUI(GridLayout):
+    combineUI: bool
+
+FormLayout: TypeAlias = GridLayout | _FormLayoutWithCombineUI | Literal[False]

@@ -1,12 +1,21 @@
 {
     "embedded_root": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_left",
         "anchor_to": "top_left",
         "size": ["100%", "100%"]
     },
+    "panel": {
+        "type": "input_panel",
+        "is_swallow": true,
+        "anchor_from": "center",
+        "anchor_to": "center",
+        "size": ["100%", "100%"]
+    },
     "group": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_left",
         "anchor_to": "top_left",
         "size": ["100%", 32]
@@ -40,7 +49,8 @@
         "controls": [
             {
                 "panel": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "anchor_from": "top_left",
                     "anchor_to": "top_left",
                     "size": [
@@ -51,7 +61,8 @@
             },
             {
                 "pre_screen": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "progress@progress.progress_loading_bars": {

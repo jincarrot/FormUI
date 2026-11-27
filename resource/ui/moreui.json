@@ -1,0 +1,108 @@
+{
+    "namespace": "fui_moreui",
+    "bar@fui.panel": {
+        "controls": [
+            {
+                "background@fui_ore_base.base_thin": {"$bg_color": [0.90, 0.90, 0.91]}
+            },
+            {
+                "body": {
+                    "type": "input_panel",
+                    "is_swallow": true,
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "size": ["100%", "100%-24px"],
+                    "offset": [0, 24],
+                    "layer": 6
+                }
+            },
+            {
+                "header": {
+                    "type": "input_panel",
+                    "is_swallow": true,
+                    "anchor_from": "top_left",
+                    "anchor_to": "top_left",
+                    "size": ["100%", 24],
+                    "layer": 8,
+                    "controls": [
+                        {"background@fui.w": {"color": [0.77, 0.77, 0.79]}},
+                        {
+                            "title": {
+                                "type": "label",
+                                "text": "",
+                                "font_type": "smooth",
+                                "color": [0.15, 0.15, 0.16],
+                                "layer": 1
+                            }
+                        },
+                        {"close@common.light_close_button": {"offset": [-2, 2], "layer": 2}}
+                    ]
+                }
+            }
+        ]
+    },
+    "icon_tab@fui.group": {
+        "controls": [
+            {
+                "plate@fui_ore_btns.normal_btn_thin": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "size": [36, 36]
+                }
+            },
+            {
+                "icon": {
+                    "type": "image",
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "size": [24, 24],
+                    "offset": [6, 0],
+                    "texture": "textures/ui/white_bg",
+                    "visible": false,
+                    "layer": 4
+                }
+            },
+            {
+                "selected@fui.w": {
+                    "anchor_from": "left_middle",
+                    "anchor_to": "left_middle",
+                    "size": [3, 28],
+                    "color": [0.28, 0.58, 0.24],
+                    "visible": false,
+                    "layer": 5
+                }
+            }
+        ]
+    },
+    "drag_handle": {
+        "type": "input_panel",
+        "is_swallow": true,
+        "contained": false,
+        "draggable": "both",
+        "button_mappings": [
+            {
+                "from_button_id": "button.menu_select",
+                "to_button_id": "#netease_to_button_id",
+                "mapping_type": "pressed"
+            }
+        ],
+        "size": [18, 14],
+        "layer": 40,
+        "$grip": "...",
+        "controls": [
+            {"background@fui.w": {"color": [0.22, 0.22, 0.24], "alpha": 0.85}},
+            {"grip": {"type": "label", "text": "$grip", "font_scale_factor": 0.9, "layer": 1}}
+        ]
+    },
+    "move_handle@drag_handle": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "offset": [4, 4]
+    },
+    "resize_handle@drag_handle": {
+        "anchor_from": "bottom_right",
+        "anchor_to": "bottom_right",
+        "offset": [-3, -3],
+        "$grip": "//"
+    }
+}

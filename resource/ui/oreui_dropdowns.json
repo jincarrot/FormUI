@@ -1,6 +1,7 @@
 {
     "dropdown": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_left",
         "anchor_to": "top_left",
         "size": [
@@ -37,7 +38,8 @@
             },
             {
                 "content_panel": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "anchor_from": "top_middle",
                     "anchor_to": "top_middle",
                     "offset": [
@@ -131,7 +133,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border@fui_ore_base.border": {
@@ -212,7 +215,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border@fui_ore_base.border": {
@@ -293,7 +297,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border@fui_ore_base.border": {
@@ -411,7 +416,8 @@
             },
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "main@fui.w": {
@@ -431,7 +437,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -452,7 +459,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {

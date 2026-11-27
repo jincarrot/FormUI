@@ -13,6 +13,9 @@ class Control:
     def registerButton(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
 
     @staticmethod
+    def registerPanel(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
+
+    @staticmethod
     def registerScrollingPanel(identifier: str, path: str, options: dict[str, Any] = ...) -> None: ...
 
     @staticmethod

@@ -30,7 +30,7 @@ def create_counter():
 # self.form.show(targetPlayerId) # 服务端
 ```
 
-`Form.create(title, style=None, theme=None, grid=None, layout=None)` 支持五种内置主题以及 `Theme.register` 注册的自定义名称。内置主题包括 `oreui`、`flutter`、`flutter-dark`、`fluent`、`fluent-dark`，同时设置根面板以及 button、label、divider、toggle、slider、textfield、dropdown、listview 的默认 class。Flutter 的默认按钮是 FilledBtn，Fluent 是 PrimaryBtn，OreUI 是 NormalBtn。
+`Form.create(..., theme=...)` 支持五种内置主题以及 `Theme.register` 注册的自定义名称。内置主题包括 `oreui`、`flutter`、`flutter-dark`、`fluent`、`fluent-dark`，同时设置默认根面板以及 button、label、divider、toggle、slider、textfield、dropdown、listview 的默认 class。Flutter 的默认按钮是 FilledBtn，Fluent 是 PrimaryBtn，OreUI 是 NormalBtn。
 
 每个属性的覆盖顺序为：内置默认值 → `Screen.setDefaultStyle` → 表单主题样式 → 调用时显式 style。内置主题只更改 class，自定义主题还可以覆盖高度等完整样式属性。主题快照只影响当前 Form，不修改全局配置；Group 和 Custom 继续使用各自明确注册的模板，Group 内部子控件也不会被外层主题重写。
 
@@ -55,9 +55,46 @@ form.show(playerId, onClose=lambda args: handle_close(args.playerId, args.closeR
 
 返回值仍是 `FormShowResult`，旧的 `form.show(playerId).onClose(callback)` 继续可用。`result.onClose` 的返回值仍为 `None`，传 `None` 可以清除该显示结果的业务关闭回调。直接在 `show` 中传入回调，还能覆盖发送期间同步收到关闭事件的情况。
 
+## 选择表单根面板
+
+`Form.create(title="", style=None, theme=None, grid=None, layout=None, root=None)` 的 `root` 是已注册的 `Panel` 或 `ScrollingPanel` 标识。省略时沿用 `style['class']` 或主题提供的默认滚动面板。同时传入两项时，`root` 优先。
+
+`fui:panel` 是内置的透明固定面板，适合 HUD 和固定尺寸卡片。它和库自带的其他原生面板都使用 `type: "input_panel"` 和 `is_swallow: true`。表单支持 Grid、Observable、按钮回调和预生成模板。需要局部滚动时，在面板内添加 `ListView`。
+
+```python
+from FormUI.lib import Form, Observable
+
+strength = Observable.create(5)
+hud = Form.create(
+    root='fui:panel',
+    theme='fluent-dark',
+    style={'width': '36%', 'height': '40%', 'offsetX': '-27%'},
+    layout={'combineUI': True, 'columns': 1, 'rows': [1, 3, 2], 'gap': 4},
+)
+hud.label(strength.map(lambda value: '强度 %d/10' % value))
+hud.slider('强度', strength, 0, 10, 1)
+hud.button('收起', lambda playerId: hud.close(playerId))
+hud.show()
+```
+
+自定义固定底板用 `Panel` 注册。`contentPath` 指向容纳表单控件的子面板，省略时使用底板根节点。可选的 `titlePath` 和 `closeBtnPath` 分别指向原生 Label 和 Button，FormUI 会将标题值和关闭动作绑定到它们。
+
+```python
+from FormUI.lib import Control, Form, Panel
+
+Control.register('demo:combat_card', 'demo_ui.combat_card', Panel(
+    contentPath='/body',
+    titlePath='/header/title',
+    closeBtnPath='/header/close',
+))
+card = Form.create('战斗信息', root='demo:combat_card', layout={'combineUI': True})
+```
+
+固定面板的尺寸由 style、Grid 或 JSON UI 模板决定。超出边界的内容按模板的裁剪设置处理。[预生成模板用法](compiled-forms.md#自定义固定底板)
+
 ## 嵌入当前界面
 
-`show(target=None, onClose=None, options=None)` 的 `options['combineUI']` 默认为 `False`，使用原有的 FormUI 页面。设为 `True` 时，每个目标客户端在收到显示请求时取得自己的栈顶 ScreenNode，并在该界面内创建表单。该选项只影响本次显示。
+`Form.create` 的 `layout` 接受布尔字段 `combineUI`。默认值 `False` 使用独立的 FormUI 界面。设为 `True` 后，每次显示这个表单，目标客户端都会把它挂到当时位于栈顶的 ScreenNode。正常游玩时栈顶是 HUD，表单就挂到 HUD。
 
 ```python
 # -*- coding: utf-8 -*-
@@ -65,16 +102,18 @@ from FormUI.lib import Form, Observable
 
 def show_settings(playerId):
     enabled = Observable.create(True)
-    form = Form.create('设置', theme='fluent-dark')
+    form = Form.create('设置', theme='fluent-dark', layout={'combineUI': True})
     form.toggle('显示提示', enabled)
     form.button('完成', lambda player: form.close(player))
-    form.show(playerId, options={'combineUI': True})
+    form.show(playerId)
     return form
 ```
 
-上例在服务端显示给指定玩家。客户端写作 `form.show(options={'combineUI': True})`。按钮、输入、ListView、Observable 更新和显示后追加控件沿用原有接口。窗口的屏幕 Grid 以宿主画布为参照。多个表单挂在同一界面时，`hideOtherForms` 只影响该界面中的较早表单。
+上例在服务端显示给指定玩家，客户端调用 `form.show()` 即可。只写 `combineUI` 会沿用表单原本的内容布局。需要同时指定网格时可以写 `layout={'combineUI': True, 'columns': 2, 'rows': 3}`。窗口的屏幕 Grid 以宿主画布为参照。多个表单挂在同一界面时，`hideOtherForms` 只影响该界面中的较早表单。
 
 调用 `form.close(playerId)` 或点击表单自带的关闭按钮，只移除该表单的控件。宿主被其他界面覆盖时，仍可以按 Form 实例更新或关闭它。`Screen.closeAllForms()` 也会移除嵌入的表单。宿主自身关闭后，其附属表单随之关闭。
+
+HUD 的全屏挂载层也会吞掉它收到的点击，避免点击传入游戏世界。关闭该层的最后一张表单时，FormUI 会移除挂载层。[网易 JSON UI 文档](https://github.com/MCNeteaseDevs/netease-bedrock-wiki/blob/main/mcguide/18-%E7%95%8C%E9%9D%A2%E4%B8%8E%E4%BA%A4%E4%BA%92/30-UI%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3.md#input_panel)
 
 需要区分关闭原因时，可在显示时传入 `onClose`。
 
@@ -150,4 +189,4 @@ form.isShowing(playerId) # 查询指定玩家
 
 `Form.create` 原来的两个位置参数、所有控件方法的原有参数顺序、按钮字典回调、Observable 的 get/set 与订阅方法、显式 class 风格、显示结果与关闭回调类型均保持兼容。新增可选参数追加在原参数之后；旧调用中的非法回调、非法主题和非法目标会更早报错。
 
-本地验证覆盖公开调用、数据流、资源引用、类型声明和旧示例回归。实际游戏里的鼠标/触摸滚动、初始化事件顺序和跨端网络时序仍需要加载行为包与资源包验收。ListView 的五种外观和服务端演示继续使用 [原聊天命令](listview.md#游戏内演示与检查)，其实现已采用新主题、按钮简写、map 和 update 接口。
+游戏内可以攻击实体打开 Fluent 表单，用滑块、按钮和输入框观察 Observable 的变化。[操作与预期结果](test-examples.md)

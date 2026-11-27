@@ -19,22 +19,22 @@ description: 使用本项目 FormUI 库为网易版我的世界 ModSDK 编写客
 - 布局参数细节：`docs/layout-parameters.md`。
 - 完整公开签名：`behavior/scripts/FormUI/lib.pyi`、`core/general/form.pyi`、`core/general/interfaces/{form,controls}.pyi`、`interfaces/base/controls.pyi`（后三项相对库目录）。
 - 风格标识：`behavior/scripts/FormUI/innerStyles.py` 的导出及 `core/general/controls/innerStyles.py`；完整风格说明在 `docs/flutter-ui.md`、`docs/fluent-ui.md`。
-- 集成和游戏验证范例：`docs/test-examples.md`、`behavior/scripts/example_{c,s,shared,styles}.py`。按需读取相关部分，不照搬示例系统到业务项目。
+- 游戏内接入参考 `behavior/scripts/attack_client.py` 与 `behavior/scripts/attack_form.py`。操作与预期结果见 `docs/test-examples.md`。
 
 ## 实施顺序
 
 1. 确定代码运行端、目标玩家、状态是否跨玩家共享、需要的风格。服务端表单默认按业务目标传入 `playerId`；群发展示须符合用户意图。
 2. 检查宿主的脚本导入、FormUI 系统注册和资源包是否已接入。当前版本在两端各自导入 `FormUI.lib` 时自动注册对应端系统；只导入包或 innerStyles 不会注册。示例采用 `from FormUI.lib import ...`；宿主若使用 `scripts.FormUI` 等前缀，沿用其实际路径。
-3. 在 FormUI 系统可用后创建 Form/Observable。客户端显示和依赖内置模板的注册还需等库处理完 `UiInitFinished`；参考 `example_c.py` 的延迟执行方式，避免在模块顶层创建这些对象。仅导入风格常量可使用无引擎调用的 `FormUI.innerStyles`。
+3. 在 FormUI 系统可用后创建 Form/Observable。客户端显示和依赖内置模板的注册还需等库处理完 `UiInitFinished`；可参考 `attack_client.py` 在 UI 就绪后监听本地玩家攻击实体的方式。仅导入风格常量可使用无引擎调用的 `FormUI.innerStyles`。
 4. 优先用内置控件和 Observable；需要组合布局时用 Group，需要原生 UI 操作时用客户端 Custom 回调。通过公开接口完成业务，发现库内部缺陷时说明证据，不把调用任务扩展成库改造。
-5. 更新目标项目自己的业务文件及必要资源。接入资源包时合并 `ui/_ui_defs.json`，保留宿主已有条目；携带模板引用的纹理及其元数据，不直接覆盖整份资源定义。不需要演示功能时无需接入 `example_*.py`、`samples.json` 或 `fui_examples.json`。
+5. 更新目标项目自己的业务文件及必要资源。接入资源包时合并 `ui/_ui_defs.json`，保留宿主已有条目；携带模板引用的纹理及其元数据，不直接覆盖整份资源定义。`attack_client.py`、`attack_form.py` 与对应的预生成模板仅供本项目游戏内示例使用。
 6. 核对参数、回调、布局和生命周期，选择适合变更的验证；交付时说明运行端、调用时机、目标玩家和必要资源。
 
 ## 必须保留的接口语义
 
-- `Form.create(title, style=None, theme=None, grid=None, layout=None)` 支持内置或 Theme.register 注册的主题；省略 theme 使用 Screen 默认主题。显式 style 优先，Group/Custom 不自动换模板。`show(target=None, onClose=None, options=None)` 默认使用 FormUI 页面。传 `options={'combineUI': True}` 会把表单嵌入玩家当前的 ScreenNode，`close()` 仅移除嵌入的表单。
+- `Form.create(title="", style=None, theme=None, grid=None, layout=None, root=None)` 支持内置或 Theme.register 注册的主题。省略 theme 使用 Screen 默认主题。`root='fui:panel'` 使用透明固定面板，也可传入已注册的 `Panel` 或 `ScrollingPanel` 标识。显式 root 优先于 `style['class']`。`Panel(contentPath='/body')` 可指定内容子面板，标题和关闭按钮路径可选。创建时传 `layout={'combineUI': True}` 会让该表单每次显示时嵌入玩家当前的 ScreenNode，默认 `False` 使用独立页面。`show(target=None, onClose=None)` 指定玩家和关闭回调，`close()` 仅移除嵌入的表单。
 - `Theme.register(name, styles, base='oreui', replace=False)` 按控件类型合并静态样式；在创建表单的一端注册，解析后的样式随表单发送。主题不自动生成/注册 JSON UI，也不自动将任意 color 字段应用到原生控件。
-- `Screen.setGrid(columns, rows, gap=0, padding=0)` 给新表单提供屏幕定位及默认内容网格；Form 的 grid 相对屏幕、控件的 grid 相对内容区，row/column 从 0 开始，支持 rowSpan/columnSpan。layout 覆盖内容网格，layout=False 保留旧顺排；配置和位置不绑定 Observable。隐藏控件保留格子，显式位置先占位，其他控件填空。完整参数与 Group 行为查 `docs/themes-grid.md`。
+- `Screen.setGrid(columns, rows, gap=0, padding=0)` 给新表单提供屏幕定位及默认内容网格；Form 的 grid 相对屏幕、控件的 grid 相对内容区，row/column 从 0 开始，支持 rowSpan/columnSpan。layout 提供行列时覆盖内容网格，只提供 combineUI 时沿用当前内容布局，layout=False 使用顺排；配置和位置不绑定 Observable。隐藏控件保留格子，显式位置先占位，其他控件填空。完整参数与 Group 行为查 `docs/themes-grid.md`。
 - 控件添加方法返回 Form，可链式调用；`show()` 返回显示结果，`result.onClose(callback)` 和 `close()` 返回 `None`。
 - 按钮第二参数可直接传点击函数，或 onClick/onMoveIn/onMoveOut 字典，回调接收 `playerId`；关闭回调接收带 `playerId`、`closeReason` 的对象；Custom 回调接收原生控件与参数快照。三者不能混用。
 - 注册控件的 `onCreate` 另提供 `args.style`，为当前实例合并默认项、解包 Observable 后的独立样式快照；可读取普通控件 style 的自定义字段，不能靠修改快照更新控件，也不能把它当注册 options。
@@ -50,4 +50,4 @@ description: 使用本项目 FormUI 库为网易版我的世界 ModSDK 编写客
 
 宿主已有测试时，验证本次业务逻辑。若要验证当前库的已有能力，可在项目根目录用 Python 3 运行 `python -B -m unittest discover -s tests`；这套离线测试使用 SDK 替身，不能证明游戏中的渲染、触摸和跨端时序正常。
 
-按功能选择游戏内验证：显示/关闭/重开、控件输入、Observable 更新；有 Group/Custom 时补查尺寸变化和关闭后停止更新；有多玩家共享时分别验证同步与关闭行为。`fui ...` 是此项目演示系统提供的聊天消息，其他宿主未接入该系统时不能直接使用。新增原生 SDK 调用应核对对应网易 SDK 文档，不猜测方法和参数。
+按功能选择游戏内验证：显示/关闭/重开、控件输入、Observable 更新；有 Group/Custom 时补查尺寸变化和关闭后停止更新；有多玩家共享时分别验证同步与关闭行为。本项目的游戏内用例由本地玩家攻击实体触发。新增原生 SDK 调用应核对对应网易 SDK 文档，不猜测方法和参数。

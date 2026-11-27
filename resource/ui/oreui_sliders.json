@@ -1,7 +1,8 @@
 {
     "namespace": "fui_ore_sliders",
     "slider": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_left",
         "anchor_to": "top_left",
         "size": [
@@ -81,7 +82,8 @@
         "texture": "textures/ui/slider_background_hover"
     },
     "slider_bar_default": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "offset": [
             0,
             "-2px"
@@ -242,7 +244,8 @@
         ]
     },
     "slider_button_hover_layout": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "base@fui_ore_base.box_thin": {
@@ -257,7 +260,8 @@
     },
     "slider_button_indent_layout@fui_ore_sliders.slider_button_layout": {},
     "slider_button_layout": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "base@fui_ore_base.box_thin": {}

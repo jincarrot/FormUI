@@ -15,7 +15,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -65,7 +66,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -115,7 +117,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -166,7 +169,8 @@
         ]
     },
     "primary_button": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -199,7 +203,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -292,7 +297,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -385,7 +391,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -479,7 +486,8 @@
         ]
     },
     "button": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -512,7 +520,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -605,7 +614,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -698,7 +708,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -792,7 +803,8 @@
         ]
     },
     "outlined_button": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -825,7 +837,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -852,7 +865,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -902,7 +916,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -953,7 +968,8 @@
         ]
     },
     "hyperlink_button": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -986,7 +1002,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -1036,7 +1053,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -1086,7 +1104,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -1137,7 +1156,8 @@
         ]
     },
     "danger_button": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -1156,7 +1176,8 @@
         ]
     },
     "label": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             "100%c"
@@ -1188,7 +1209,8 @@
         ]
     },
     "divider": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             14
@@ -1212,7 +1234,8 @@
         ]
     },
     "switch_unchecked": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "track": {
@@ -1288,7 +1311,8 @@
         ]
     },
     "switch_unchecked_hover": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "track": {
@@ -1364,7 +1388,8 @@
         ]
     },
     "switch_checked": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "track": {
@@ -1416,7 +1441,8 @@
         ]
     },
     "switch_checked_hover": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "track": {
@@ -1482,7 +1508,8 @@
         "$unchecked_locked_hover_control": "fui_fluent.switch_unchecked_hover"
     },
     "toggle": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -1524,7 +1551,8 @@
         ]
     },
     "field_background": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "layer": -1,
         "controls": [
             {
@@ -1596,7 +1624,8 @@
         ]
     },
     "field_background_hover": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "layer": -1,
         "controls": [
             {
@@ -1704,7 +1733,8 @@
         ]
     },
     "textfield": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             56
@@ -1762,7 +1792,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -1884,7 +1915,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -2006,7 +2038,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -2129,7 +2162,8 @@
         ]
     },
     "dropdown": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             56
@@ -2179,7 +2213,8 @@
             },
             {
                 "content_panel": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "size": [
                         "100%",
                         30
@@ -2259,14 +2294,16 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": []
                 }
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -2297,7 +2334,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -2361,7 +2399,8 @@
         ]
     },
     "slider_thumb": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "layer": 3,
         "controls": [
             {
@@ -2539,7 +2578,8 @@
         ]
     },
     "slider": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             52
@@ -2628,7 +2668,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -2653,7 +2694,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -2701,7 +2743,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -2772,6 +2815,8 @@
     },
     "scroll_track@fui.blank": {},
     "scroll@common.scrolling_panel": {
+        "type": "input_panel",
+        "is_swallow": true,
         "$scroll_background_image_control": "fui.blank",
         "$show_background": false,
         "$formui_content|default": "fui_ore_panels.scrolling_content",
@@ -2820,7 +2865,8 @@
         ]
     },
     "light_panel": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "92%y",
             "80%"
@@ -2904,7 +2950,8 @@
             },
             {
                 "header": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "size": [
                         "100%",
                         32
@@ -2980,7 +3027,8 @@
             },
             {
                 "body": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "size": [
                         "100%-20px",
                         "100%-44px"
@@ -3074,7 +3122,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -3124,7 +3173,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -3174,7 +3224,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -3225,7 +3276,8 @@
         ]
     },
     "dark_primary_button": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -3258,7 +3310,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -3351,7 +3404,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -3444,7 +3498,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -3538,7 +3593,8 @@
         ]
     },
     "dark_button": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -3571,7 +3627,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -3664,7 +3721,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -3757,7 +3815,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -3851,7 +3910,8 @@
         ]
     },
     "dark_outlined_button": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -3884,7 +3944,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -3911,7 +3972,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -3961,7 +4023,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -4012,7 +4075,8 @@
         ]
     },
     "dark_hyperlink_button": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -4045,7 +4109,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -4095,7 +4160,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -4145,7 +4211,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -4196,7 +4263,8 @@
         ]
     },
     "dark_danger_button": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -4215,7 +4283,8 @@
         ]
     },
     "dark_label": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             "100%c"
@@ -4247,7 +4316,8 @@
         ]
     },
     "dark_divider": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             14
@@ -4271,7 +4341,8 @@
         ]
     },
     "dark_switch_unchecked": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "track": {
@@ -4347,7 +4418,8 @@
         ]
     },
     "dark_switch_unchecked_hover": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "track": {
@@ -4423,7 +4495,8 @@
         ]
     },
     "dark_switch_checked": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "track": {
@@ -4475,7 +4548,8 @@
         ]
     },
     "dark_switch_checked_hover": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "track": {
@@ -4541,7 +4615,8 @@
         "$unchecked_locked_hover_control": "fui_fluent.dark_switch_unchecked_hover"
     },
     "dark_toggle": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             38
@@ -4583,7 +4658,8 @@
         ]
     },
     "dark_field_background": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "layer": -1,
         "controls": [
             {
@@ -4655,7 +4731,8 @@
         ]
     },
     "dark_field_background_hover": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "layer": -1,
         "controls": [
             {
@@ -4763,7 +4840,8 @@
         ]
     },
     "dark_textfield": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             56
@@ -4821,7 +4899,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -4943,7 +5022,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -5065,7 +5145,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -5188,7 +5269,8 @@
         ]
     },
     "dark_dropdown": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             56
@@ -5238,7 +5320,8 @@
             },
             {
                 "content_panel": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "size": [
                         "100%",
                         30
@@ -5318,14 +5401,16 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": []
                 }
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -5356,7 +5441,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -5420,7 +5506,8 @@
         ]
     },
     "dark_slider_thumb": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "layer": 3,
         "controls": [
             {
@@ -5598,7 +5685,8 @@
         ]
     },
     "dark_slider": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             52
@@ -5687,7 +5775,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": [
                         {
@@ -5712,7 +5801,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -5760,7 +5850,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -5831,6 +5922,8 @@
     },
     "dark_scroll_track@fui.blank": {},
     "dark_scroll@common.scrolling_panel": {
+        "type": "input_panel",
+        "is_swallow": true,
         "$scroll_background_image_control": "fui.blank",
         "$show_background": false,
         "$formui_content|default": "fui_ore_panels.scrolling_content",
@@ -5879,7 +5972,8 @@
         ]
     },
     "dark_panel": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "92%y",
             "80%"
@@ -5963,7 +6057,8 @@
             },
             {
                 "header": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "size": [
                         "100%",
                         32
@@ -6039,7 +6134,8 @@
             },
             {
                 "body": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "size": [
                         "100%-20px",
                         "100%-44px"

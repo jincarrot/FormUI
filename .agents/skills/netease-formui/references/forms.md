@@ -47,7 +47,7 @@ def create_settings():
 
 | 调用 | 主要参数 |
 | --- | --- |
-| `Form.create(title, style=None, theme=None, grid=None, layout=None)` | 标题可绑定 Observable；theme 选择内置或自定义主题；grid 为窗口屏幕位置，layout 为内容网格，False 使用旧顺排 |
+| `Form.create(title="", style=None, theme=None, grid=None, layout=None, root=None)` | 标题可绑定 Observable。root 选择已注册的面板，`fui:panel` 为内置透明固定底板。theme 选择控件风格，grid 定位窗口，layout 配置内容网格和 combineUI。 |
 | `button(label, callbacks={}, style={}, params={})` | callbacks 可为点击函数，或含 onClick、onMoveIn、onMoveOut 的字典，均接收 playerId |
 | `label(text, style={}, params={})` | fontSize 为缩放倍数，可绑定 Observable |
 | `toggle(label, state, style={}, params={})` | state 使用布尔值或布尔 Observable |
@@ -79,18 +79,18 @@ Observable 可以保存列表、字典及普通可传输值。替换容器使用
 - 客户端 `show()` 只显示给本地玩家；服务端 `show(playerId)`、`show([playerId, ...])`、`show()` 分别针对指定玩家、列表、全部在线玩家。
 - `isShowing(playerId)` 查询特定玩家。客户端省略参数查询本地玩家；服务端省略参数要求历史显示过的玩家全部在线且仍显示，未显示过返回 False，任一历史目标已关闭或离线也返回 False。
 - `isAnyShowing()` 查询至少一位在线玩家正在显示，`getShowingPlayers()` 返回当前在线显示/等待创建的玩家列表。
-- `form.show(options={'combineUI': True})` 嵌入客户端当前界面。服务端使用 `form.show(playerId, options={'combineUI': True})`。表单随宿主关闭，`close` 只移除表单控件。`form.show(playerId).onClose(callback)` 的关闭原因为 `api`（接口关闭）、`user`（用户或宿主关闭），或 `unavailable`（服务端请求嵌入时目标客户端无法挂载，或异步创建原生控件失败）。玩家离线只清理状态。onClose 返回 None。
+- 在 `Form.create` 中传入 `layout={'combineUI': True}`，每次显示时会嵌入当时的栈顶界面。客户端使用 `form.show()`，服务端使用 `form.show(playerId)`。只指定 combineUI 时沿用原有内容布局。表单随宿主关闭，`close` 只移除表单控件。`form.show(playerId).onClose(callback)` 的关闭原因为 `api`（接口关闭）、`user`（用户或宿主关闭），或 `unavailable`（服务端请求嵌入时目标客户端无法挂载，或异步创建原生控件失败）。玩家离线只清理状态。onClose 返回 None。
 - `show(playerId, onClose=callback)` 在发送前绑定回调。旧的 `.show(...).onClose(...)` 继续可用。
 - `close()` 默认客户端关闭本地，服务端发给全部在线玩家；服务端单人关闭使用 `close(playerId)`。`Screen.closeAllForms(target=None)` 默认本地/全部在线玩家，业务清理优先关闭自己拥有的表单。服务端目标支持生成器并去重；空集合不发送操作。
 - 固定控件定义完成后可调用 `form.bindTemplate('my_forms.settings')`。用 `tools/compile_form.py` 从同一工厂生成资源包控件，客户端和服务端照常调用 `show`。`bindTemplate(None)` 恢复动态创建，导出原生结构字典使用 `toJsonUI(name)`。具体命令和回退行为见 `docs/compiled-forms.md`。
 - 可以在 show 后或 Custom.onCreate 中追加控件，库会创建并重排；不要为一次追加重复 show。
-- 多表单同时显示参考 `example_styles.py`：先等首个 FormUI 页面完成创建，再显示后续表单；设置适当位移、尺寸及 `hideOtherForms=False`。不要假设连续首次 show 会自动落在同一页面上。
+- 同时显示多张表单时，先等首个 FormUI 页面完成创建，再显示后续表单，并设置适当的位移、尺寸及 `hideOtherForms=False`。不要假设连续首次 show 会自动落在同一页面上。
 
 ## 风格与布局
 
 `InnerStyles.oreui/flutter/fluent` 和 `OreUIStyles/FlutterStyles/FluentStyles` 提供 class 常量，也从 lib 导出。Flutter 主按钮为 FilledBtn，Fluent 为 PrimaryBtn，OreUI 可用 NormalBtn/GreenBtn；OreUI 常量没有 Toggle，使用已注册的 `oreui:toggle_thin`。深色主题可通过 theme='flutter-dark' 或 'fluent-dark' 自动搭配；显式 class 用法仍可用。
 
-客户端 UI 初始化自动注册内置风格。Flutter/Fluent 面板居中；根偏移基于其锚点。默认值覆盖顺序：内置默认值 → 全局配置 → Form theme 指定的 class → 显式 style。Group/Custom 不随 theme 重写。`Screen.setDefaultStyle(controlType, style)` 用于全局配置，`getDefaultStyle(controlType)` 返回其独立副本。
+客户端 UI 初始化自动注册内置风格。Flutter/Fluent 面板居中；根偏移基于其锚点。默认值覆盖顺序为内置默认值 → 全局配置 → Form theme → 显式 style。显式 root 优先于 `style['class']`。自定义固定底板可使用 `Control.register(name, jsonUiPath, Panel(contentPath='/body'))` 注册。固定和滚动根面板均可使用 `bindTemplate`。Group/Custom 不随 theme 重写。`Screen.setDefaultStyle(controlType, style)` 用于全局配置，`getDefaultStyle(controlType)` 返回其独立副本。
 
 `grids` 是非空有限正权重列表，如 `[1, 2]` 表示两列宽度比例；依添加顺序按行排列。Group 作为一个根控件占一个格子。下拉菜单展开覆盖后续控件，不挤开其他格子。
 

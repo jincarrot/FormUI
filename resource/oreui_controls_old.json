@@ -21,6 +21,8 @@
         "texture": "textures/ui/white_bg"
     },
     "body@common.scrolling_panel": {
+        "type": "input_panel",
+        "is_swallow": true,
         "$scroll_background_image_control": "oreui_controls.body_background_dark",
         "$scroll_bar_and_track_size": [
             "100%c",
@@ -61,7 +63,8 @@
         "$show_background": true
     },
     "body_background_dark": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             "100%"
@@ -197,7 +200,8 @@
         ]
     },
     "body_background_light": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%+-2px",
             "100%+-2px"
@@ -319,7 +323,8 @@
         "button_mappings": []
     },
     "divider": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
         "size": [
@@ -364,7 +369,8 @@
         ]
     },
     "dropdown": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
         "size": [
@@ -437,7 +443,8 @@
                     "controls": [
                         {
                             "default": {
-                                "type": "panel",
+                                "type": "input_panel",
+                                "is_swallow": true,
                                 "layer": 0,
                                 "controls": [
                                     {
@@ -551,7 +558,8 @@
                         },
                         {
                             "pressed": {
-                                "type": "panel",
+                                "type": "input_panel",
+                                "is_swallow": true,
                                 "layer": 0,
                                 "visible": false,
                                 "controls": [
@@ -666,7 +674,8 @@
                         },
                         {
                             "hover": {
-                                "type": "panel",
+                                "type": "input_panel",
+                                "is_swallow": true,
                                 "layer": 0,
                                 "visible": false,
                                 "controls": [
@@ -801,7 +810,8 @@
             },
             {
                 "content_panel": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "anchor_from": "bottom_middle",
                     "anchor_to": "bottom_middle",
                     "size": [
@@ -900,7 +910,8 @@
             },
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "main@oreui_controls.background": {
@@ -916,7 +927,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -933,7 +945,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -1008,7 +1021,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border_linear@oreui_controls.background": {
@@ -1119,7 +1133,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -1218,7 +1233,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -1331,7 +1347,8 @@
         ]
     },
     "header": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "bg@oreui_controls.background": {
@@ -1434,7 +1451,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "line1@oreui_controls.background": {
@@ -1475,7 +1493,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "line1@oreui_controls.background": {
@@ -1516,7 +1535,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "line1@oreui_controls.background": {
@@ -1611,7 +1631,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "layer": 0,
                     "controls": [
                         {
@@ -1727,7 +1748,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "layer": 0,
                     "visible": false,
                     "controls": [
@@ -1834,7 +1856,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "layer": 0,
                     "visible": false,
                     "controls": [
@@ -2022,7 +2045,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border_linear@oreui_controls.background": {
@@ -2133,7 +2157,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -2232,7 +2257,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border_linear@oreui_controls.background": {
@@ -2347,7 +2373,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "line1@oreui_controls.background": {
@@ -2386,7 +2413,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "line1@oreui_controls.background": {
@@ -2425,7 +2453,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "line1@oreui_controls.background": {
@@ -2576,7 +2605,8 @@
         ]
     },
     "scroll_track": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "main@oreui_controls.background": {
@@ -2591,7 +2621,8 @@
         ]
     },
     "scrolling_content": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
         "size": [
@@ -2600,7 +2631,8 @@
         ]
     },
     "slider": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
         "size": [
@@ -2677,7 +2709,8 @@
         "texture": "textures/ui/slider_background_hover"
     },
     "slider_bar_default": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "offset": [
             0,
             "-2px"
@@ -2837,7 +2870,8 @@
     },
     "slider_button_indent_layout@oreui_controls.slider_button_layout": {},
     "slider_button_layout": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border_linear@oreui_controls.background": {
@@ -3188,7 +3222,8 @@
         ]
     },
     "tab_btn": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "$toggle_name": "",
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
@@ -3222,7 +3257,8 @@
         ]
     },
     "tab_btn_checked": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "layer": 0,
         "controls": [
             {
@@ -3340,7 +3376,8 @@
         ]
     },
     "tab_btn_unchecked": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "layer": 0,
         "controls": [
             {
@@ -3504,7 +3541,8 @@
         "max_length": 512
     },
     "textfield_bg": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border_linear@oreui_controls.background": {
@@ -3567,7 +3605,8 @@
         ]
     },
     "toggle": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "$toggle_name": "",
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
@@ -3607,7 +3646,8 @@
         ]
     },
     "toggle_checked": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             32.0,
             14.0
@@ -3844,7 +3884,8 @@
         ]
     },
     "toggle_unchecked": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             32.0,
             14.0
@@ -4133,7 +4174,8 @@
         ]
     },
     "disabled_btn": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
         "size": [
@@ -4205,7 +4247,8 @@
         ]
     },
     "checkbox_unchecked": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border_linear@oreui_controls.background": {
@@ -4284,7 +4327,8 @@
         ]
     },
     "checkbox_unchecked_hover": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border_linear@oreui_controls.background": {
@@ -4363,7 +4407,8 @@
         ]
     },
     "checkbox_checked": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border_linear@oreui_controls.background": {
@@ -4480,7 +4525,8 @@
         ]
     },
     "checkbox_checked_hover": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border_linear@oreui_controls.background": {
@@ -4597,7 +4643,8 @@
         ]
     },
     "checkbox_disabled": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border_linear@oreui_controls.background": {
@@ -4638,7 +4685,8 @@
         ]
     },
     "checkbox": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "$toggle_name": "",
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
@@ -4678,7 +4726,8 @@
         ]
     },
     "neutral_banner": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
         "size": [
@@ -4712,7 +4761,8 @@
         ]
     },
     "information_banner": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
         "size": [
@@ -4746,7 +4796,8 @@
         ]
     },
     "important_banner": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
         "size": [
@@ -4780,7 +4831,8 @@
         ]
     },
     "badge_green": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             6,
             6
@@ -4798,7 +4850,8 @@
         ]
     },
     "badge_blue": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             6,
             6
@@ -4816,7 +4869,8 @@
         ]
     },
     "badge_yellow": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             6,
             6
@@ -4834,7 +4888,8 @@
         ]
     },
     "badge_red": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             6,
             6
@@ -4852,7 +4907,8 @@
         ]
     },
     "tag_black": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "default",
             "14px"
@@ -4885,7 +4941,8 @@
         ]
     },
     "tag_green": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "default",
             "14px"
@@ -4918,7 +4975,8 @@
         ]
     },
     "tag_blue": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "default",
             "14px"
@@ -4951,7 +5009,8 @@
         ]
     },
     "tag_yellow": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "default",
             "14px"
@@ -4984,7 +5043,8 @@
         ]
     },
     "tag_red": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "default",
             "14px"
@@ -5017,7 +5077,8 @@
         ]
     },
     "sidebar_form_bg": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             "100%"
@@ -5173,7 +5234,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "main@oreui_controls.background": {
@@ -5189,7 +5251,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -5206,7 +5269,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -5223,7 +5287,8 @@
             },
             {
                 "selected": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "layer": 3,
                     "visible": false,
                     "controls": [

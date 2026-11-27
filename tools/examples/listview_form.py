@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""ListView usage shared by client and server demos."""
+"""Source for the reusable ListView JSON UI control shipped with the resource pack."""
 from FormUI.lib import Form, Observable
 
 

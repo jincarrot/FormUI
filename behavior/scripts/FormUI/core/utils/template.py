@@ -3,14 +3,15 @@
 from collections import namedtuple
 import re
 
-from .ui import STRING_TYPES
+from .ui import STRING_TYPES, getFormContentPath
 
 
 _RESOURCE = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*\Z')
 BODY_MARKER = '_formui_body_v1'
+BODY_CHILD = '_formui_content'
 ROWS_MARKER = '_formui_rows_v1'
 DEFAULT_CONTENT = 'fui_ore_panels.scrolling_content'
-TemplateStructure = namedtuple('TemplateStructure', 'panel nodes')
+TemplateStructure = namedtuple('TemplateStructure', 'panel nodes contentPath')
 TemplateNode = namedtuple('TemplateNode', 'slot path kind rowPath children')
 
 
@@ -20,12 +21,8 @@ def validateTemplateName(name):
     return name
 
 
-def templateStructure(manager, rootClass, controls):
+def templateStructure(manager, base, controls):
     """Describe native types and addresses. Instance values and callback IDs are independent."""
-    base = manager.get(rootClass)
-    if base is None or base.typeId != 'scrolling_panel':
-        raise ValueError('Unregistered scrolling panel: %s' % rootClass)
-
     def node(slot, className, parents):
         cls = manager.get(className)
         if cls is None:
@@ -40,8 +37,10 @@ def templateStructure(manager, rootClass, controls):
                 children.append(node(name, definition['class']['value'], parents + (className,)))
         return TemplateNode(slot, cls.path, cls.typeId, cls.options.get('itemControl', ''), children)
 
-    return TemplateStructure(base.path, [node('c%s' % i, entry['style']['class']['value'], ())
-                                         for i, entry in enumerate(controls)])
+    nodes = [node('c%s' % i, entry['style']['class']['value'], ())
+             for i, entry in enumerate(controls)]
+    contentPath = getFormContentPath(base) if base.typeId == 'panel' else None
+    return TemplateStructure(base.path, nodes, contentPath)
 
 
 def _digest(value):
@@ -53,7 +52,11 @@ def _digest(value):
 
 
 def templateKey(name, structure):
-    return '%s__formui_v1_%s' % (name, _digest(structure))
+    signature = (structure.panel, structure.nodes)
+    # Scroll roots retain the same identifiers used by existing resource packs.
+    if structure.contentPath is not None:
+        signature += (structure.contentPath,)
+    return '%s__formui_v1_%s' % (name, _digest(signature))
 
 
 def rowTemplateKey(windowKey, rowPath, count):
@@ -62,12 +65,12 @@ def rowTemplateKey(windowKey, rowPath, count):
 
 
 def _panel(controls):
-    return {'type': 'panel', 'anchor_from': 'top_left', 'anchor_to': 'top_left',
+    return {'type': 'input_panel', 'is_swallow': True, 'anchor_from': 'top_left', 'anchor_to': 'top_left',
             'size': ['100%', '100%'], 'controls': controls}
 
 
 def _marker(name):
-    return {name: {'type': 'panel', 'size': [0, 0], 'visible': False}}
+    return {name: {'type': 'input_panel', 'is_swallow': True, 'size': [0, 0], 'visible': False}}
 
 
 def exportTemplate(name, structure, controls):
@@ -75,9 +78,13 @@ def exportTemplate(name, structure, controls):
     fullKey = templateKey(name, structure)
     key = fullKey.split('.')[1]
     body = key + '_body'
+    bodyReference = namespace + '.' + body
+    rootProperties = {'$formui_content': bodyReference}
+    if structure.panel == 'fui.panel' and structure.contentPath == '':
+        rootProperties['controls'] = [{BODY_CHILD + '@' + bodyReference: {}}]
     document = {
         'namespace': namespace,
-        public + '@' + structure.panel: {'$formui_content': namespace + '.' + body},
+        public + '@' + structure.panel: rootProperties,
         key + '@' + name: {},
     }
 

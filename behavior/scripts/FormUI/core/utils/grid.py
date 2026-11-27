@@ -42,6 +42,25 @@ def validateGrid(config):
     return result
 
 
+def resolveFormLayout(inheritedGrid, layouts):
+    """Resolve the form's content grid and mount mode in style precedence order."""
+    grid = inheritedGrid
+    combineUI = False
+    for layout in layouts:
+        if isinstance(layout, dict) and 'combineUI' in layout:
+            layout = dict(layout)
+            combineUI = layout.pop('combineUI')
+            if not layout:
+                # Specifying only the mount mode inherits the current content layout.
+                continue
+        grid = layout
+    if not isinstance(combineUI, bool):
+        raise TypeError('layout.combineUI must be a bool')
+    if grid is None or grid is False:
+        return None, combineUI
+    return validateGrid(grid), combineUI
+
+
 def validateCell(cell, layout=None):
     if not isinstance(cell, dict):
         raise TypeError('grid position must be a dict with row and column')

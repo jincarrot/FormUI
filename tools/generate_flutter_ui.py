@@ -122,11 +122,14 @@ def label(color, **extra):
     return result
 
 
+def input_panel(**properties):
+    return dict(type='input_panel', is_swallow=True, **properties)
+
+
 def panel(size, controls, **extra):
-    result = dict(type='panel', size=size, anchor_from='top_left',
-                  anchor_to='top_left', controls=controls)
-    result.update(extra)
-    return result
+    properties = dict(size=size, anchor_from='top_left', anchor_to='top_left', controls=controls)
+    properties.update(extra)
+    return input_panel(**properties)
 
 
 def button(bg, fg, outlined=False, text_only=False, arrow=False, icon=False):
@@ -151,7 +154,7 @@ def button(bg, fg, outlined=False, text_only=False, arrow=False, icon=False):
         if arrow:
             controls.append({'arrow': image(fg, 'arrow', size=[12, 12], layer=2,
                 anchor_from='right_middle', anchor_to='right_middle', offset=[-12, 0])})
-        result['controls'].append({state: dict(type='panel', visible=state=='default', controls=controls)})
+        result['controls'].append({state: input_panel(visible=state == 'default', controls=controls)})
     return result
 
 
@@ -220,7 +223,7 @@ def build():
         for checked in (False, True):
             name = 'checked' if checked else 'unchecked'
             for hover in (False, True):
-                ui[prefix+'switch_'+name+('_hover' if hover else '')] = dict(type='panel', controls=[
+                ui[prefix+'switch_'+name+('_hover' if hover else '')] = input_panel(controls=[
                     {'track': image(blend(c['primary'] if checked else c['container'],
                                          c['text'], .08 if hover else 0), 'switch',
                                     nineslice_size=[0, 0, 0, 0], keep_ratio=False)},
@@ -243,7 +246,7 @@ def build():
                                      'anchor_to': 'right_middle', 'offset': [-4, 0]}}])
 
         for state in ('', '_hover'):
-            ui[prefix+'field_background'+state] = dict(type='panel', layer=-1, controls=[
+            ui[prefix+'field_background'+state] = input_panel(layer=-1, controls=[
                 {'fill': image(c['container'], 'field')},
                 {'outline': image(c['primary'] if state else c['outline'], 'field_outline', layer=1)}])
         ui[prefix+'textfield_native@common.text_edit_box'] = {
@@ -312,6 +315,7 @@ def build():
         ui[prefix+'scroll_thumb'] = image(blend(c['surface'], c['outline'], .65), 'track')
         ui[prefix+'scroll_track@fui.blank'] = {}
         ui[prefix+'scroll@common.scrolling_panel'] = {
+            'type': 'input_panel', 'is_swallow': True,
             '$scroll_background_image_control': 'fui.blank', '$show_background': False,
             '$formui_content|default': 'fui_ore_panels.scrolling_content',
             '$scrolling_content': '$formui_content',

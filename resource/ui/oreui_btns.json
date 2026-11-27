@@ -49,7 +49,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border@fui_ore_base.border": {
@@ -110,7 +111,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border@fui_ore_base.border": {
@@ -171,7 +173,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border@fui_ore_base.border": {
@@ -225,7 +228,8 @@
         ]
     },
     "btn_panel": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_left",
         "anchor_to": "top_left",
         "controls": [
@@ -235,7 +239,8 @@
         ]
     },
     "btn_panel_thin": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_left",
         "anchor_to": "top_left",
         "size": [
@@ -338,7 +343,8 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border@fui_ore_base.border": {
@@ -401,7 +407,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border@fui_ore_base.border": {
@@ -464,7 +471,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "border@fui_ore_base.border": {

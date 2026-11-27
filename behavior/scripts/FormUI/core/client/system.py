@@ -20,6 +20,7 @@ class Client(ClientSystem):
         self.controlManager = ControlManager()
         self.screen = Screen()
         self.__formScreens = WeakSet()
+        self.__formGroups = {}
         self.__pendingForms = []
         self.__embeddedScreens = {}
         self.__embeddedListeners = []
@@ -33,6 +34,7 @@ class Client(ClientSystem):
         self.ListenForEvent(Namespace, SystemNameServer, "applyObservableUpdate", self, self.applyObservableUpdate)
         self.ListenForEvent(Namespace, SystemNameServer, "registerControl", self, self.registerControl)
         self.ListenForEvent(Namespace, SystemNameServer, "showForm", self, self.showForm)
+        self.ListenForEvent(Namespace, SystemNameServer, 'showFormGroup', self, self.showFormGroup)
         self.ListenForEvent(Namespace, SystemNameServer, 'appendFormControl', self, self.appendFormControl)
         self.ListenForEvent(Namespace, SystemNameServer, "closeForm", self, self.closeForm)
         self.ListenForEvent(Namespace, SystemNameServer, "setDefaultStyle", self, self.setDefaultStyle)
@@ -54,6 +56,9 @@ class Client(ClientSystem):
 
     def _formScreenDestroyed(self, screen):
         self.__formScreens.discard(screen)
+        group = getattr(screen, '_formGroup', None)
+        if group is not None and self.__formGroups.get(group) is screen:
+            del self.__formGroups[group]
         for pending in list(self.__pendingForms):
             if pending['screen'] is screen:
                 self._closePending(pending, 'user')
@@ -96,36 +101,96 @@ class Client(ClientSystem):
             if callback:
                 callback(data['playerId'])
 
+    def _hasForm(self, formId):
+        return (any(entry['data']['formId']['value'] == formId for entry in self.__pendingForms)
+                or any(formId in screen.forms for screen in self.__formScreens))
+
+    def _hasPendingForms(self, screen):
+        return any(entry['screen'] is screen for entry in self.__pendingForms)
+
+    def _formGroupReady(self, screen):
+        for pending in list(self.__pendingForms):
+            if pending['screen'] is screen:
+                self.__pendingForms.remove(pending)
+                self._addQueuedForm(screen, pending['data'], pending['customUpdates'])
+
     def showForm(self, data):
-        formId = data['formId']['value']
-        if (any(pending['data']['formId']['value'] == formId for pending in self.__pendingForms)
-                or any(formId in screen.forms for screen in self.__formScreens)):
+        if self._hasForm(data['formId']['value']):
             raise RuntimeError('该表单已经被显示出来了，关闭后才能再次调用 show()。')
         if data.get('options', {}).get('combineUI'):
             self._showEmbedded(data)
             return
         topScreen = getTopScreenNode()
-        if isFormScreen(topScreen) and topScreen.isAllReady():
+        if (isFormScreen(topScreen) and topScreen.isAllReady()
+                and getattr(topScreen, '_formGroup', None) is None):
             topScreen.addForm(data)
-        else:
-            pending = {'data': data, 'bindings': FormBindings(data), 'customUpdates': [], 'timer': None, 'screen': None}
-            self.__pendingForms.append(pending)
-            def pushFormScreen(data):
-                if not any(entry is pending for entry in self.__pendingForms):
-                    if pending['timer'] is not None:
-                        c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(pending['timer'])
-                    return
-                topScreen = pending['screen'] or getTopScreenNode()
-                if isFormScreen(topScreen) and topScreen.isAllReady():
-                    c.GetEngineCompFactory().CreateGame(c.GetLevelId()).CancelTimer(pending['timer'])
-                    self.__pendingForms.remove(pending)
-                    topScreen.addForm(data, pending['customUpdates'])
+            return
+        self._queueForm(data)
+
+    def showFormGroup(self, data):
+        group = data['group']
+        forms = [form for form in data['forms'] if not self._hasForm(form['formId']['value'])]
+        if not forms:
+            return
+        screen = self.__formGroups.get(group)
+        if screen is None or screen._destroyed:
             try:
-                pending['screen'] = c.PushScreen(Namespace, "screen", {})
-                pending['timer'] = c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddRepeatedTimer(0.05, pushFormScreen, data)
-            except:
+                screen = c.PushScreen(Namespace, 'screen', {'formGroup': group})
+                if not screen:
+                    raise RuntimeError('Could not open the MoreUI screen')
+                self.__formGroups[group] = screen
+            except Exception as error:
+                for form in forms:
+                    self._reportUnavailable(form, error)
+                return
+        for form in forms:
+            if screen.isAllReady():
+                self._addQueuedForm(screen, form)
+            else:
+                try:
+                    self._queueForm(form, screen)
+                except Exception as error:
+                    self._reportUnavailable(form, error)
+        if not screen.forms and not self._hasPendingForms(screen):
+            screen._requestPop()
+
+    def _queueForm(self, data, screen=None):
+        pending = {'data': data, 'bindings': FormBindings(data), 'customUpdates': [], 'timer': None, 'screen': screen}
+        self.__pendingForms.append(pending)
+        if screen is not None:
+            return  # The grouped screen drains its queue from Create().
+
+        def mount(data):
+            if not any(entry is pending for entry in self.__pendingForms):
+                if pending['timer'] is not None:
+                    game.CancelTimer(pending['timer'])
+                return
+            host = pending['screen'] or getTopScreenNode()
+            if isFormScreen(host) and host.isAllReady() and getattr(host, '_formGroup', None) is None:
+                game.CancelTimer(pending['timer'])
                 self.__pendingForms.remove(pending)
-                raise
+                self._addQueuedForm(host, data, pending['customUpdates'])
+
+        try:
+            game = c.GetEngineCompFactory().CreateGame(c.GetLevelId())
+            pending['screen'] = c.PushScreen(Namespace, 'screen', {})
+            pending['timer'] = game.AddRepeatedTimer(0.05, mount, data)
+        except:
+            self.__pendingForms.remove(pending)
+            raise
+
+    def _addQueuedForm(self, screen, data, pendingCustomUpdates=()):
+        try:
+            screen.addForm(data, pendingCustomUpdates)
+        except Exception as error:
+            self._reportUnavailable(data, error)
+            if not screen.forms and not self._hasPendingForms(screen):
+                screen._requestPop()
+
+    def _reportUnavailable(self, data, error):
+        formId = data['formId']['value']
+        print('[FormUI] Cannot mount form %s: %s' % (formId, error))
+        notifyFormClosed(self, formId, 'unavailable')
 
     def _showEmbedded(self, data):
         screen = None
@@ -267,7 +332,7 @@ class Client(ClientSystem):
             if screen.forms.get(formId) is form:
                 screen._closeForm(formId, 'api')
         for screen in cancelledScreens:
-            if not screen.forms and not any(p['screen'] is screen for p in self.__pendingForms):
+            if not screen.forms and not self._hasPendingForms(screen):
                 screen._requestPop()
 
     def Destroy(self):

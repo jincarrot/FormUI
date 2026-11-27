@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-from ...utils.template import BODY_MARKER, ROWS_MARKER, rowTemplateKey, templateKey, templateStructure, validateTemplateName
-from ...utils.ui import getScrollingContent
+from ...utils.template import (
+    BODY_CHILD, BODY_MARKER, ROWS_MARKER, rowTemplateKey, templateKey, templateStructure, validateTemplateName,
+)
+from ...utils.ui import getFormContent
 
 
 def mountTemplate(screen, form, parent, rootName, base):
@@ -11,24 +13,24 @@ def mountTemplate(screen, form, parent, rootName, base):
         name = validateTemplateName(request['name'])
         if not 0 <= count <= len(form['controls']):
             raise ValueError('invalid compiled control count')
-        structure = templateStructure(screen.controlManager, form['style']['class']['value'],
-                                      form['controls'][:count])
+        structure = templateStructure(screen.controlManager, base, form['controls'][:count])
         key = templateKey(name, structure)
         root = screen.CreateChildControl(key, rootName, parent)
         if not root:
             raise ValueError('matching resource not found')
-        scrollPath = base.options['scrollingPanelPath']
-        scroll = root.GetChildByPath(scrollPath) if scrollPath else root
-        content = getScrollingContent(scroll) if scroll else None
+        path = form['basePath']
+        viewport = root.GetChildByPath(path) if path else root
+        content = getFormContent(viewport, form['_scrolling'])
         if not content:
-            raise ValueError('scrolling content not found')
+            raise ValueError('form content not found')
         body = content
         if not body.GetChildByPath('/' + BODY_MARKER):
-            # A custom scrolling panel may supply its own fixed content template.
-            if (content.GetChildByPath('/_formui_content') or
-                    any(content.GetChildByPath('/' + node.slot) for node in structure.nodes)):
-                raise ValueError('native content already uses a compiled control name')
-            body = screen.CreateChildControl(key + '_body', '_formui_content', content)
+            body = content.GetChildByPath('/' + BODY_CHILD)
+            if not body:
+                if any(content.GetChildByPath('/' + node.slot) for node in structure.nodes):
+                    raise ValueError('native content already uses a compiled control name')
+                # A custom root can mount the compiled body in its existing content panel.
+                body = screen.CreateChildControl(key + '_body', BODY_CHILD, content)
             if not body or not body.GetChildByPath('/' + BODY_MARKER):
                 raise ValueError('missing FormUI template marker')
 
@@ -44,6 +46,7 @@ def mountTemplate(screen, form, parent, rootName, base):
         for index, node in enumerate(structure.nodes):
             collect(node, index, body)
         # Publish only after the whole tree has been resolved, before any user callbacks.
+        form['_formContent'] = (viewport, content)
         form['_compiledKey'] = key
         form['_compiledParent'] = body
         form['_compiledNodes'] = natives

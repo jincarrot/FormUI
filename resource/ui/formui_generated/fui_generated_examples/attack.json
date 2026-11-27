@@ -1,0 +1,60 @@
+{
+  "namespace": "fui_generated_examples",
+  "attack@fui.panel": {
+    "$formui_content": "fui_generated_examples.attack__formui_v1_d5f5d166df9663e217467fc1_body",
+    "controls": [
+      {
+        "_formui_content@fui_generated_examples.attack__formui_v1_d5f5d166df9663e217467fc1_body": {}
+      }
+    ]
+  },
+  "attack__formui_v1_d5f5d166df9663e217467fc1@fui_generated_examples.attack": {},
+  "attack__formui_v1_d5f5d166df9663e217467fc1_body": {
+    "type": "input_panel",
+    "is_swallow": true,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "controls": [
+      {
+        "_formui_body_v1": {
+          "type": "input_panel",
+          "is_swallow": true,
+          "size": [
+            0,
+            0
+          ],
+          "visible": false
+        }
+      },
+      {
+        "c0@fui_fluent.dark_label": {}
+      },
+      {
+        "c1@fui_fluent.dark_slider": {}
+      },
+      {
+        "c2@fui_fluent.dark_label": {}
+      },
+      {
+        "c3@fui_fluent.dark_primary_button": {}
+      },
+      {
+        "c4@fui_fluent.dark_textfield": {}
+      },
+      {
+        "c5@fui_fluent.dark_label": {}
+      },
+      {
+        "c6@fui_fluent.dark_toggle": {}
+      },
+      {
+        "c7@fui_fluent.dark_primary_button": {}
+      }
+    ],
+    "$formui_content": "fui_ore_panels.scrolling_content"
+  }
+}

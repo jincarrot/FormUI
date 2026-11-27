@@ -5,7 +5,8 @@
   },
   "item_list__formui_v1_87ef02b0720bf76d388123d8@fui_generated_examples.item_list": {},
   "_formui_rows_2952d2c2e61460dfc929fca6": {
-    "type": "panel",
+    "type": "input_panel",
+    "is_swallow": true,
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "size": [
@@ -15,7 +16,8 @@
     "controls": [
       {
         "_formui_rows_v1": {
-          "type": "panel",
+          "type": "input_panel",
+          "is_swallow": true,
           "size": [
             0,
             0
@@ -117,7 +119,8 @@
     "$formui_content": "fui_ore_panels.scrolling_content"
   },
   "item_list__formui_v1_87ef02b0720bf76d388123d8_body": {
-    "type": "panel",
+    "type": "input_panel",
+    "is_swallow": true,
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "size": [
@@ -127,7 +130,8 @@
     "controls": [
       {
         "_formui_body_v1": {
-          "type": "panel",
+          "type": "input_panel",
+          "is_swallow": true,
           "size": [
             0,
             0

@@ -12,8 +12,8 @@ class FormManager:
         self.__forms = {}
         self.__currentId = 0 if isServer() else -1
 
-    def create(self, title="", style=None, theme=None, grid=None, layout=None):
-        v = Form(self.__currentId, title, style, theme, grid, layout)
+    def create(self, title="", style=None, theme=None, grid=None, layout=None, root=None):
+        v = Form(self.__currentId, title, style, theme, grid, layout, root)
         self.__forms[self.__currentId] = v
         self.__currentId += 1 if isServer() else -1
         return v

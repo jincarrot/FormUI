@@ -15,7 +15,8 @@
         ]
     },
     "switch_toggle_checked_default": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border@fui_ore_base.border": {
@@ -101,7 +102,8 @@
         ]
     },
     "switch_toggle_checked_default_thin": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border@fui_ore_base.border": {
@@ -187,7 +189,8 @@
         ]
     },
     "switch_toggle_checked_hover": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border@fui_ore_base.border": {
@@ -278,7 +281,8 @@
         ]
     },
     "switch_toggle_checked_hover_thin": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border@fui_ore_base.border": {
@@ -383,7 +387,8 @@
         ]
     },
     "switch_toggle_unchecked_default": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border@fui_ore_base.border": {
@@ -450,7 +455,8 @@
             },
             {
                 "off": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "offset": [
                         "25%-1px",
                         0
@@ -538,7 +544,8 @@
         ]
     },
     "switch_toggle_unchecked_default_thin": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border@fui_ore_base.border": {
@@ -605,7 +612,8 @@
             },
             {
                 "off": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "offset": [
                         "25%-1px",
                         0
@@ -693,7 +701,8 @@
         ]
     },
     "switch_toggle_unchecked_hover": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border@fui_ore_base.border": {
@@ -765,7 +774,8 @@
             },
             {
                 "off": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "offset": [
                         "25%-1px",
                         0
@@ -853,7 +863,8 @@
         ]
     },
     "switch_toggle_unchecked_hover_thin": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "border@fui_ore_base.border": {
@@ -925,7 +936,8 @@
             },
             {
                 "off": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "offset": [
                         "25%-1px",
                         0
@@ -1013,7 +1025,8 @@
         ]
     },
     "toggle": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_left",
         "anchor_to": "top_left",
         "size": [
@@ -1047,7 +1060,8 @@
         ]
     },
     "toggle_thin": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_left",
         "anchor_to": "top_left",
         "size": [

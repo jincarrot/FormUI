@@ -81,6 +81,23 @@ def notifyFormClosed(system, formId, reason):
     system.NotifyToServer(event, payload)
     system.BroadcastEvent(event, payload)
 
+
+def getFormRoot(manager, name):
+    root = manager.get(name)
+    if root is None or root.typeId not in ('panel', 'scrolling_panel'):
+        raise ValueError('Form root %r must be a registered Panel or ScrollingPanel' % name)
+    return root
+
+
+def getFormContentPath(root):
+    key = 'scrollingPanelPath' if root.typeId == 'scrolling_panel' else 'contentPath'
+    return root.options.get(key) or ''
+
+
+def getFormContent(viewport, scrolling):
+    return getScrollingContent(viewport) if viewport and scrolling else viewport
+
+
 def getScrollingContent(control):
     target = control.GetChildByPath("/scroll_mouse/scroll_view/panel/background_and_viewport/scrolling_view_port/scrolling_content")
     if not target:

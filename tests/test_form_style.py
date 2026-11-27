@@ -88,7 +88,7 @@ class FormStyleTests(unittest.TestCase):
         self.system.showForm = lambda data: self.payloads.append(data)
         self.system.NotifyToServer = lambda event, data: self.emit(event, data)
         self.system.BroadcastEvent = lambda event, data: self.emit(event, data)
-        root_class = types.SimpleNamespace(path='root.path', options={
+        root_class = types.SimpleNamespace(typeId='scrolling_panel', path='root.path', options={
             'scrollingPanelPath': '/content', 'closeBtnPath': '/close', 'titlePath': '/title',
         })
         self.system.controlManager = types.SimpleNamespace(get=lambda name: root_class)

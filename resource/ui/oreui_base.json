@@ -1,6 +1,7 @@
 {
     "base": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "$bg_color": [
             0.82,
             0.82,
@@ -99,7 +100,8 @@
         ]
     },
     "base_thin": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "$bg_color": [
             0.82,
             0.82,
@@ -209,7 +211,8 @@
         ]
     },
     "box": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "$bg_color": [
             0.82,
             0.82,
@@ -261,7 +264,8 @@
         ]
     },
     "box_thin": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "$bg_color": [
             0.82,
             0.82,
@@ -326,7 +330,8 @@
         ]
     },
     "divider_in": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_left",
         "anchor_to": "top_left",
         "size": [
@@ -361,7 +366,8 @@
         ]
     },
     "divider_out": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_left",
         "anchor_to": "top_left",
         "size": [
@@ -383,7 +389,8 @@
         ]
     },
     "label": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_left",
         "anchor_to": "top_left",
         "size": [

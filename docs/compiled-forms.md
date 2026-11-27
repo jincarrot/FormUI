@@ -7,12 +7,12 @@
 项目自带的 OreUI 物品列表包含 10 个表单控件和 30 个初始行。在仓库根目录运行以下命令即可从工厂函数生成资源。
 
 ```console
-python tools/compile_form.py behavior/scripts/example_listview.py create_listview_form fui_generated_examples.item_list --resource-pack resource
+python tools/compile_form.py tools/examples/listview_form.py create_listview_form fui_generated_examples.item_list --resource-pack resource
 ```
 
 三个位置参数分别是 Python 文件、文件中的函数名或 Form 变量名、公开的 JSON UI 控件名。控件名采用 `命名空间.控件名` 的形式，每部分使用英文字母、数字和下划线，首字符为字母或下划线。
 
-该命令写入 `resource/ui/formui_generated/fui_generated_examples/item_list.json`，并将相对路径加入该资源包的 `ui/_ui_defs.json`。修改结构后可用同一命令重新生成。项目已附带这份资源。[表单源码](../behavior/scripts/example_listview.py) · [生成的 JSON UI](../resource/ui/formui_generated/fui_generated_examples/item_list.json)
+该命令写入 `resource/ui/formui_generated/fui_generated_examples/item_list.json`，并将相对路径加入该资源包的 `ui/_ui_defs.json`。修改结构后可用同一命令重新生成。项目已附带这份资源。[导出用表单源码](../tools/examples/listview_form.py) · [生成的 JSON UI](../resource/ui/formui_generated/fui_generated_examples/item_list.json)
 
 工具使用桌面 Python 3，导入指定模块并调用工厂。工厂可直接返回 Form，也可将一个 Form 和其他状态一同放在元组或列表中返回。可选的 `--args` 接收 JSON 数组，`--kwargs` 接收 JSON 对象。需要自定义主题、Group 或 Custom 时，在工厂或其导入的模块中执行与游戏端相同的注册。目标资源包还需包含这些注册引用的原生模板和贴图。
 
@@ -25,9 +25,9 @@ python tools/compile_form.py behavior/scripts/example_listview.py create_listvie
 from FormUI.lib import Form, Observable
 
 
-def create_settings(enabled_by_default=True):
+def create_settings(enabled_by_default=True, layout=None):
     enabled = Observable.create(enabled_by_default)
-    form = Form.create('设置', theme='fluent-dark')
+    form = Form.create('设置', theme='fluent-dark', layout=layout)
     form.toggle('显示提示', enabled)
     form.label(enabled.map(lambda value: '提示已开启' if value else '提示已关闭'))
     form.button('完成', lambda player: form.close(player))
@@ -45,11 +45,11 @@ form = create_settings(False)
 form.show(playerId)
 ```
 
-在客户端可以嵌入当前界面。
+在客户端创建表单时指定嵌入模式，即可复用同一份 JSON UI 模板。
 
 ```python
-form = create_settings()
-form.show(options={'combineUI': True})
+form = create_settings(layout={'combineUI': True})
+form.show()
 ```
 
 `bindTemplate(name)` 返回当前 Form，并记录调用时已有的控件。将它放在固定控件定义之后。之后仍可调用 `form.label(...)`、`form.button(...)` 等方法，FormUI 会动态创建新增部分。绑定不影响已打开的实例。`form.bindTemplate(None)` 让下次显示使用动态创建。
@@ -68,6 +68,23 @@ form.show(options={'combineUI': True})
 带版本的结构标识覆盖窗口模板、控件顺序、原生类型与 Group 子节点。客户端在调用业务回调前检查生成标记及全部预建节点。资源缺失、结构变更或资源包版本落后时，本次显示会回退到动态创建，并在客户端日志中给出原因。修改文字、选择值或回调可继续使用现有资源。切换到使用不同原生控件的主题时，可为该主题生成独立的模板名。
 
 内置窗口通过 `$formui_content` 将预建控件放入自己的滚动内容。自定义滚动面板也可以使用这个变量。对于已有的固定滚动容器，FormUI 会在其内容区挂载生成的子树。布局和回调由 FormUI 绑定，业务侧继续调用 `show`、`close` 和原来的控件接口。
+
+## 自定义固定底板
+
+`Form.create(root='fui:panel')` 会将预建内容写进生成的原生控件。对于通过 `Panel(contentPath='/body')` 注册的自定义底板，`show()` 会把预建内容挂到指定子面板。底板已有的背景、标题和装饰会和表单内容一同显示。
+
+如果还需要直接在 JSON UI 中引用生成的控件，可在 `contentPath` 指向的面板中设置 `$formui_content` 的默认值，并把 `_formui_content` 追加到同一个面板的 `controls` 数组。这样引擎会随底板一起创建预建内容。
+
+```json
+{
+  "$formui_content|default": "fui.embedded_root",
+  "controls": [
+    { "_formui_content@$formui_content": {} }
+  ]
+}
+```
+
+切换根模板或修改固定底板的内容路径后，用原命令重新生成资源。更改 `layout.combineUI` 时可以复用同一份模板。
 
 ## 从已有 Form 对象导出
 

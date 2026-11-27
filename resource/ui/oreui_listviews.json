@@ -56,7 +56,8 @@
             },
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "controls": [
                         {
                             "main@fui.w": {
@@ -76,7 +77,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -97,7 +99,8 @@
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -148,7 +151,8 @@
         ]
     },
     "listview": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             160

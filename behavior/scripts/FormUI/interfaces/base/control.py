@@ -49,6 +49,26 @@ class Control:
         getSystem().controlManager.create(ControlType.Button, identifier, path, defaultOptions)
 
     @staticmethod
+    def registerPanel(identifier, path, options={}):
+        """注册固定表单面板。"""
+        from ...core.utils.environment import getSystem, isServer
+        from ...core.utils.ui import STRING_TYPES
+        from ...core.general.enums.controlType import ControlType
+
+        panelOptions = dict(contentPath='', titlePath=None, closeBtnPath=None)
+        panelOptions.update(options)
+        for key in ('contentPath', 'titlePath', 'closeBtnPath'):
+            value = panelOptions[key]
+            if value is not None and (not isinstance(value, STRING_TYPES) or (value and not value.startswith('/'))):
+                raise ValueError('%s must be a path starting with / or empty' % key)
+        system = getSystem()
+        if isServer():
+            system.BroadcastToAllClient('registerControl', {
+                'type': ControlType.Panel, 'name': identifier, 'path': path, 'options': panelOptions,
+            })
+        system.controlManager.create(ControlType.Panel, identifier, path, panelOptions)
+
+    @staticmethod
     def registerScrollingPanel(identifier, path, options={}):
         """
         注册一个自定义面板控件。

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from ..utils.environment import *
 from ..utils.type import FormShowResultArgs, copyContainers
-from ..utils.ui import validateGrids, validateDropdownItems, getFontScale, validateListViewItems, validateListViewHeight, normalizeTargets, STRING_TYPES
-from ..utils.grid import validateGrid, validateCell, planCells
+from ..utils.ui import (validateGrids, validateDropdownItems, getFontScale, validateListViewItems,
+                        validateListViewHeight, normalizeTargets, STRING_TYPES, getFormRoot)
+from ..utils.grid import validateGrid, validateCell, planCells, resolveFormLayout
 from ..config import Namespace, SystemNameClient
 
 class FormShowResult:
@@ -68,12 +69,12 @@ class FormShowResult:
         self.__callback = callback
         
 
-class Form:
+class Form(object):
     """
     自定义表单类（客户端服务端通用）
     """
     
-    def __init__(self, id, title="", style=None, theme=None, grid=None, layout=None):
+    def __init__(self, id, title="", style=None, theme=None, grid=None, layout=None, root=None):
         if style is None:
             style = {}
         if not isinstance(style, dict):
@@ -83,14 +84,16 @@ class Form:
         self.__theme = screen.themes.get(name) if name is not None else {}
         self.__screenGrid = screen.getGrid()
         style = copyContainers(style)
+        if root is not None:
+            if not isinstance(root, STRING_TYPES) or not root.strip():
+                raise ValueError('root must be a registered Panel or ScrollingPanel name')
+            style['class'] = root
         if grid is not None:
             style['grid'] = grid
-        if layout is not None:
-            style['layout'] = layout
         self.__id = id
         self.__title = title
         self.__controls = []
-        defaultStyle = self._getDefaultStyle("scrolling_panel", {
+        defaultStyle = screen.getDefaultStyle("scrolling_panel", {
             "class": "oreui:light_panel_thin",
             "offsetX": 0,
             "offsetY": 0,
@@ -101,6 +104,11 @@ class Form:
             "layer": 0,
             "visible": True
         })
+        panelTheme = self.__theme.get('scrolling_panel', {})
+        layouts = [source['layout'] for source in (defaultStyle, panelTheme, style) if 'layout' in source]
+        if layout is not None:
+            layouts.append(layout)
+        defaultStyle.update(panelTheme)
         defaultStyle.update(style)
         defaultStyle['grids'] = validateGrids(defaultStyle['grids'])
         if defaultStyle.get('grid') is not None:
@@ -109,14 +117,13 @@ class Form:
             defaultStyle['grid'] = validateCell(defaultStyle['grid'], self.__screenGrid)
             # A positioned window fills its cell unless a caller/default/theme sizes it.
             configured = screen.getDefaultStyle('scrolling_panel')
-            configured.update(self.__theme.get('scrolling_panel', {}))
+            configured.update(panelTheme)
             configured.update(style)
             for key, value in (('width', '100%'), ('height', '100%')):
                 if key not in configured:
                     defaultStyle[key] = value
         inherited = None if 'grids' in style else self.__screenGrid
-        contentGrid = defaultStyle.get('layout', inherited)
-        defaultStyle['layout'] = validateGrid(contentGrid) if contentGrid is not None and contentGrid is not False else None
+        defaultStyle['layout'], self.__combineUI = resolveFormLayout(inherited, layouts)
         self.__style = copyContainers(defaultStyle)
         self.__template = None
         self._isShowing = {}
@@ -132,6 +139,10 @@ class Form:
         if kind in self.__theme:
             style.update(copyContainers(self.__theme[kind]))
         return style
+
+    @property
+    def formId(self):
+        return self.__id
 
     def getShowingPlayers(self):
         """Return online players currently showing or waiting to create this form."""
@@ -475,60 +486,26 @@ class Form:
         rootClass = self.__style['class']
         if rootClass.__class__.__name__ == 'Observable':
             rootClass = rootClass.getValue()
-        structure = templateStructure(getSystem().controlManager, rootClass, controls)
+        manager = getSystem().controlManager
+        structure = templateStructure(manager, getFormRoot(manager, rootClass), controls)
         return exportTemplate(name, structure, controls)
 
-    def show(self, target=None, onClose=None, options=None):
-        """显示表单。options 中的 combineUI=True 将本次表单挂载到玩家当前的界面。"""
-        validateGrids(self.__style['grids'])
+    def show(self, target=None, onClose=None):
+        """向目标玩家显示表单，使用创建时配置的布局和挂载方式。"""
         serverSide = isServer()
-        if not serverSide and isinstance(target, dict) and options is None:
-            options, target = target, None
-        if isinstance(onClose, dict) and options is None:
-            options, onClose = onClose, None
-        if options is None:
-            options = {}
-        if not isinstance(options, dict) or any(key != 'combineUI' for key in options):
-            raise TypeError('show options must be a dict containing only combineUI')
-        combineUI = options.get('combineUI', False)
-        if not isinstance(combineUI, bool):
-            raise TypeError('combineUI must be a bool')
-        if onClose is not None and not callable(onClose):
-            raise TypeError('onClose must be callable or None')
         if serverSide:
             if target is None:
                 import mod.server.extraServerApi as s
                 target = s.GetPlayerList()
             targets = normalizeTargets(target)
         else:
+            if isinstance(target, dict):
+                raise TypeError('Pass form layout to Form.create(layout=...)')
             import mod.client.extraClientApi as c
             targets = [c.GetLocalPlayerId()]
-        if any(self._isShowing.get(playerId, False) for playerId in targets):
-            raise RuntimeError('该表单已经被显示出来了，关闭后才能再次调用 show()。')
-        # Wrap data.
-        from ..utils.type import wrapDict
-        observables = []
-        data = wrapDict({
-            "formId": self.__id,
-            "title": self.__title,
-            "controls": self.__controls,
-            "style": self.__style,
-            "screenGrid": self.__screenGrid,
-            "fromServer": serverSide
-        }, observables)
-        data['observables'] = observables
-        if self.__template is not None:
-            data['template'] = dict(self.__template)
-        if combineUI:
-            data['options'] = {'combineUI': True}
-        result = FormShowResult(self.__id, targets)
-        result.onClose(onClose)
+        data, result, previous = self._prepareShow(targets, onClose)
         if not targets:
             return result
-        previous = dict(self._isShowing)
-        for playerId in targets:
-            self._isShowing[playerId] = True
-        # Send data.
         try:
             if serverSide:
                 if isinstance(target, STRING_TYPES):
@@ -538,13 +515,49 @@ class Form:
             else:
                 getSystem().showForm(data)
         except:
-            for playerId in result._cancel():
-                if playerId in previous:
-                    self._isShowing[playerId] = previous[playerId]
-                else:
-                    self._isShowing.pop(playerId, None)
+            self._cancelShow(result, previous)
             raise
         return result
+
+    def _prepareShow(self, targets, onClose, moreui=None):
+        """Build a payload and a close receipt before sending a display request."""
+        validateGrids(self.__style['grids'])
+        if onClose is not None and not callable(onClose):
+            raise TypeError('onClose must be callable or None')
+        if any(self._isShowing.get(playerId, False) for playerId in targets):
+            raise RuntimeError('该表单已经被显示出来了，关闭后才能再次调用 show()。')
+        from ..utils.type import wrapDict
+        observables = []
+        data = {
+            "formId": self.__id,
+            "title": self.__title,
+            "controls": self.__controls,
+            "style": self.__style,
+            "screenGrid": self.__screenGrid,
+            "fromServer": isServer(),
+        }
+        if moreui is not None:
+            data['moreui'] = moreui
+        data = wrapDict(data, observables)
+        data['observables'] = observables
+        if self.__template is not None:
+            data['template'] = dict(self.__template)
+        if self.__combineUI:
+            # Keep the wire format understood by existing embedded renderers.
+            data['options'] = {'combineUI': True}
+        result = FormShowResult(self.__id, targets)
+        result.onClose(onClose)
+        previous = dict(self._isShowing)
+        for playerId in targets:
+            self._isShowing[playerId] = True
+        return data, result, previous
+
+    def _cancelShow(self, result, previous):
+        for playerId in result._cancel():
+            if playerId in previous:
+                self._isShowing[playerId] = previous[playerId]
+            else:
+                self._isShowing.pop(playerId, None)
 
     def close(self, target=None):
         data = {

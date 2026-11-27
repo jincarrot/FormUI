@@ -136,21 +136,8 @@ form.group({'list': {
 
 客户端自定义模板可使用 `Control.register(identifier, templatePath, ListView(...))`。`ListView` 注册描述提供 `scrollingPanelPath`、`labelPaths`、`emptyLabelPath`、`itemControl`、`itemButtonPath`、`itemLabelPaths`、`selectedPath`；默认路径分别为 `/content`、`('/label',)`、`/empty`、空字符串（必须配置）、空字符串（行根是按钮）、`('/button_label',)`、`/selected`。滚动面板内部需符合现有 `getScrollingContent` 路径约定，行模板的选中标记应支持 `SetVisible`。
 
-## 游戏内演示与检查
+## 资源和构建示例
 
-本仓库已接入演示命令，在聊天中输入，不带 `/`：
-
-```text
-fui listview
-fui listview-flutter
-fui listview-flutter-dark
-fui listview-fluent
-fui listview-fluent-dark
-fui listview-server
-```
-
-前五项显示客户端演示；最后一项由服务端为当前玩家创建独立的 Fluent 列表。每个演示包含 30 项，可测试内部滚动、选择、筛选、重排、清空、恢复和程序选择。`fui close` 关闭演示。
-
-完整构建函数见 `behavior/scripts/example_listview.py`。游戏验证还应覆盖鼠标滚轮和触摸拖动、列表与外层表单的滚动切换、缩放后的文字裁切、关闭再打开，以及两个玩家的服务端状态互不影响。离线测试验证数据和原生 API 调用流程，不能替代这些游戏内交互检查。
+导出工具附带一个含 30 个初始条目的构建函数，演示 Observable 筛选、重排、清空列表和设置选中项。生成的 OreUI 控件可随资源包交付。[构建函数](../tools/examples/listview_form.py) · [生成方法](compiled-forms.md)
 
 维护 UI 资源时，可运行 `python -S -B tools/generate_listview_ui.py` 重新生成这三个文件。生成器复用已有风格的行视觉与滚动条；更新 Flutter/Fluent 原始风格资源后再运行该命令。

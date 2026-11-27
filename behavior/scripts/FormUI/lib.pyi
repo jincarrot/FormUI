@@ -2,7 +2,7 @@
 from .interfaces.base.control import Control as Control
 from .interfaces.base.controls import (
     Button as Button, Custom as Custom, Divider as Divider, Dropdown as Dropdown,
-    Group as Group, Label as Label, ListView as ListView, ScrollingPanel as ScrollingPanel,
+    Group as Group, Label as Label, ListView as ListView, Panel as Panel, ScrollingPanel as ScrollingPanel,
     Slider as Slider, Textfield as Textfield, Toggle as Toggle,
 )
 from .interfaces.base.form import Form as Form

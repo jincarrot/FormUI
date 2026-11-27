@@ -100,15 +100,16 @@ class GridLayoutMixin(object):
         self._gridWatch(formId)['root'] = native
         return True
 
-    def _layoutFormGrid(self, formId, panel, content):
+    def _layoutFormGrid(self, formId, viewportControl, content):
         form = self.forms[formId]
         plan = self._getGridPlans(formId)['content']
         if plan is None:
             return False
         layout, cells = plan
-        viewport = tuple(panel.GetSize())
+        viewport = tuple(viewportControl.GetSize())
         form['_gridViewport'] = viewport
-        self._gridWatch(formId)['content'] = panel
+        self._gridWatch(formId)['content'] = viewportControl
+        scrolling = form.get('_scrolling', True)
         bottom = viewport[1]
         for index, data in enumerate(form['controls']):
             native = self.getControl(formId, index)
@@ -117,10 +118,11 @@ class GridLayoutMixin(object):
             self._setGridGeometry(data, native, layout, cells[index], viewport)
             visible = bool(data['style']['visible']['value'])
             native.SetVisible(visible)
-            if visible:
+            if scrolling and visible:
                 bottom = max(bottom, native.GetPosition()[1] + native.GetSize()[1] + layout['padding'])
-        form['_layoutHeight'] = bottom
-        content.SetFullSize('y', {'relativeValue': 0.0, 'absoluteValue': bottom, 'followType': 'parent'})
+        if scrolling:
+            form['_layoutHeight'] = bottom
+            content.SetFullSize('y', {'relativeValue': 0.0, 'absoluteValue': bottom, 'followType': 'parent'})
         self._updateDropdownExtent(formId)
         return True
 

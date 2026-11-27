@@ -21,6 +21,13 @@ class Button(ControlType):
     buttonPath: str
     def __init__(self, onCreate: CreateCallback | None = None, labelPaths: LabelPaths = ..., buttonPath: str = "") -> None: ...
 
+class Panel(ControlType):
+    """固定表单面板。空 contentPath 使用根节点。"""
+    contentPath: str
+    titlePath: str | None
+    closeBtnPath: str | None
+    def __init__(self, contentPath: str = "", titlePath: str | None = None, closeBtnPath: str | None = None) -> None: ...
+
 class ScrollingPanel(ControlType):
     scrollingPanelPath: str
     titlePath: str

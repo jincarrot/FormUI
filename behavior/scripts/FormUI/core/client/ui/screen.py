@@ -4,7 +4,11 @@ from copy import deepcopy
 from collections import deque
 
 from ...general.enums.controlType import ControlType
-from ...utils.ui import getScrollingContent, getSizeDict, getSliderPercentage, getSliderValue, getStepedValue, validateGrids, getFontScale, validateDropdownItems, validateListViewItems, validateListViewHeight, getTopScreenNode, notifyFormClosed
+from ...utils.ui import (
+    getFormRoot, getFormContent, getFormContentPath, getScrollingContent, getSizeDict,
+    getSliderPercentage, getSliderValue, getStepedValue, validateGrids, getFontScale,
+    validateDropdownItems, validateListViewItems, validateListViewHeight, getTopScreenNode, notifyFormClosed,
+)
 from ...utils.type import unwrapWrappedValue, wrapDict, wrapVariable
 from ...utils.group import groupStyle, iterControls
 from .grid import GridLayoutMixin
@@ -63,19 +67,26 @@ class _Screen(GridLayoutMixin, BindingMixin):
     def _formParent(self):
         return self.GetBaseUIControl(self._panelPath)
 
+    def _formContent(self, formId):
+        form = self.forms[formId]
+        if '_formContent' in form:
+            return form['_formContent']
+        viewport = self._formControl(formId, form.get('basePath', ''))
+        return viewport, getFormContent(viewport, form.get('_scrolling', True))
+
     def addForm(self, formData, pendingCustomUpdates=()):
         formId = formData['formId']['value']
         if self._destroyed:
             raise RuntimeError('FormUI host screen has closed')
         if formId in self.forms:
             raise RuntimeError('该表单已经被显示出来了，关闭后才能再次调用 show()。')
+        if 'moreui' in formData:
+            from ....moreui._client import registerControls
+            registerControls(self.controlManager)
         validateGrids([entry['value'] for entry in formData['style']['grids']])
         for control in formData['controls']:
             self._prepareGroup(control)
         gridPlans = self._validateGridData(formData)
-
-        style = formData['style']
-        formData['basePath'] = self.controlManager.get(style['class']['value']).options['scrollingPanelPath']
 
         self.forms[formId] = formData
         self.__formOrder.append(formId)
@@ -127,7 +138,11 @@ class _Screen(GridLayoutMixin, BindingMixin):
 
     def _mountForm(self, formId, formData, parent):
         style = formData['style']
-        base = self.controlManager.get(style['class']['value'])
+        moreui = 'moreui' in formData
+        base = getFormRoot(self.controlManager, style['class']['value'])
+        formData['basePath'] = getFormContentPath(base)
+        formData['_scrolling'] = base.typeId == ControlType.ScrollingPanel
+        formData['_titlePath'] = base.options.get('titlePath')
         self.__creatingForms.add(formId)
         try:
             root = None
@@ -147,12 +162,13 @@ class _Screen(GridLayoutMixin, BindingMixin):
                 return
             formData['defaultSize'] = deepcopy((root.GetFullSize('x'), root.GetFullSize('y')))
             formData['defaultOffset'] = deepcopy((root.GetFullPosition('x'), root.GetFullPosition('y')))
-            if not self._layoutRootGrid(formId, root):
+            if not moreui and not self._layoutRootGrid(formId, root):
                 self.setSize(formId, -1, 'x', getSizeDict(style['width']['value']), root)
                 self.setSize(formId, -1, 'y', getSizeDict(style['height']['value']), root)
                 self.setOffset(formId, -1, 'x', getSizeDict(style['offsetX']['value']), root)
                 self.setOffset(formId, -1, 'y', getSizeDict(style['offsetY']['value']), root)
-            close = root.GetChildByPath(base.options['closeBtnPath'])
+            closePath = base.options.get('closeBtnPath')
+            close = root.GetChildByPath(closePath) if closePath else None
             if close:
                 close = close.asButton()
                 close.AddTouchEventParams({'formId': formId})
@@ -160,10 +176,17 @@ class _Screen(GridLayoutMixin, BindingMixin):
                     if self.forms.get(formId) is formData:
                         self.onClose(data)
                 close.SetButtonTouchUpCallback(onClose)
-            self.setFormTitle(formId, base.options['titlePath'], formData['title']['value'])
-            self.setFormContent(formId, base.options['scrollingPanelPath'])
+            self.setFormTitle(formId, formData['_titlePath'], formData['title']['value'])
+            window = None
+            if moreui:
+                from ....moreui._client import Window
+                window = Window(self, formId, root, close)
+                formData['_moreuiWindow'] = window
+                window.apply()
+            self.setFormContent(formId, formData['basePath'])
             if self.forms.get(formId) is formData:
-                self.setLayer(formId, -1, style['layer']['value'], root)
+                if window is None or not window.grouped:
+                    self.setLayer(formId, -1, style['layer']['value'], root)
                 self._refreshFormVisibility()
         finally:
             if self.forms.get(formId) is formData:
@@ -327,6 +350,8 @@ class _Screen(GridLayoutMixin, BindingMixin):
                 pass
 
     def setFormTitle(self, formId, titlePath, value):
+        if not titlePath:
+            return
         control = self._formControl(formId, titlePath)
         if not control:
             return
@@ -336,8 +361,11 @@ class _Screen(GridLayoutMixin, BindingMixin):
     def setFormContent(self, formId, contentPath):
         form = self.forms[formId]
         controls = form['controls']
-        scrollPanel = self._formControl(formId, contentPath).asScrollView()
-        content = getScrollingContent(scrollPanel)
+        form['basePath'] = contentPath
+        viewport, content = self._formContent(formId)
+        if not content:
+            raise ValueError('Form content is missing at %s' % (contentPath or '/'))
+        form['_formContent'] = (viewport, content)
         wasCreating = formId in self.__creatingForms
         self.__creatingForms.add(formId)
         try:
@@ -389,20 +417,17 @@ class _Screen(GridLayoutMixin, BindingMixin):
             if not missing:
                 self.__pendingControlMounts.pop(formId, None)
                 return
-            panel = self._formControl(formId, form['basePath'])
-            if not panel:
-                return
-            content = getScrollingContent(panel)
+            _, content = self._formContent(formId)
             if not content:
                 return
+            parent = form.get('_compiledParent', content)
             self.__creatingForms.add(formId)
             created = []
             try:
                 for index, control in missing:
                     if self.forms.get(formId) is not form:
                         return
-                    self._createControl(formId, index, control, form.get('_compiledParent', content),
-                                        'c%s' % index, created)
+                    self._createControl(formId, index, control, parent, 'c%s' % index, created)
                     pending.discard(index)
                 self._relayoutForm(formId)
                 self._layoutGroups(formId)
@@ -420,13 +445,14 @@ class _Screen(GridLayoutMixin, BindingMixin):
         if formId not in self.forms:
             return
         form = self.forms[formId]
-        panel = self._formControl(formId, form['basePath'])
-        if not panel:
-            return
-        content = getScrollingContent(panel)
+        viewport, content = self._formContent(formId)
         if not content:
             return
-        if self._layoutFormGrid(formId, panel, content):
+        window = form.get('_moreuiWindow')
+        if window is not None and window.horizontal:
+            window.layoutBar()
+            return
+        if self._layoutFormGrid(formId, viewport, content):
             return
         grids = validateGrids([entry['value'] for entry in form['style']['grids']])
         visibleIndex = 0
@@ -446,9 +472,10 @@ class _Screen(GridLayoutMixin, BindingMixin):
                                              index, rowStart, column, grids)
             rowBottom = max(rowBottom, rowStart + occupied)
             visibleIndex += 1
-        form['_layoutHeight'] = max(panel.GetSize()[1], rowBottom)
-        content.SetFullSize("y", {"absoluteValue": form['_layoutHeight'],
-                                  "relativeValue": 0.0, "followType": "parent"})
+        if form.get('_scrolling', True):
+            form['_layoutHeight'] = max(viewport.GetSize()[1], rowBottom)
+            content.SetFullSize('y', {'absoluteValue': form['_layoutHeight'],
+                                      'relativeValue': 0.0, 'followType': 'parent'})
         self._updateDropdownExtent(formId)
 
     def setControlLayout(self, formId, controlData, control, formStyle, index, height, column=None, grids=None):
@@ -712,10 +739,16 @@ class _Screen(GridLayoutMixin, BindingMixin):
         if mounted is not None:
             return mounted
         form = self.forms[formId]
-        content = form.get('_compiledParent') or getScrollingContent(self._formControl(formId, form['basePath']))
+        content = form.get('_compiledParent')
+        if content is None:
+            _, content = self._formContent(formId)
+        if not content:
+            return None
         if isinstance(index, tuple):
             control = content.GetChildByPath("/c%s" % index[0])
             for name in index[1:]:
+                if not control:
+                    return None
                 control = control.GetChildByPath('/' + name)
             return control
         return content.GetChildByPath("/c%s" % index)
@@ -944,7 +977,7 @@ class _Screen(GridLayoutMixin, BindingMixin):
         def shouldUpdate(data):
             return data['type'] == 'Observable' and data['obId'] == obId
         if shouldUpdate(form['title']):
-            self.setFormTitle(formId, self.controlManager.get(form['style']['class']['value']).options['titlePath'], str(value))
+            self.setFormTitle(formId, form.get('_titlePath'), value)
         style = form['style']
         bindings = self._getFormBindings(formId)
         for address, control in bindings.groupStyles.get(obId, ()):
@@ -975,6 +1008,9 @@ class _Screen(GridLayoutMixin, BindingMixin):
             bindings = self._getFormBindings(formId)
         layoutChanged = self.updateControlsProperties(
             obId, formId, form['controls'], value, relayout=False)
+        window = form.get('_moreuiWindow')
+        if window is not None:
+            layoutChanged = window.apply(obId) or layoutChanged
         if layoutChanged or obId in bindings.groupGeometryIds:
             self._relayoutForm(formId)
         if sizeChanged or layoutChanged or obId in bindings.groupGeometryIds:
@@ -1181,11 +1217,14 @@ class _Screen(GridLayoutMixin, BindingMixin):
                 any(not self._getControlData(formId, address)['style']['visible']['value'] for address in addresses)):
             self._closeDropdown(formId, relayout=False)
             return
+        if not form.get('_scrolling', True):
+            return
         # The menu overlays other cells. Only its actual bottom extends the scroll area.
         top = sum(self.getControl(formId, address).GetPosition()[1] for address in addresses)
         bottom = top + state['items'].GetPosition()[1] + state['items'].GetSize()[1]
-        panel = self._formControl(formId, form['basePath'])
-        content = getScrollingContent(panel)
+        _, content = self._formContent(formId)
+        if not content:
+            return
         content.SetFullSize('y', {'absoluteValue': max(form['_layoutHeight'], bottom),
                                   'relativeValue': 0.0, 'followType': 'parent'})
 
@@ -1271,9 +1310,15 @@ class Screen(_Screen, ScreenNode):
         from ...utils.environment import getClientSystem
         ScreenNode.__init__(self, namespace, name, params)
         self._initRenderer(getClientSystem())
+        self._formGroup = (params or {}).get('formGroup')
         self._popPending = False
         self._popOnUpdate = False
         self._system._registerFormScreen(self)
+
+    def Create(self):
+        _Screen.Create(self)
+        if self._formGroup is not None:
+            self._system._formGroupReady(self)
 
     def addForm(self, formData, pendingCustomUpdates=()):
         _Screen.addForm(self, formData, pendingCustomUpdates)
@@ -1286,13 +1331,15 @@ class Screen(_Screen, ScreenNode):
     def _requestPop(self):
         if self._destroyed or self._popPending or self.forms:
             return
+        if self._formGroup is not None and self._system._hasPendingForms(self):
+            return
         self._popPending = True
         c.GetEngineCompFactory().CreateGame(c.GetLevelId()).AddTimer(0.05, self._popIfCurrent)
 
     def _popIfCurrent(self):
         if not self._popPending or self._destroyed:
             return
-        if self.forms:
+        if self.forms or (self._formGroup is not None and self._system._hasPendingForms(self)):
             self._popPending = self._popOnUpdate = False
         elif getTopScreenNode() is self:
             self._popPending = self._popOnUpdate = False

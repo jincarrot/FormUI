@@ -6,7 +6,9 @@ Geometry rasterization uses the existing standard-library texture helpers.
 import json
 import math
 from pathlib import Path
-from generate_flutter_ui import high_resolution_png, rounded_distance, rgb, blend, scale_switches, capsule_textures
+from generate_flutter_ui import (
+    high_resolution_png, rounded_distance, rgb, blend, scale_switches, capsule_textures, input_panel, panel,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 NS = 'fui_fluent'
@@ -69,13 +71,6 @@ def label(color, **extra):
     return result
 
 
-def panel(size, controls, **extra):
-    result = dict(type='panel', size=size, anchor_from='top_left',
-                  anchor_to='top_left', controls=controls)
-    result.update(extra)
-    return result
-
-
 def button(c, kind='button', arrow=False, close=False):
     primary = kind == 'primary_button'
     danger = kind == 'danger_button'
@@ -115,7 +110,7 @@ def button(c, kind='button', arrow=False, close=False):
         if arrow:
             controls.append({'chevron': image(fg, 'chevron', size=[12, 12], layer=2,
                 anchor_from='right_middle', anchor_to='right_middle', offset=[-10, 0])})
-        result['controls'].append({state: dict(type='panel', visible=state == 'default', controls=controls)})
+        result['controls'].append({state: input_panel(visible=state == 'default', controls=controls)})
     return result
 
 
@@ -154,7 +149,7 @@ def build():
                     size=[14, 14], layer=2, anchor_from='right_middle' if checked else 'left_middle',
                     anchor_to='right_middle' if checked else 'left_middle',
                     offset=[-3, 0] if checked else [3, 0])})
-                ui[prefix+'switch_'+name+('_hover' if hover else '')] = dict(type='panel', controls=controls)
+                ui[prefix+'switch_'+name+('_hover' if hover else '')] = input_panel(controls=controls)
         switch = {'size': [40, 20]}
         for checked in ('checked', 'unchecked'):
             for state in ('', '_hover', '_locked', '_locked_hover'):
@@ -166,7 +161,7 @@ def build():
             {'toggle@'+ref('switch'): {'anchor_from': 'right_middle',
                                      'anchor_to': 'right_middle', 'offset': [-4, 0]}}])
         for hover in (False, True):
-            ui[prefix+'field_background'+('_hover' if hover else '')] = dict(type='panel', layer=-1, controls=[
+            ui[prefix+'field_background'+('_hover' if hover else '')] = input_panel(layer=-1, controls=[
                 {'fill': image(c['field'])},
                 {'outline': image(c['outline'], 'button_outline', layer=1)},
                 {'underline@fui.w': {'size': ['100%-6px', 2 if hover else 1],
@@ -205,7 +200,7 @@ def build():
         item['controls'].append({'button_label': label(c['text'], anchor_from='left_middle',
             anchor_to='left_middle', offset=[12, 0], max_size=['100%-24px', '100%'])})
         ui[prefix+'dropdown_item@common.button'] = item
-        ui[prefix+'slider_thumb'] = dict(type='panel', layer=3, controls=[
+        ui[prefix+'slider_thumb'] = input_panel(layer=3, controls=[
             {'border': image(c['outline'], 'circle')},
             {'surface': image(c['button'], 'circle', size=['90%', '90%'], layer=1)},
             {'dot': image(c['primary'], 'circle', size=['60%', '60%'], layer=2)}])
@@ -231,6 +226,7 @@ def build():
         ui[prefix+'scroll_thumb'] = image(c['track'], 'track')
         ui[prefix+'scroll_track@fui.blank'] = {}
         ui[prefix+'scroll@common.scrolling_panel'] = {
+            'type': 'input_panel', 'is_swallow': True,
             '$scroll_background_image_control': 'fui.blank', '$show_background': False,
             '$formui_content|default': 'fui_ore_panels.scrolling_content',
             '$scrolling_content': '$formui_content',

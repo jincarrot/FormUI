@@ -13,7 +13,8 @@
         ]
     },
     "dark_panel_thin": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "$header_bg_color": [
             0.28,
             0.29,
@@ -55,7 +56,8 @@
             },
             {
                 "header": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "anchor_from": "top_middle",
                     "anchor_to": "top_middle",
                     "size": [
@@ -108,7 +110,8 @@
     "light_panel_thin@panel_base_thin": {},
     "namespace": "fui_ore_panels",
     "panel_base": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "$header_bg_color": [
             0.95,
             0.95,
@@ -155,7 +158,8 @@
             },
             {
                 "header": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "anchor_from": "top_middle",
                     "anchor_to": "top_middle",
                     "size": [
@@ -200,7 +204,8 @@
         ]
     },
     "panel_base_thin": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "$header_bg_color": [
             0.95,
             0.95,
@@ -247,7 +252,8 @@
             },
             {
                 "header": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "anchor_from": "top_middle",
                     "anchor_to": "top_middle",
                     "size": [
@@ -310,6 +316,8 @@
         ]
     },
     "scroll_panel@common.scrolling_panel": {
+        "type": "input_panel",
+        "is_swallow": true,
         "$scroll_background_image_control": "fui.blank",
         "$scroll_bar_and_track_size": [
             "100%c",
@@ -351,6 +359,8 @@
         "$show_background": true
     },
     "scroll_panel_thin@common.scrolling_panel": {
+        "type": "input_panel",
+        "is_swallow": true,
         "$scroll_background_image_control": "fui.blank",
         "$scroll_bar_and_track_size": [
             "100%c",
@@ -399,7 +409,8 @@
         "$use_touch_mode|default": true
     },
     "scroll_track": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "controls": [
             {
                 "main@fui.w": {
@@ -414,7 +425,8 @@
         ]
     },
     "scrolling_content": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "anchor_from": "top_middle",
         "anchor_to": "top_middle",
         "size": [

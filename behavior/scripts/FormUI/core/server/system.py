@@ -38,7 +38,7 @@ class Server(ServerSystem):
     def applyObservableUpdate(self, data):
         observable = self.observableManager.get(data['obId'])
         if observable is not None:
-            observable.setValue(data['value'])
+            observable._onUpdate(data['value'])
 
     def setDefaultStyle(self, data):
         self.screen.setDefaultStyle(data['controlType'], data['style'])

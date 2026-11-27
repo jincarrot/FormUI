@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
-from typing import TypedDict, Literal, TypeAlias
+from typing import TypedDict, TypeAlias
 from .controls import BoolValue, Dimension
 from ..observable import Observable
 from .grid import GridPosition, FormLayout
 
 FormTheme: TypeAlias = str  # Built-ins or a name registered through Theme.register.
-
-class FormShowOptions(TypedDict, total=False):
-    combineUI: bool
 
 FormStyle = TypedDict("FormStyle", {
     "class": str,

@@ -10,11 +10,7 @@
 
 ## 游戏预览
 
-在聊天栏输入（不带 `/`）：
-
-- `fui fluent`：浅色窗口，展示所有控件、双列布局和 Observable 绑定。
-- `fui fluent-dark`：深色窗口。
-- `fui close`：关闭预览。
+加载本项目后，攻击实体即可在 HUD 上显示 Fluent 深色控件，操作滑块、开关和输入框查看绑定效果。[操作与预期结果](test-examples.md)
 
 ## 控件标识符
 
@@ -76,6 +72,4 @@ form.show()  # 服务端传入目标 playerId
 - 纹理资源：`resource/textures/ui/fluent/`。
 - `python tools/generate_fluent_ui.py`：重新生成模板与纹理，仅依赖 Python 3 标准库。
 - `python tools/preview_fluent_ui.py`：重新生成静态预览，需要 Pillow。
-- 游戏示例：`behavior/scripts/example_fluent.py`。
-
-离线检查覆盖注册、控件路径、主题独立性、资源引用、九宫格边界、标题栏按钮和聊天预览。实际渲染、输入与触摸操作需要在游戏内确认。
+- 游戏内表单源码见 [attack_form.py](../behavior/scripts/attack_form.py)。

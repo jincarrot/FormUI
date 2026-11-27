@@ -26,6 +26,16 @@ class Button(ControlType):
         self.labelPaths = _copyPaths(labelPaths)
         self.buttonPath = buttonPath
 
+class Panel(ControlType):
+    """固定表单面板。空 contentPath 使用根节点。"""
+
+    def __init__(self, contentPath="", titlePath=None, closeBtnPath=None):
+        ControlType.__init__(self)
+        self.contentPath = contentPath
+        self.titlePath = titlePath
+        self.closeBtnPath = closeBtnPath
+
+
 class ScrollingPanel(ControlType):
     """滚动面板注册类"""
 

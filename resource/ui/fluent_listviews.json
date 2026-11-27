@@ -15,14 +15,16 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": []
                 }
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -53,7 +55,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -138,7 +141,8 @@
         ]
     },
     "listview": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             160
@@ -252,14 +256,16 @@
         "controls": [
             {
                 "default": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": true,
                     "controls": []
                 }
             },
             {
                 "hover": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -290,7 +296,8 @@
             },
             {
                 "pressed": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "visible": false,
                     "controls": [
                         {
@@ -375,7 +382,8 @@
         ]
     },
     "dark_listview": {
-        "type": "panel",
+        "type": "input_panel",
+        "is_swallow": true,
         "size": [
             "100%",
             160

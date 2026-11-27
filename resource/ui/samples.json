@@ -8,7 +8,8 @@
             },
             {
                 "btns": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "anchor_from": "top_left",
                     "anchor_to": "top_left",
                     "offset": [
@@ -99,7 +100,8 @@
             },
             {
                 "controls2": {
-                    "type": "panel",
+                    "type": "input_panel",
+                    "is_swallow": true,
                     "offset": [
                         0.0,
                         30.0

@@ -13,8 +13,9 @@
         "ui/oreui_listviews.json",
         "ui/flutter_listviews.json",
         "ui/fluent_listviews.json",
+        "ui/moreui.json",
         "ui/samples.json",
-        "ui/fui_examples.json",
-        "ui/formui_generated/fui_generated_examples/item_list.json"
+        "ui/formui_generated/fui_generated_examples/item_list.json",
+        "ui/formui_generated/fui_generated_examples/attack.json"
     ]
 }

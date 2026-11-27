@@ -4,17 +4,9 @@
 
 这是网易原生 JSON UI 的视觉风格，交互由已有 FormUI 控件处理。字体使用游戏提供的 `smooth` 字体；按钮用状态背景反馈点击，没有实现 Flutter 的扩散水波纹动画。
 
-下面是使用项目纹理生成的静态配色预览，实际游戏布局见聊天预览表单。
+下面是使用项目纹理生成的静态配色预览。
 
 ![Flutter 风格静态预览](flutter-ui-preview.png)
-
-## 查看效果
-
-加载本项目，在游戏聊天栏输入（不带 `/`）：
-
-- `fui flutter`：浅色预览，包含全部控件、双列布局、回调和 Observable 绑定。
-- `fui flutter-dark`：深色预览。
-- `fui close`：关闭预览。
 
 ## 控件标识符
 
@@ -88,4 +80,4 @@ form.show()  # 服务端也可以传入 playerId
 - 开发时运行 `python tools/generate_flutter_ui.py` 可重新生成布局及纹理，配色由脚本中的 `PALETTES` 集中管理。脚本仅使用 Python 3 标准库，游戏中无需运行它。
 - `python tools/preview_flutter_ui.py` 可生成上面的静态预览图，该开发工具需要 Pillow。
 
-离线验证覆盖注册标识符、控件路径、模板依赖、纹理切片以及预览构建。游戏实际渲染和触摸操作请通过以上聊天指令检查。
+离线测试覆盖注册标识符、控件路径、模板依赖和纹理切片。

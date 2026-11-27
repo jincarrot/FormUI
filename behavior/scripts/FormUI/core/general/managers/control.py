@@ -11,6 +11,7 @@ class ControlManager:
         self.__controls = {} # type: dict[str, Control]
         self.__groupBindings = {}
         self.__observableGroups = {}
+        self.create('panel', 'fui:panel', 'fui.panel')
 
     def create(self, controlType, controlName, controlPath, options={}):
         v = Control(controlType, controlName, controlPath, options)

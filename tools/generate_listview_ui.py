@@ -41,7 +41,7 @@ def build(theme):
         }})
         result[prefix + 'listview_item' + ('' if ore else '@common.button')] = row
         result[prefix + 'listview'] = {
-            'type': 'panel', 'size': ['100%', 160],
+            'type': 'input_panel', 'is_swallow': True, 'size': ['100%', 160],
             'anchor_from': 'top_left', 'anchor_to': 'top_left',
             'controls': [
                 {'label': label('', foreground, ['100%-8px', 20], [4, 0])},

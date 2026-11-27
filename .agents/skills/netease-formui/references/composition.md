@@ -100,6 +100,6 @@ params 支持普通值、值为列表/字典的 Observable 及嵌套绑定。更
 
 注意 times 是执行次数：当前实现每次 Screen.Update 调用一次回调，达到指定次数后移除；`times=1` 表示下一帧执行一次，并非永久循环或帧间隔。持续动画可在回调末尾安排下一次执行，暂停时停止修改角度；关闭或实例令牌失效时不再安排后续回调。不要修改库的 Update 方法或私有队列，也不要编造 removeRepeatFunc 接口。
 
-完整生命周期示例见 `behavior/scripts/example_c.py` 的 onSquaresCreate、onSquaresUpdate、forgetMotion、showAnimation，以及 `resource/ui/fui_examples.json`。其方框动画每帧转 2 度，以 Observable 控制角度和运行状态；原生 Rotate/SetSize 的参数以当前 SDK 为准。
+关闭表单时释放动画回调对原生控件的引用。再次打开时，在新实例的 `onCreate` 中绑定控件。
 
-要在另一项目复用这个示例，需接入其原生模板和 `textures/ui/square` 资源，重新选择业务事件入口；聊天触发、实例键和两个方框的几何公式是演示逻辑，不是所有 Custom 的要求。
+使用动画的项目需随资源包提供对应原生模板和贴图。
